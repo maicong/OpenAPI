@@ -7,7 +7,7 @@
 */
 
 // 禁用错误报告
-error_reporting(0); 
+error_reporting(0);
 
 //数据缓存路径
 define("M_CPATH", "videocache/");

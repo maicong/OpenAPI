@@ -21,6 +21,7 @@ function mcv_save($url, $str) {
 	fwrite($save,$str);
 	fclose($save);
 }
+
 // curl抓取
 function curl_file($url) {
 	$ch = curl_init("http://www.yuxiaoxi.com/mcvapi?url=".$url); /* 接口文件是mcv_api.php*/
@@ -65,6 +66,7 @@ function mcv_shortcode($atts, $content=null) {
 	return mcv_videos($content);
 }
 add_shortcode('mcv','mcv_shortcode');
+
 
 /** 
 * Code End
