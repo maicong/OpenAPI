@@ -1,9 +1,9 @@
 /**
- * 修复功能：修复域名查询结果判断条件
+ * 完善：完善域名查询结果判断条件和提示
  * @fileoverview  [a-zzz].wang域名注册查询js代码
  * @author        MaiCong <sb@yxx.me>
- * @date          2014-06-30 15:48:38
- * @version       1.2
+ * @date          2014-06-30 16:14:46
+ * @version       1.3
  */
 
 // 引入jQuery
@@ -24,19 +24,26 @@ for (var i = 0; i < 26; i++) { //a-z
     }
 }
 
-// 清空localStorage (根据需要)
-// localStorage.clear();
+// 清空结果
+$('#clear-reg').click(function() {
+    localStorage.removeItem('allowReg');
+});
 
-// 选择性清除 (根据需要)
-// localStorage.removeItem('getProgress'); // 查询进度
-// localStorage.removeItem('allowReg'); // 可注册域名
+// 重置进度
+$('#clear-get').click(function() {
+    localStorage.removeItem('getProgress');
+});
 
 // 开始查询
 $(document).ready(function() {
     $('body').css('padding', '2em').html('正在准备查询...');
 
     if (window.localStorage && localStorage.allowReg) {
-        $('body').append('<br><br><i style="color:#1ca529">已查询到的可注册域名</i> ' + localStorage.allowReg);
+        var allowReg = localStorage.allowReg.split(",");
+        $('body').append('<br><br><i style="color:#1ca529">已查询到的可注册域名：</i>(<a id="clear-reg" href="###">清空结果</a>)');
+        for (var val in allowReg) {
+            $('body').append('<br>' + allowReg[val]);
+        }
     }
 
     $('body').append('<br><br>开始查询...');
@@ -50,6 +57,7 @@ $(document).ready(function() {
 
     if (window.localStorage && localStorage.getProgress) {
         num = localStorage.getProgress;
+        $('body').append('<br><br><i style="color:#1ca529">继续进度 ' + num + '/' + len + '：</i>  (<a id="clear-get" href="###">重置进度</a>)');
     }
 
     $('body').append('<br><br>查询[a-zzz].wang， 共有' + len + '条结果<br>');
@@ -68,15 +76,15 @@ $(document).ready(function() {
                     }
                     if (spStr > 0) {
                         allow.push(domain + '.wang');
-                        $('body').append('<br><i style="color:#1ca529">可以注册</i> ', domain + '.wang ' + num + '/' + len);
+                        $('body').append('<br><i style="color:#1ca529">可以注册</i> ' + domain + '.wang ' + num + '/' + len);
                         if (window.localStorage) {
                             localStorage.setItem('allowReg', allow); // 保存可注册域名
                         }
                     } else {
-                        $('body').append('<br>已注册: ', domain + '.wang ' + num + '/' + len);
+                        $('body').append('<br>已注册: ' + domain + '.wang ' + num + '/' + len);
                     }
                 } else {
-                    $('body').append('<br><i style="color:#d35b5b">查询失败...</i> ', domain + '.wang ' + num + '/' + len);
+                    $('body').append('<br><i style="color:#d35b5b">查询失败... ' + d + '</i> ' + domain + '.wang ' + num + '/' + len);
                 }
             });
             if (num === len - 1) {
