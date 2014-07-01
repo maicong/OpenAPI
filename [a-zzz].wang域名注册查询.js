@@ -1,9 +1,9 @@
 /**
- * 增加功能：在LocalStorage存储查询进度和可注册域名
+ * 修复功能：修复域名查询结果判断条件
  * @fileoverview  [a-zzz].wang域名注册查询js代码
  * @author        MaiCong <sb@yxx.me>
- * @date          2014-06-30 13:21:05
- * @version       1.1
+ * @date          2014-06-30 15:48:38
+ * @version       1.2
  */
 
 // 引入jQuery
@@ -59,13 +59,14 @@ $(document).ready(function() {
             num++;
             domain = data[num].toLowerCase();
             jqGet = false;
-            $.get('http://www.west263.com/services/domain/whois.asp?act=query&domains=' + domain + '&suffixs=.wang', function(d) {
-                if (d) {
+            $.get('http://www.west263.com/services/domain/whois.asp?act=query&domains=' + domain + '&suffixs=.wang&v=' + Math.random(), function(d) {
+                if (d.substring(0, 3) == '200' && d.indexOf(",") > 0) {
+                    var spStr = d.substring(d.indexOf(",") + 1).split(";")[0].indexOf("元/年");
                     jqGet = true;
                     if (window.localStorage) {
                         localStorage.setItem('getProgress', num); // 保存进度
                     }
-                    if (d.indexOf('yes') >= 0) {
+                    if (spStr > 0) {
                         allow.push(domain + '.wang');
                         $('body').append('<br><i style="color:#1ca529">可以注册</i> ', domain + '.wang ' + num + '/' + len);
                         if (window.localStorage) {
@@ -75,7 +76,7 @@ $(document).ready(function() {
                         $('body').append('<br>已注册: ', domain + '.wang ' + num + '/' + len);
                     }
                 } else {
-                    $('body').append('<br><i style="color:#d35b5b">查询中...</i> ', domain + '.wang ' + num + '/' + len);
+                    $('body').append('<br><i style="color:#d35b5b">查询失败...</i> ', domain + '.wang ' + num + '/' + len);
                 }
             });
             if (num === len - 1) {
