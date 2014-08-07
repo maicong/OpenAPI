@@ -164,7 +164,7 @@ function get_login(){
 
     $vars = array(
         'user_name' => 'admin',
-        'password' => 'daydayupwsidea',
+        'password' => '**********',
         'net_auto_login' => '1'
     );
 
