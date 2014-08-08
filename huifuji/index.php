@@ -306,6 +306,7 @@ function get_public($type){
 
         $i = 0;
         $count = count($mtArr);
+        $mtArr = array_reverse($mtArr);
         while ($i < $count) {
             $anss = post_answer($type, $mtArr[$i][0], $mtArr[$i][1], $mtArr[$i][2]);
             echo $i.' '.$mtArr[$i][1].':'.$anss."<br>";
