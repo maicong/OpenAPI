@@ -278,8 +278,8 @@ class PHPWebQQ
         if (!empty($poll_data['result'])) {
             $this->write_log('debug', '消息获取成功');
             return $poll_data['result'];
-        }else if($poll_data['retcode'] != 102 ){
-            exit('无法获取消息, 错误代码: ' . $poll_data['retcode']);
+        // }else if($poll_data['retcode'] != 102 ){
+        //     exit('无法获取消息, 错误代码: ' . $poll_data['retcode']);
         }
     }
     /**
@@ -308,10 +308,10 @@ class PHPWebQQ
         $referer  = 'http://d.web2.qq.com/proxy.html?v=20130916001&callback=1&id=2';
         $sendJson = $this->get_conts($url, $param, $referer);
         $sendData = json_decode($sendJson['body'], true);
-        if ($sendData['result'] != 'ok') {
-            exit("消息发送失败, 错误代码: {$sendData['retcode']}");
-        }
-        $this->write_log('debug', '消息发送成功');
+        // if ($sendData['result'] != 'ok') {
+        //     exit("消息发送失败, 错误代码: {$sendData['retcode']}");
+        // }
+        // $this->write_log('debug', '消息发送成功');
         return $sendData['result'];
     }
     /**
@@ -339,10 +339,10 @@ class PHPWebQQ
         $referer  = 'http://d.web2.qq.com/proxy.html?v=20130916001&callback=1&id=2';
         $sendJson = $this->get_conts($url, $param, $referer);
         $sendData = json_decode($sendJson['body'], true);
-        if ($sendData['result'] != 'ok') {
-            exit("群消息发送失败, 错误代码: {$sendData['retcode']}");
-        }
-        $this->write_log('debug', '群消息发送成功');
+        // if ($sendData['result'] != 'ok') {
+        //     exit("群消息发送失败, 错误代码: {$sendData['retcode']}");
+        // }
+        // $this->write_log('debug', '群消息发送成功');
         return $sendData['result'];
     }
     /**
