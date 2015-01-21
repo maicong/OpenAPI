@@ -4,13 +4,13 @@
  * PHP WEB QQ
  *
  * @author     MaiCong <admin@maicong.me>
- * @date  2015-01-21 16:52:17
+ * @date  2015-01-21 09:58:17
  * @package    webqq
  * @version    0.1.0 alpha
  *
  */
 
-class PHPWebQQ
+class WebQQ
 {
     private $uid;
     private $pwd;
@@ -24,7 +24,7 @@ class PHPWebQQ
         $this->uid = $uid;
         $this->pwd = $pwd;
         $this->c_path = ($c_path) ? rtrim($c_path, '/') : rtrim(str_replace("\\", "/", dirname(__FILE__)), '/');
-        $this->cookie_file = $this->c_path . '/cookie/qq_cookie';
+        $this->cookie_file = $this->c_path . '/cookie2/qq_cookie';
         $this->cookies = $this->get_cookie($this->cookie_file);
     }
     /**
@@ -278,8 +278,6 @@ class PHPWebQQ
         if (!empty($poll_data['result'])) {
             $this->write_log('debug', '消息获取成功');
             return $poll_data['result'];
-        // }else if($poll_data['retcode'] != 102 ){
-        //     exit('无法获取消息, 错误代码: ' . $poll_data['retcode']);
         }
     }
     /**
@@ -289,15 +287,20 @@ class PHPWebQQ
      * @param $psessionid
      * @param $clientid
      */
-    public function send_buddy_msg($from_uin, $msg, $clientid, $psessionid)
+    public function send_buddy_msg($from_uin, $msg, $clientid, $psessionid, $facenum = -1)
     {
         static $msg_id = 16110002;
         $msg_id++;
         $url   = "http://d.web2.qq.com/channel/send_buddy_msg2";
+        if($facenum > -1){
+            $content = "[[\"face\",{$facenum}],\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]";
+        }else{
+            $content = "[\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]";
+        }
         $param = array(
             "r" => json_encode(array(
                 "to"         => $from_uin,
-                "content"    => "[\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]",
+                "content"    => $content,
                 "face"       => 522,
                 "clientid"   => $clientid,
                 "msg_id"     => $msg_id,
@@ -321,15 +324,20 @@ class PHPWebQQ
      * @param $psessionid
      * @param $clientid
      */
-    public function send_qun_msg($group_id, $msg, $clientid, $psessionid)
+    public function send_qun_msg($group_id, $msg, $clientid, $psessionid, $facenum = -1)
     {
         static $msg_id = 17110002;
         $msg_id++;
         $url   = "http://d.web2.qq.com/channel/send_qun_msg2";
+        if($facenum > -1){
+            $content = "[[\"face\",{$facenum}],\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]";
+        }else{
+            $content = "[\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]";
+        }
         $param = array(
             "r" => json_encode(array(
                 "group_uin"  => $group_id,
-                "content"    => "[\"{$msg}\",[\"font\",{\"name\":\"微软雅黑\",\"size\":12,\"style\":[0,0,0],\"color\":\"EC4C4C\"}]]",
+                "content"    => $content,
                 "face"       => 522,
                 "clientid"   => $clientid,
                 "msg_id"     => $msg_id,
