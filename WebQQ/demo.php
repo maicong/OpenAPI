@@ -70,7 +70,7 @@ function getChinese($string) {
 function auto_reply($str){
     $answer = http_post('www.niurenqushi.com/app/simsimi/ajax.aspx', array('txt'=>$str));
     $answer = clearhtml((string)$answer);
-    $answer = preg_replace('/(机器人|小黄鸡|小九|图灵机器人)/isu', '麦葱酱', $answer);
+    $answer = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人)/isu', '麦葱酱', $answer);
     $answer = preg_replace('/(未找出结果，已反馈给客服美眉，敬请期待！|主淫出去泡妹妹了！回来再答你。|亲爱的，不明白你是什么意思，麻烦说的简单明了一点点……)/isu','', $answer);
     if(empty($answer)){
         return '';
@@ -189,7 +189,7 @@ function while_poll($runing = true){
                 continue;
             }
 
-            $msg = preg_replace('/(机器人|小黄鸡|小九|图灵机器人)/isu','麦葱酱', $msg);
+            $msg = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人)/isu','麦葱酱', $msg);
 
             $from_uin = $val['value']['from_uin'];
 
@@ -211,7 +211,11 @@ function while_poll($runing = true){
                     $webqq->write_file($from_uin_file . $from_uin, 'online');
                 }
             }else{
-                $msg = preg_replace('/@(.*?)\s/isu','', $msg);
+                if(similar_word('麦葱酱', $msg) > 30){
+                    $msg = str_replace('麦葱酱','小黄鸡', $msg);
+                }else{
+                    $msg = preg_replace('/@(.*?)\s/isu','', $msg);
+                }
                 if($msg_url = match_url($msg)){
                     $reply = url_result($msg_url);
                 }else{
