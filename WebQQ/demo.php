@@ -5,9 +5,9 @@
  * PHP WEB QQ [演示]
  *
  * @author     MaiCong <admin@maicong.me>
- * @date  2015-01-22 13:21:21
+ * @date  2015-01-22 13:55:36
  * @package    webqq
- * @version    0.2 alpha
+ * @version    0.2.1 alpha
  *
  */
 
@@ -68,7 +68,7 @@ function auto_reply($str){
 }
 
 // 比较相似度
-function similar_word($word1, $word2, $num = 60){
+function similar_word($word1, $word2){
     if(is_string($word1) && is_string($word2)){
         similar_text($word1, $word2, $similarity);
     }
@@ -97,10 +97,7 @@ function similar_word($word1, $word2, $num = 60){
         arsort($similarity);
         $similarity = reset($similarity);
     }
-    if($similarity > $num){
-        return true;
-    }
-    return false;
+    return $similarity;
 }
 
 // 获取$_COOKIE
@@ -111,6 +108,7 @@ function _cookie($key) {
 function while_poll($runing = true){
     global $webqq, $cookie;
     static $run_num = 1;
+    $mc_online = 'yes';
     while($runing){
         sleep(3); // 睡3秒，不然进程卡死
         echo '[' . date("Y-m-d H:i:s",time()) . '] 正在检测新消息 (' . $run_num . ') ... ' . "\n";
@@ -131,13 +129,14 @@ function while_poll($runing = true){
             $msg_out = array('麦葱酱再见', '麦葱酱退下', '麦葱酱闭嘴', '麦葱酱好吵', '麦葱酱下线', '麦葱酱滚蛋');
             $msg_in = array('麦葱酱回来', '麦葱酱过来', '麦葱酱粗来', '麦葱酱说话', '麦葱酱上线', '麦葱酱我爱你');
 
-            if(similar_word($msg, $msg_out)){
+            echo '[' . date("Y-m-d H:i:s",time()) . '] 下线指令匹配率: ' . similar_word($msg, $msg_out) . "% \n";
+            echo '[' . date("Y-m-d H:i:s",time()) . '] 上线指令匹配率: ' . similar_word($msg, $msg_in) . "% \n";
+
+            if(similar_word($msg, $msg_out) >= 90){
                 $reply = '拜拜啦~ 叫我出来请说: ' . implode(', ', $msg_in);
-                setcookie('mc_online', 'off', time() + 36000);
-            }elseif(similar_word($msg, $msg_in)){
+            }elseif(similar_word($msg, $msg_in) >= 90){
                 $reply = '我来了，叫我滚蛋请说: ' . implode(', ', $msg_out);
-                setcookie('mc_online', 'on', time() + 36000);
-                setcookie('online_status', 'yes', time() + 36000);
+                $mc_online = 'yes';
             }else{
                 $reply = auto_reply($msg);
                 if(empty($reply)) {
@@ -145,8 +144,8 @@ function while_poll($runing = true){
                     continue;
                 }
             }
-            
-            if(_cookie('mc_online') == 'off' && _cookie('online_status') == 'no') continue;
+
+            if($mc_online == 'no') continue;
 
             echo '[' . date("Y-m-d H:i:s",time()) . '] 内容: ' . $msg . "\n";
             echo '[' . date("Y-m-d H:i:s",time()) . '] 回复: ' . $reply . "\n";
@@ -159,9 +158,8 @@ function while_poll($runing = true){
                 $sendmsg = $webqq->send_buddy_msg($val['value']['from_uin'], $reply, $cookie['clientid'], $cookie['psessionid']);
             }
             echo '[' . date("Y-m-d H:i:s",time()) . '] 回复成功!' . "\n";
-
-            if(similar_word($msg, $msg_out)){
-                setcookie('online_status', 'no', time() + 36000);
+            if(similar_word($msg, $msg_out) >= 90){
+                $mc_online = 'no';
             }
         }
     }
