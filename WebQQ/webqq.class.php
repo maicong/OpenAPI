@@ -4,27 +4,29 @@
  * PHP WEB QQ
  *
  * @author     MaiCong <admin@maicong.me>
- * @date  2015-01-21 09:58:17
+ * @date  2015-01-22 13:21:21
  * @package    webqq
- * @version    0.1.0 alpha
+ * @version    0.2 alpha
  *
  */
 
-class WebQQ
+class PHPWebQQ
 {
     private $uid;
     private $pwd;
     protected $bkn;
     protected $c_path;
     protected $cookie_file;
+    protected $verify_file;
     public $cookies = array();
     public function __construct($uid, $pwd, $c_path = '')
     {
-        if(!$uid || !$pwd) exit('帐号和密码呢？');
+        if(!$uid || !$pwd) exit('[' . date("Y-m-d H:i:s",time()) . '] 帐号和密码呢？' . "\n");
         $this->uid = $uid;
         $this->pwd = $pwd;
         $this->c_path = ($c_path) ? rtrim($c_path, '/') : rtrim(str_replace("\\", "/", dirname(__FILE__)), '/');
-        $this->cookie_file = $this->c_path . '/cookie2/qq_cookie';
+        $this->cookie_file = $this->c_path . '/cookie/qq_cookie.tmp';
+        $this->verify_file = $this->c_path . '/cookie/qq_verify.jpg';
         $this->cookies = $this->get_cookie($this->cookie_file);
     }
     /**
@@ -171,6 +173,7 @@ class WebQQ
         } else {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
         }
+
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -197,23 +200,32 @@ class WebQQ
      * @param $uid
      * @param $pwd
      */
-    public function qq_login()
+    public function qq_login($verify = null)
     {
         $ckData = $this->get_conts('https://ssl.ptlogin2.qq.com/check?uin=' . $this->uid . '&appid=501004106&ptlang=2052&js_type=2&js_ver=10009');
         preg_match_all("@'([^']+)'@", $ckData['body'], $ckMatch);
         $ckCode = $ckMatch[1][1];
         $ckMsg  = $ckMatch[1][2];
-        $passwd = $this->qq_pwd($this->pwd, $ckMsg, $ckCode);
-        $url    = 'http://ptlogin2.qq.com/login?u=' . $this->uid . '&p=' . $passwd . '&verifycode=' . $ckCode . '&webqq_type=10&remember_uin=1&login2qq=1&aid=501004106&u1=http%3A%2F%2Fweb.qq.com%2Floginproxy.html%3Flogin2qq%3D1%26webqq_type%3D10&h=1&ptredirect=0&ptlang=2052&daid=164&from_ui=1&pttype=1&dumy=&fp=loginerroralert&action=0-7-95410&mibao_css=m_webqq&t=1&g=1&js_type=0&js_ver=10109';
-        $qqData = $this->get_conts($url);
+        if ($ckMatch[1][0] && !$verify) {
+            $this->write_log('error', '登陆失败, 需要验证码.');
+            return 'verify';
+        }
+        if($verify){
+            $passwd = $this->qq_pwd($this->pwd, $ckMsg, $ckCode);
+        }else{
+            $passwd = $this->qq_pwd($this->pwd, $ckMsg, $verify);
+        }
+        $url    = 'http://ptlogin2.qq.com/login?u=' . $this->uid . '&p=' . $passwd . '&verifycode=' . $ckCode . '&webqq_type=10&remember_uin=1&login2qq=1&aid=501004106&u1=http%3A%2F%2Fweb.qq.com%2Floginproxy.html%3Flogin2qq%3D1%26webqq_type%3D10&h=1&ptredirect=0&ptlang=2052&daid=164&from_ui=1&pttype=1&dumy=&fp=loginerroralert&action=0-25-28303&mibao_css=m_webqq&t=1&g=1&js_type=0&js_ver=10111';
+        $referer = 'https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=16&mibao_css=m_webqq&appid=501004106&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fw.qq.com%2Fproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20131024001';
+        $qqData = $this->get_conts($url, '', $referer);
         preg_match("/ptuiCB\('(.*)','(.*)','(.*)','(.*)','(.*)',\s'(.*)'\);/U", $qqData['body'], $qqDataMatch);
         if ($qqDataMatch['5'] == "登录成功！") {
             $this->get_conts($qqDataMatch['3']);
             $this->write_log('debug', '登陆成功: ' . $qqDataMatch['6']);
-            return true;
+            return 'ok';
         } else {
-            $this->write_log('error', '登陆失败: ' . $qqDataMatch['4']);
-            exit('登陆失败, 错误代码: ' . $qqDataMatch['4']);
+            $this->write_log('error', '登陆失败: ' . $qqDataMatch['5']);
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 登陆失败, 错误提示: ' . $qqDataMatch['5'] . "\n");
         }
     }
     /**
@@ -228,7 +240,7 @@ class WebQQ
             "r" => json_encode(array(
                 "ptwebqq"    => $ptwebqq,
                 "clientid"   => $clientid,
-                "psessionid" => "",
+                "psessionid" => '',
                 "status"     => "online",
             )),
         );
@@ -236,8 +248,10 @@ class WebQQ
         $online_json = $this->get_conts($url, $param, $referer);
         $online_data = json_decode($online_json['body'], true);
         if (empty($online_data['result'])) {
+            unlink($this->cookie_file);
+            $this->cookies = array();
             $this->write_log('error', '上线失败: ' . $online_data['retcode']);
-            exit('上线失败, 错误代码: ' . $online_data['retcode']);
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 上线失败, 错误代码: ' . $online_data['retcode'] . "\n");
         }
         return $online_data['result'];
     }
@@ -255,6 +269,27 @@ class WebQQ
         unlink($this->cookie_file);
         $this->cookies = array();
         return true;
+    }
+    /**
+     * 获取验证码
+     * @param $psessionid
+     * @param $clientid
+     */
+    public function get_verify_code($uin)
+    {
+        $url   = 'https://ssl.captcha.qq.com/getimage?aid=501004106&r=0.5275350357405841&uin=' . $uin;
+        $referer   = 'https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=16&mibao_css=m_webqq&appid=501004106&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fw.qq.com%2Fproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20131024001';
+        $get_json = $this->get_conts($url, '', $referer);
+        $get_data = json_decode($get_json['body'], true);
+        if (!empty($get_data)) {
+            $this->write_log('debug', '验证码获取成功');
+            file_put_contents($this->verify_file, $get_data);
+            echo '[' . date("Y-m-d H:i:s",time()) . '] 请打开' . $this->verify_file . '查看验证码并输入: ' . "\n";
+        }else{
+            $this->write_log('error', '验证码获取失败');
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 验证码获取失败' . "\n");
+        }
+
     }
     /**
      * 获取消息
@@ -365,9 +400,9 @@ class WebQQ
         $getJson = $this->get_conts($url, '', $referer);
         $getData = json_decode($getJson['body'], true);
         if (empty($getData['result'])) {
-            exit("获取vfwebqq失败, 错误代码: {$getData['retcode']}");
+            exit('[' . date("Y-m-d H:i:s",time()) . '] vfwebqq 获取失败, 错误代码: ' . $getData['retcode']);
         }
-        $this->write_log('debug', 'vfwebqq获取成功');
+        $this->write_log('debug', 'vfwebqq 获取成功');
         $this->cookies['vfwebqq'] = $getData['result']['vfwebqq'];
         return true;
     }
@@ -390,7 +425,7 @@ class WebQQ
         $getJson = $this->get_conts($url, $param, $referer);
         $getData = json_decode($getJson['body'], true);
         if (empty($getData['result'])) {
-            exit("获取好友列表失败, 错误代码: {$getData['retcode']}");
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 获取好友列表失败, 错误代码: ' . $getData['retcode']);
         }
         $this->write_log('debug', '好友列表获取成功');
         return $getData['result'];
@@ -414,7 +449,7 @@ class WebQQ
         $getJson = $this->get_conts($url, $param, $referer);
         $getData = json_decode($getJson['body'], true);
         if (empty($getData['result'])) {
-            exit("获取群列表失败, 错误代码: {$getData['retcode']}");
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 获取群列表失败, 错误代码: ' . $getData['retcode']);
         }
         $this->write_log('debug', '群列表获取成功');
         return $getData['result'];
@@ -431,7 +466,7 @@ class WebQQ
         $getJson = $this->get_conts($url, '', $referer);
         $getData = json_decode($getJson['body'], true);
         if (empty($getData['result'])) {
-            exit("获取用户信息失败, 错误代码: {$getData['retcode']}");
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 获取用户信息失败, 错误代码: ' . $getData['retcode']);
         }
         $this->write_log('debug', '用户信息获取成功');
         return $getData['result'];
