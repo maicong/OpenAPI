@@ -189,7 +189,7 @@ function while_poll($runing = true){
                 continue;
             }
 
-            $msg = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人)/isu','麦葱酱', $msg);
+            $msg = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人|卖葱酱|买葱酱|麥葱酱)/isu','麦葱酱', $msg);
 
             $from_uin = $val['value']['from_uin'];
 
