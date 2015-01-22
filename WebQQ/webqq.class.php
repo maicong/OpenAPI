@@ -1,12 +1,14 @@
 <?php
 /**
  *
- * PHP WEB QQ
+ * PHP WEB QQ [核心类]
  *
+ * 发布地址    http://www.yuxiaoxi.com/2015-01-22-php-web-qq.html
+ * 源码获取    https://github.com/maicong/OpenAPI/tree/master/WebQQ
  * @author     MaiCong <admin@maicong.me>
- * @date  2015-01-22 13:21:21
+ * @date       2015-01-22 17:35:26
  * @package    webqq
- * @version    0.2 alpha
+ * @version    0.2.3 alpha
  *
  */
 
@@ -25,8 +27,8 @@ class PHPWebQQ
         $this->uid = $uid;
         $this->pwd = $pwd;
         $this->c_path = ($c_path) ? rtrim($c_path, '/') : rtrim(str_replace("\\", "/", dirname(__FILE__)), '/');
-        $this->cookie_file = $this->c_path . '/cookie/qq_cookie.tmp';
-        $this->verify_file = $this->c_path . '/cookie/qq_verify.jpg';
+        $this->cookie_file = $this->c_path . '/cookie2/qq_cookie.tmp';
+        $this->verify_file = $this->c_path . '/cookie2/qq_verify.jpg';
         $this->cookies = $this->get_cookie($this->cookie_file);
     }
     /**
@@ -207,13 +209,13 @@ class PHPWebQQ
         $ckCode = $ckMatch[1][1];
         $ckMsg  = $ckMatch[1][2];
         if ($ckMatch[1][0] && !$verify) {
-            $this->write_log('error', '登陆失败, 需要验证码.');
+            $this->write_log('error', '登录失败, 需要验证码.');
             return 'verify';
         }
         if($verify){
-            $passwd = $this->qq_pwd($this->pwd, $ckMsg, $ckCode);
-        }else{
             $passwd = $this->qq_pwd($this->pwd, $ckMsg, $verify);
+        }else{
+            $passwd = $this->qq_pwd($this->pwd, $ckMsg, $ckCode);
         }
         $url    = 'http://ptlogin2.qq.com/login?u=' . $this->uid . '&p=' . $passwd . '&verifycode=' . $ckCode . '&webqq_type=10&remember_uin=1&login2qq=1&aid=501004106&u1=http%3A%2F%2Fweb.qq.com%2Floginproxy.html%3Flogin2qq%3D1%26webqq_type%3D10&h=1&ptredirect=0&ptlang=2052&daid=164&from_ui=1&pttype=1&dumy=&fp=loginerroralert&action=0-25-28303&mibao_css=m_webqq&t=1&g=1&js_type=0&js_ver=10111';
         $referer = 'https://ui.ptlogin2.qq.com/cgi-bin/login?daid=164&target=self&style=16&mibao_css=m_webqq&appid=501004106&enable_qlogin=0&no_verifyimg=1&s_url=http%3A%2F%2Fw.qq.com%2Fproxy.html&f_url=loginerroralert&strong_login=1&login_state=10&t=20131024001';
@@ -221,11 +223,11 @@ class PHPWebQQ
         preg_match("/ptuiCB\('(.*)','(.*)','(.*)','(.*)','(.*)',\s'(.*)'\);/U", $qqData['body'], $qqDataMatch);
         if ($qqDataMatch['5'] == "登录成功！") {
             $this->get_conts($qqDataMatch['3']);
-            $this->write_log('debug', '登陆成功: ' . $qqDataMatch['6']);
+            $this->write_log('debug', '登录成功: ' . $qqDataMatch['6']);
             return 'ok';
         } else {
-            $this->write_log('error', '登陆失败: ' . $qqDataMatch['5']);
-            exit('[' . date("Y-m-d H:i:s",time()) . '] 登陆失败, 错误提示: ' . $qqDataMatch['5'] . "\n");
+            $this->write_log('error', '登录失败: ' . $qqDataMatch['5']);
+            exit('[' . date("Y-m-d H:i:s",time()) . '] 登录失败, 错误提示: ' . $qqDataMatch['5'] . "\n");
         }
     }
     /**
