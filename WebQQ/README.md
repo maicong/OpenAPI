@@ -8,6 +8,8 @@
 
 **截图**
 
-![截图][1]
+![截图1][1]
+![截图2][2]
 
 [1]: http://ww3.sinaimg.cn/large/67f51f75gw1eoi8etidl7j20ia0gz0wr.jpg
+[2]: http://ww4.sinaimg.cn/large/67f51f75gw1eoi99tavxij20lf0d5tbt.jpg
