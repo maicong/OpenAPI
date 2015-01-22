@@ -211,6 +211,7 @@ function while_poll($runing = true){
                     $webqq->write_file($from_uin_file . $from_uin, 'online');
                 }
             }else{
+                $msg = preg_replace('/@(.*?)\s/isu','', $msg);
                 if($msg_url = match_url($msg)){
                     $reply = url_result($msg_url);
                 }else{
