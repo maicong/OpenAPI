@@ -7,9 +7,9 @@
  * 发布地址    http://www.yuxiaoxi.com/2015-01-22-php-web-qq.html
  * 源码获取    https://github.com/maicong/OpenAPI/tree/master/WebQQ
  * @author     MaiCong <admin@maicong.me>
- * @date       2015-01-22 17:35:26
+ * @date       2015-01-22 18:08:50
  * @package    webqq
- * @version    0.2.3 alpha
+ * @version    0.2.4 alpha
  *
  */
 
@@ -159,7 +159,7 @@ function array2string($array) {
 function while_poll($runing = true){
     global $webqq, $cookie;
     static $run_num = 1;
-    $from_uin_file = C_PATH . '/cookie2/from_uin_';
+    $from_uin_file = C_PATH . '/cookie/from_uin_';
     while($runing){
 
         sleep(3); // 睡3秒，不然进程卡死

@@ -6,9 +6,9 @@
  * 发布地址    http://www.yuxiaoxi.com/2015-01-22-php-web-qq.html
  * 源码获取    https://github.com/maicong/OpenAPI/tree/master/WebQQ
  * @author     MaiCong <admin@maicong.me>
- * @date       2015-01-22 17:35:26
+ * @date       2015-01-22 18:08:50
  * @package    webqq
- * @version    0.2.3 alpha
+ * @version    0.2.4 alpha
  *
  */
 
@@ -27,8 +27,8 @@ class PHPWebQQ
         $this->uid = $uid;
         $this->pwd = $pwd;
         $this->c_path = ($c_path) ? rtrim($c_path, '/') : rtrim(str_replace("\\", "/", dirname(__FILE__)), '/');
-        $this->cookie_file = $this->c_path . '/cookie2/qq_cookie.tmp';
-        $this->verify_file = $this->c_path . '/cookie2/qq_verify.jpg';
+        $this->cookie_file = $this->c_path . '/cookie/qq_cookie.tmp';
+        $this->verify_file = $this->c_path . '/cookie/qq_verify.jpg';
         $this->cookies = $this->get_cookie($this->cookie_file);
     }
     /**
