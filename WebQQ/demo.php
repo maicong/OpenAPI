@@ -7,9 +7,9 @@
  * 发布地址    http://www.yuxiaoxi.com/2015-01-22-php-web-qq.html
  * 源码获取    https://github.com/maicong/OpenAPI/tree/master/WebQQ
  * @author     MaiCong <admin@maicong.me>
- * @date       2015-01-22 18:08:50
+ * @date       2015-01-22 20:54:48
  * @package    webqq
- * @version    0.2.4 alpha
+ * @version    0.2.4.1 alpha
  *
  */
 
@@ -67,11 +67,21 @@ function getChinese($string) {
 }
 
 // 自动回复
-function auto_reply($str){
-    $answer = http_post('www.niurenqushi.com/app/simsimi/ajax.aspx', array('txt'=>$str));
-    $answer = clearhtml((string)$answer);
+function auto_reply($str, $change = false){
+    if($change){
+        $answer = http_post('www.niurenqushi.com/app/simsimi/ajax.aspx', array('txt'=>$str));
+    }else{
+        $answer = http_post('http://www.xiaohuangji.com/ajax.php', array('para'=>$str));
+    }
+    $answer = clearhtml(array2string($answer));
     $answer = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人)/isu', '麦葱酱', $answer);
-    $answer = preg_replace('/(未找出结果，已反馈给客服美眉，敬请期待！|主淫出去泡妹妹了！回来再答你。|亲爱的，不明白你是什么意思，麻烦说的简单明了一点点……)/isu','', $answer);
+    if(preg_match('/(不明白你是什么意思|未找出结果|主淫出去泡妹妹了)/isu', $answer)){
+        if($change){
+            $answer = '呃。。。。。。';
+        }else{
+            $answer = auto_reply($str, true);
+        }
+    }
     if(empty($answer)){
         return '';
     }
@@ -113,7 +123,7 @@ function similar_word($word1, $word2){
 
 //匹配url
 function match_url($url){
-    if(preg_match('/^((http|ftp|https):\/\/)?[\w-_.]+(\/[\w-_]+)*\/?$/is', trim($url), $match)){
+    if(preg_match('#^((http|https)://|)+([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$#is', trim($url), $match)){
         $host = parse_url($match[0]);
         if(empty($host['scheme'])){
             return 'http://' . $host['path'];
