@@ -127,11 +127,6 @@ function while_poll($runing = true){
                 echo '[' . date("Y-m-d H:i:s",time()) . '] 消息不是有效文本, 跳过.' . "\n";
                 continue;
             }
-            $reply = auto_reply($msg);
-            if(empty($reply)) {
-                echo '[' . date("Y-m-d H:i:s",time()) . '] 没有对应回复信息, 跳过.' . "\n";
-                continue;
-            }
 
             $msg_out = array('麦葱酱再见', '麦葱酱退下', '麦葱酱闭嘴', '麦葱酱好吵', '麦葱酱下线', '麦葱酱滚蛋');
             $msg_in = array('麦葱酱回来', '麦葱酱过来', '麦葱酱粗来', '麦葱酱说话', '麦葱酱上线', '麦葱酱我爱你');
@@ -139,13 +134,18 @@ function while_poll($runing = true){
             if(similar_word($msg, $msg_out)){
                 $reply = '拜拜啦~ 叫我出来请说: ' . implode(', ', $msg_in);
                 setcookie('mc_online', 'off', time() + 36000);
-            }
-            if(similar_word($msg, $msg_in)){
+            }elseif(similar_word($msg, $msg_in)){
                 $reply = '我来了，叫我滚蛋请说: ' . implode(', ', $msg_out);
                 setcookie('mc_online', 'on', time() + 36000);
                 setcookie('online_status', 'yes', time() + 36000);
+            }else{
+                $reply = auto_reply($msg);
+                if(empty($reply)) {
+                    echo '[' . date("Y-m-d H:i:s",time()) . '] 没有对应回复信息, 跳过.' . "\n";
+                    continue;
+                }
             }
-
+            
             if(_cookie('mc_online') == 'off' && _cookie('online_status') == 'no') continue;
 
             echo '[' . date("Y-m-d H:i:s",time()) . '] 内容: ' . $msg . "\n";
