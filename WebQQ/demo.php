@@ -7,9 +7,9 @@
  * 发布地址    http://www.yuxiaoxi.com/2015-01-22-php-web-qq.html
  * 源码获取    https://github.com/maicong/OpenAPI/tree/master/WebQQ
  * @author     MaiCong <admin@maicong.me>
- * @date       2015-01-22 20:54:48
+ * @date       2015-01-23 20:04:29
  * @package    webqq
- * @version    0.2.4.1 alpha
+ * @version    0.3 alpha
  *
  */
 
@@ -74,7 +74,7 @@ function auto_reply($str, $change = false){
         $answer = http_post('http://www.xiaohuangji.com/ajax.php', array('para'=>$str));
     }
     $answer = clearhtml(array2string($answer));
-    $answer = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人)/isu', '麦葱酱', $answer);
+    $answer = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人|棒子鸡)/isu', '麦机', $answer);
     if(preg_match('/(不明白你是什么意思|未找出结果|主淫出去泡妹妹了)/isu', $answer)){
         if($change){
             $answer = '呃。。。。。。';
@@ -166,10 +166,10 @@ function array2string($array) {
 }
 
 // 轮询
-function while_poll($runing = true){
+function while_poll($uin, $runing = true){
     global $webqq, $cookie;
     static $run_num = 1;
-    $from_uin_file = C_PATH . '/cookie/from_uin_';
+    $from_uin_file = C_PATH . '/cookie/uin_' . $uin . '_from_uin_';
     while($runing){
 
         sleep(3); // 睡3秒，不然进程卡死
@@ -199,14 +199,16 @@ function while_poll($runing = true){
                 continue;
             }
 
-            $msg = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人|卖葱酱|买葱酱|麥葱酱)/isu','麦葱酱', $msg);
+            $msg = preg_replace('/(机器人|小黄鸡|小鸡|小九|图灵机器人|卖葱酱|买葱酱|麥葱酱)/isu','麦机', $msg);
 
             $from_uin = $val['value']['from_uin'];
 
+            $webqq->write_file($from_uin_file . $from_uin, 'offline');
+
             echo '[' . date("Y-m-d H:i:s",time()) . '] 内容: ' . $msg . "\n";
 
-            $msg_out = array('麦葱酱再见', '麦葱酱退下', '麦葱酱闭嘴', '麦葱酱好吵', '麦葱酱下线', '麦葱酱滚蛋');
-            $msg_in = array('麦葱酱回来', '麦葱酱过来', '麦葱酱粗来', '麦葱酱说话', '麦葱酱上线', '麦葱酱我爱你');
+            $msg_out = array('麦机再见', '麦机退下', '麦机闭嘴', '麦机好吵', '麦机下线', '麦机滚蛋');
+            $msg_in = array('麦机回来', '麦机过来', '麦机粗来', '麦机说话', '麦机上线', '麦机我爱你');
             $msg_out_sw = similar_word($msg, $msg_out);
             $msg_in_sw = similar_word($msg, $msg_in);
 
@@ -216,14 +218,20 @@ function while_poll($runing = true){
                     $reply = '拜拜啦~ 叫我出来请说: ' . implode(', ', $msg_in);
                     $webqq->write_file($from_uin_file . $from_uin, 'ready');
                 }else{
+                    if($webqq->read_file($from_uin_file . $from_uin) == 'offline'){
+                        echo '[' . date("Y-m-d H:i:s",time()) . '] 该会话已设为不回复, 跳过.' . "\n";
+                        continue;
+                    }
                     echo '[' . date("Y-m-d H:i:s",time()) . '] 指令匹配成功, 准备上线.' . "\n";
                     $reply = '我来了！叫我滚蛋请说: ' . implode(', ', $msg_out);
                     $webqq->write_file($from_uin_file . $from_uin, 'online');
                 }
             }else{
-                if(similar_word('麦葱酱', $msg) > 30){
-                    $msg = str_replace('麦葱酱','小黄鸡', $msg);
-                }else{
+                if($webqq->read_file($from_uin_file . $from_uin) == 'offline'){
+                    echo '[' . date("Y-m-d H:i:s",time()) . '] 该会话已设为不回复, 跳过.' . "\n";
+                    continue;
+                }
+                if(similar_word('麦机', $msg) < 30){
                     $msg = preg_replace('/@(.*?)\s/isu','', $msg);
                 }
                 if($msg_url = match_url($msg)){
@@ -244,7 +252,7 @@ function while_poll($runing = true){
 
             echo '[' . date("Y-m-d H:i:s",time()) . '] 回复: ' . $reply . "\n";
 
-            $webqq->write_file(C_PATH.'/logs/msg.txt', "--> ".$msg . " ==> ".  $reply."\r\n", "a+");
+            $webqq->write_file(C_PATH.'/logs/msg-' . date("Y-m-d",time()) . '.txt', "--> ".$msg . " ==> ".  $reply."\r\n", "a+");
 
             if($val['poll_type'] == 'group_message'){
                 $sendmsg = $webqq->send_qun_msg($val['value']['from_uin'], $reply, $cookie['clientid'], $cookie['psessionid']);
@@ -260,27 +268,41 @@ function while_poll($runing = true){
     }
 }
 
-echo '[' . date("Y-m-d H:i:s",time()) . '] 登录中...' . "\n";
+echo '[' . date("Y-m-d H:i:s",time()) . '] 请输入帐号并回车: ';
+$uin = trim(fgets(STDIN));
+echo '[' . date("Y-m-d H:i:s",time()) . '] 请输入密码并回车(隐藏): ';
+$pwd = preg_replace('/\r?\n$/', '', `stty -echo; head -n1 ; stty echo`);
 
-$uin = '12345678'; // 帐号
-$pwd = '12345678'; // 密码
-
+echo "\n" . '[' . date("Y-m-d H:i:s",time()) . '] 登录中...' . "\n";
 $webqq = new PHPWebQQ($uin, $pwd);
+
+if($webqq->read_file(C_PATH . '/cookie/login_uin') != $uin){
+    $webqq->clean_cookie();
+}
+
+$webqq->write_file(C_PATH . '/cookie/login_uin', $uin);
+
 $cookie = $webqq->get_cookie();
-$cookie['clientid'] = mt_rand(20000000,88888888);
+$cookie['clientid'] = mt_rand(20000000, 88888888);
 
 if(empty($cookie['ptwebqq'])){
     $login = $webqq->qq_login();
     if($login == 'verify'){
-        $webqq->get_verify_code($uin);
-        $verify_code = trim(fgets(STDIN));
-        if($webqq->qq_login($verify_code)){
+        if($webqq->get_verify_code($uin)){
             $cookie = $webqq->get_cookie();
             echo '[' . date("Y-m-d H:i:s",time()) . '] 登录成功!' . "\n";
+            $online = $webqq->qq_online($cookie['ptwebqq'], $cookie['clientid']);
+            $cookie += $online;
+            echo '[' . date("Y-m-d H:i:s",time()) . '] 上线成功!' . "\n";
         }
-    }else{
+    }elseif($login == 'ok'){
         $cookie = $webqq->get_cookie();
         echo '[' . date("Y-m-d H:i:s",time()) . '] 登录成功!' . "\n";
+        $online = $webqq->qq_online($cookie['ptwebqq'], $cookie['clientid']);
+        $cookie += $online;
+        echo '[' . date("Y-m-d H:i:s",time()) . '] 上线成功!' . "\n";
+    }else{
+        echo '[' . date("Y-m-d H:i:s",time()) . '] 登录失败, 请重试!' . "\n";
     }
 }else{
     if(empty($cookie['psessionid'])){
@@ -289,7 +311,7 @@ if(empty($cookie['ptwebqq'])){
         echo '[' . date("Y-m-d H:i:s",time()) . '] 上线成功!' . "\n";
     }
 }
-while_poll(true);
+while_poll($uin, true);
 
 
 
