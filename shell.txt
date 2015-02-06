@@ -1,0 +1,101 @@
+yum -y install bind-utils traceroute man sudo ntp ntpdate screen gcc gcc-c++ bison bzip2 make vixie-cron flex ncurses-devel wget patch libxml2 libxml2-devel libevent m4 autoconf zip unzip libjpeg libjpeg-devel gd gd-devel freetype freetype-devel libpng libpng-devel openssl openssl-devel file libtool libtool-libs gmp-devel pspell-devel parted zlib perl mod_perl-devel apr-util ftp readline-devel readline-devel apr apr-util curl-devel
+
+yum install -y bind-utils traceroute wget man sudo ntp ntpdate screen patch make gcc gcc-c++ flex bison zip unzip ftp --skip-broken 
+
+yum update -y
+
+screen -S maicong
+
+
+pagespeed on;
+pagespeed FileCachePath /var/ngx_pagespeed_cache;
+location ~ "\.pagespeed\.([a-z]\.)?[a-z]{2}\.[^.]{10}\.[^.]+" { add_header "" ""; }
+location ~ "^/ngx_pagespeed_static/" { }
+location ~ "^/ngx_pagespeed_beacon$" { }
+location /ngx_pagespeed_statistics { allow 127.0.0.1; deny all; }
+location /ngx_pagespeed_message { allow 127.0.0.1; deny all; }
+location /pagespeed_console { allow 127.0.0.1; deny all; }
+
+
+
+curl -I 'http://255.255.255.255/' | grep X-Page-Speed
+
+
+
+cat AddTrustExternalCARoot.crt  PositiveSSL.crt > www_www_ssl.crt
+
+cat www_www_ssl.crt>>PositiveSSLCA2.crt
+
+openssl genrsa -out www.www.com.key 2048
+
+openssl req -new -key www.www.com.pem -out www.www.com.csr
+
+cat www_www_ssl.crt COMODORSADomainValidationSecureServerCA.crt COMODORSAAddTrustCA.crt > www_www_ssl_new.crt
+
+openssl req -new -newkey rsa:2048 -nodes -keyout www.www.com.key -out www.www.com.csr
+
+./configure --add-module=/root/lnmp1.0-full/ngx_pagespeed-release-1.6.29.5-beta --with-http_stub_status_module
+
+./configure --user=www --group=www --prefix=/usr/local/nginx --sbin-path=/usr/sbin/nginx --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --with-file-aio --with-ipv6 --with-http_geoip_module --with-http_ssl_module --with-http_spdy_module --with-http_realip_module --with-http_sub_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_addition_module --add-module=/usr/local/src/ngx_pagespeed-release-1.6.29.5-beta --with-pcre=/usr/local/src/pcre-8.33 --with-debug
+
+./configure --with-http_ssl_module --with-http_spdy_module --with-openssl=/tmp/openssl-1.0.1g
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-http_ssl_module --with-http_gzip_static_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --without-http_uwsgi_module --without-http_scgi_module
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-google_perftools_module --with-http_ssl_module --with-http_gzip_static_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --without-http_uwsgi_module --without-http_scgi_module
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-google_perftools_module --with-http_spdy_module --with-http_ssl_module --with-http_gzip_static_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_addition_module --with-http_secure_link_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-mail --with-mail_ssl_module --with-ipv6 --without-http_uwsgi_module --without-http_scgi_module --add-module=/root/ngx_pagespeed-release-1.9.32.1-beta
+
+./configure --user=www --group=www --prefix=/usr/local/nginx --with-pcre --with-http_spdy_module --with-http_ssl_module --with-http_realip_module --with-http_addition_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_random_index_module --with-http_secure_link_module --with-http_stub_status_module --with-mail --with-mail_ssl_module --with-ipv6
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-google_perftools_module --with-http_ssl_module --with-http_gzip_static_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --without-http_uwsgi_module --without-http_scgi_module --add-module=/root/ngx_pagespeed-release-1.9.32.1-beta
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-google_perftools_module --with-http_spdy_module --with-http_ssl_module --with-openssl=/usr/local/openssl-1.0.1j --with-http_gzip_static_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_addition_module --with-http_secure_link_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-mail --with-mail_ssl_module --with-ipv6 --without-http_uwsgi_module --without-http_scgi_module --add-module=/root/ngx_pagespeed-release-1.9.32.1-beta
+
+./configure --prefix=/usr/local/nginx --user=www --group=www --with-google_perftools_module --with-http_spdy_module --with-http_ssl_module --with-openssl=/usr/local/openssl-1.0.1j --with-http_gzip_static_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_addition_module --with-http_secure_link_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-mail --with-mail_ssl_module --with-ipv6 --without-http_uwsgi_module --without-http_scgi_module --add-module=/root/ngx_pagespeed-release-1.9.32.1-beta --add-module=/usr/local/nginx-http-concat
+
+./configure --prefix=/usr/local/nginx-generic-1.6.0 --user=www --group=www --with-http_spdy_module --with-http_ssl_module --with-http_realip_module --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_addition_module --with-http_secure_link_module --without-mail_pop3_module --without-mail_imap_module --without-mail_smtp_module --with-mail --with-mail_ssl_module --with-ipv6 --without-http_uwsgi_module --without-http_scgi_module --add-module=$HOME/ngx_pagespeed-release-${NPS_VERSION}-beta
+
+
+openssl genrsa -des3 -out ca.key 2048
+openssl rsa -in ca.key -out ca_decrypted.key
+openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
+openssl genrsa -des3 -out www.www.com.pem 1024
+openssl rsa -in www.www.com.pem -out www.www.com.key
+openssl req -new -key www.www.com.pem -out www.www.com.csr
+openssl ca -policy policy_anything -days 1460 -cert ca.crt -keyfile ca.key -in www.www.com.csr -out www.www.com.crt
+
+
+mount -o loop /mnt/iso/CentOS65.iso /mnt/cdrom
+
+
+cd /d D:\Program Files\Oracle\VirtualBox
+
+VBoxManage.exe clonehd "H:\VirtualBox VMs\centos7\centos6.vdi" "H:\VirtualBox VMs\centos7\centos6_n.vhd" --format VHD 
+
+
+VBoxManage.exe clonehd "H:\VirtualBox VMs\centos6.5\Snapshots\{40d8997b-a09b-40b1-a7de-fdfad936d9c5}.vdi" "H:\VirtualBox VMs\centos7\centos6_n_1.vdi" --format VHI 
+
+VBoxManage.exe modifyhd 40d8997b-a09b-40b1-a7de-fdfad936d9c5 --resize 2048
+
+
+
+mount -t vboxsf H_DRIVE /mnt/hdrive
+
+
+mount -o loop /mnt/iso/VBoxGuestAdditions.iso /mnt/vbox 
+
+
+VBoxManage.exe internalcommands dumphdinfo {40d8997b-a09b-40b1-a7de-fdfad936d9c5}.vdi
+
+./configure --prefix=/usr/local/ --target-list=x86_64-softmmu --enable-vnc --disable-xen --enable-kvm  --enable-linux-aio --disable-docs --enable-vhost-net --disable-libiscsi --disable-smartcard-nss --enable-debug --enable-uuid
+
+mount /dev/sdb /mnt/sdb
+
+
+qemu-img convert -O vdi /mnt/qemu/centos.qcow2  /mnt/hdrive/VirtualBox\ VMs/centos6.5/Snapshots/{40d8997b-a09b-40b1-a7de-fdfad936d9c5}.vdi
+
+qemu-nbd -c /mnt/qemu/ /mnt/hdrive/VirtualBox\ VMs/centos7/centos6.vdi
+
+qemu-img convert -O vdi centos6.qcow2 centos6.vdi
+/mnt/hdrive/VirtualBox\ VMs/centos7/
