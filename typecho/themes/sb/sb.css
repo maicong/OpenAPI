@@ -1,0 +1,122 @@
+/*
+Theme Name: sb
+Theme URI: http://i.yuxiaoxi.com
+Version: 2013
+*/
+html, body, div, p, ol, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td, blockquote {
+	margin: 0;
+	padding: 0;
+}
+img {
+	border: 0 none;
+}
+ol, ul, li {
+	list-style-type: none;
+}
+blockquote {
+	background: #F6F6F6;
+	border: 1px solid #EAEAEA;
+	line-height: 21px;
+	margin: 0 15px;
+	overflow: hidden;
+	padding: 8px 6px;
+}
+body {
+	background: url(images/bg1.jpg) repeat scroll 0 0 #efefef;
+	color: #727272;
+	font: 14px/1.5 "Century Gothic","Microsoft YaHei",Verdana,Arial,Helvetica,sans-serif;
+}
+h1 {
+	font-size: 42px;
+	font-weight: bold;
+}
+a {
+	text-decoration: none;
+	color: #323232;
+}
+a:hover {
+	color: #424242;
+	text-decoration: none;
+}
+#yuxiaoxi_shi_sb {
+	text-align: center;
+	letter-spacing: 3px;
+	margin-top: 40px;
+}
+#you_are_sb {
+	text-align: center;
+	border-top: 2px solid #8E8E8E;
+	max-width: 70%;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+#you_are_sb .time {
+	padding: 7px;
+	color: 2b2b2b;
+}
+#you_are_sb .content {
+	border-left: 8px solid #CCC;
+	border-right: 8px solid #CCC;
+	margin-top: 10px;
+}
+#you_are_sb .content img {
+  	max-width:96%;
+  	box-shadow: 0px 0px 5px #999;
+  	border-radius:3px;
+  	margin: 10px 0;
+}
+#sb_say {
+	max-width: 800px;
+	margin: 0 auto;
+	display: none;
+}
+#sb_yuxiaoxi {
+	text-align: center;
+	margin-top: 20px;
+	color: #eee;
+}
+#fuck:hover {
+	color: #ccc;
+	cursor: pointer;
+}
+#on, #off {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-bottom: -3px;
+	filter: alpha(opacity=1);
+	opacity: 0.1;
+	cursor: pointer;
+}
+#on:hover, #off:hover {
+	filter: alpha(opacity=4);
+	opacity: 0.4;
+}
+#on {
+	background: url("http://cdn2.yuxiaoxi.com/music.png") left center no-repeat;
+}
+#off {
+	background: url("http://cdn2.yuxiaoxi.com/mute.png") left center no-repeat;
+	display: none;
+}
+#bgmlrc {
+  	height:20px;
+  	margin-top:-35px;
+  	color:#aaaaaa;
+  	display:block;
+}
+::-webkit-scrollbar {
+width:10px;
+margin-right:2px
+}
+::-webkit-scrollbar-track-piece {
+background-color:#F5F5F5;
+border-left:1px solid #D2D2D2
+}
+::-webkit-scrollbar-thumb {
+background:#CBCBCB;
+width:10px
+}
+::-webkit-scrollbar-thumb:hover {
+background:#909090
+}
