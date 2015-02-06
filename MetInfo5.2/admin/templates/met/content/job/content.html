@@ -1,0 +1,182 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
+</head>
+<!--
+EOT;
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a>";
+$title.=$action=='editor'?" > {$lang_editor}{$lang_content}":" > {$lang_add}{$lang_content}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<body>
+        <form  method="POST" name="myform" action="save.php?anyid={$anyid}&action=$action&page={$page}" target="_self">
+		<input name="id" type="hidden" value="$id">
+		<input name="class1" type="hidden" value="$class1" />
+		<input name="lang" type="hidden" value="$lang" />
+		<input name="filenameold" type="hidden"  value="$job_list[filename]">
+		<input name="updatetimeold" type="hidden"  value="$job_list[updatetime]">
+		<input type="hidden" name="no_order" value="$job_list[no_order]" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_jobposition}{$lang_marks}</dt>
+			<dd>
+				<input name="position" type="text" class="text nonull" value="$job_list[position]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox v52fmbx_inline">
+		<dl>
+			<dt>{$lang_article1}{$lang_marks}</dt>
+			<dd>
+			    <label><input name="top_ok" type="checkbox" class="checkbox" value="1" $top_ok />{$lang_top}</label>
+<!--
+EOT;
+if($met_wap && $met_wap_ok){
+echo <<<EOT
+-->	
+				<label><input name="wap_ok" type="checkbox" class="checkbox" value="1" {$wap_ok}>{$lang_article3}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_jobaddress}{$lang_marks}</dt>
+			<dd>
+				<input name="place" type="text" class="text" value="$job_list[place]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_jobdeal}{$lang_marks}</dt>
+			<dd>
+				<input name="deal" type="text" class="text" value="$job_list[deal]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_jobnum}{$lang_marks}</dt>
+			<dd>
+				<input name="count" type="text" class="text mid" value="$job_list[count]" />
+				<span class="tips">{$lang_jobtip1}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+if($met_cv_emtype){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_cvemail}{$lang_marks}</dt>
+			<dd>
+			    <input name="email" type="text" class="text med" value="$job_list[email]" />
+				<span class="tips">{$lang_jobtip5} {$lang_fdincTip9}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_joblife}{$lang_marks}</dt>
+			<dd>
+			    <input name="useful_life" type="text" class="text mid" value="$job_list[useful_life]" />
+				<span class="tips">{$lang_jobtip3}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_jobpublish}{$lang_marks}</dt>
+			<dd>
+			    <input name="addtime" type="text" class="text" style="width:100px;" value="$job_list[addtime]" />
+				<span class="tips">{$lang_jobnow} $m_now_counter {$lang_jobtip2}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnhtmlname}{$lang_marks}</dt>
+			<dd>
+			    <input name="filename" type="text" class="text med" value="$job_list[filename]" />
+				<span class="tips">{$lang_columntip14}</span>
+			</dd>
+		</dl>
+		</div>
+
+	<h3 class="v52fmbx_hr metsliding" sliding="0">{$lang_contentdetail}</h3>
+	<div class="metsliding_box metsliding_box_0">
+		<div class="v52fmbx_dlbox_content">
+			<textarea class="ckeditor" name="content">$job_list[content]</textarea>
+<script type="text/javascript">
+met_ckeditor('$depth','content');
+</script>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="14">{$lang_unitytxt_33}</h3>
+<!--
+EOT;
+if($met_member_use){
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_webaccess}{$lang_marks}</dt>
+			<dd>
+			    <select name="access" id="access" >
+                    $level
+                </select>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_displaytype}{$lang_marks}</dt>
+			<dd>
+			<label><input name="displaytype" type="radio" class="radio" {$displaytypes[0]} value="1" />{$lang_yes}</label>
+			<label><input name="displaytype" type="radio" class="radio" {$displaytypes[1]} value="0" />{$lang_no}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform');" />
+		</div>
+</div>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+</form>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

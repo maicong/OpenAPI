@@ -1,0 +1,65 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<!--
+EOT;
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a> > ";
+$title.=$lang_editor."{$lang_sysadminFeedbackInfo}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form  method="POST" name="myform"  action="email.php?anyid={$anyid}&id={$id}&lang={$lang}&class1={$class1}&customerid={$customerid}&action=sendmail" target="_self">
+		<input name="id" type="hidden" value="$id">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicToName}{$lang_marks}</dt>
+			<dd>
+				<input name="addressee" type="text" class="text" value="$email" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasictopic}{$lang_marks}</dt>
+			<dd>
+				<input name="title" type="text" class="text" value="" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicmainbody}{$lang_marks}</dt>
+			<dd>
+			<textarea class="ckeditor" name="contents"></textarea>
+<script type="text/javascript">
+met_ckeditor('$depth','contents',1);
+</script>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_smstips48}" class="submit" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

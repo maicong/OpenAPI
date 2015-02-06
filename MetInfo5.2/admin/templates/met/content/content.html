@@ -1,0 +1,215 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+require_once template('head'); 
+echo <<<EOT
+-->
+<title>{$lang_setbasicWebInfoSet}</title>
+<style>
+img{ behavior: url({$img_url}/iepngfix.htc); }
+.Layer {float: left;position: absolute;left: 81px;top: 72px;font-weight: normal;color:#666;}
+</style>
+
+</head>
+<body>
+<!--
+EOT;
+if(($class1 || $class2) && !$met_class[$class2][releclass])$title="<a href='?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}'>{$met_class[$class1][name]}</a>";
+if(!$met_class[$class2][releclass] && $class2)$title.=" > ";
+if($class2)$title.="<a href='?anyid={$anyid}&lang={$lang}&module=1&class2={$class2}'>{$met_class[$class2][name]}</a>";
+//$other_op ='<span class="contentshowtype">'.$lang_columnarrangement1;
+//$awegcs[$met_content_type]="class='nowawecs'";
+if($met_content_type==2){
+	$awegcs[1]="class='column_hidden'";
+	$awegcs[2]="class='modular_display'";
+	$spacing[1]="";
+	$spacing[2]="<div class='v52fmbx_tbmax v52fmbx_tbmaxmt' >
+	<div class='v52fmbx_tbbox'>";
+}else{
+	$awegcs[1]="class='column_display'";
+	$awegcs[2]="class='modular_hidden'";
+	$spacing[1]="<div class='v52fmbx_tbmax v52fmbx_tbmaxmt' >
+	<div class='v52fmbx_tbbox'>";
+	$spacing[2]="";
+}
+$other_op.="<a href=\"content.php?anyid={$anyid}&lang={$lang}&met_content_type=2\" title=\"{$lang_columnarrangement2}{$lang_columnarrangement3}\" {$awegcs[2]}>{$lang_columnarrangement3}</a><a href=\"content.php?anyid={$anyid}&lang={$lang}&met_content_type=1\" title=\"{$lang_columnarrangement2}{$lang_columnarrangement4}\" {$awegcs[1]}>{$lang_columnarrangement4}</a></span>";
+require_once template('metlangs');
+echo <<<EOT
+-->
+{$spacing[2]}
+<!--
+EOT;
+if($met_content_type==2){
+echo <<<EOT
+--> 
+	<h3 style="margin-top: 30px;"></h3>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+<!--
+EOT;
+if($met_content_type==1){
+echo <<<EOT
+--> 
+
+			<h3 class="v52fmbx_ding search" id="topsearch" >
+	<form  method='POST' name='myform' onSubmit='return Checkmember();' action='content.php?anyid={$anyid}&search={$program}&action=search&lang={$lang}' target='_self'>
+	<div >
+	{$x}
+	</div>
+	<div align="right">
+	<label class="Layer">{$lang_column_searchname}</label>
+	<input id='program' name='program' type='text' size='24'  class='input_text stxt'/>
+	</div>
+	</form>
+	</h3>
+	{$spacing[1]}
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+<div class="metv5box">
+	<ul class="columnlist" id="test">
+<!--
+EOT;
+foreach ($contentlist as $key=>$val){
+
+if(strstr($val['name'], $program)||$program==null){
+$vimgurl = 'tubiao_'.$val[module].'.png';
+echo <<<EOT
+--> 
+		<li class="contlist" >
+			<div class="box">
+				<a href='{$val[conturl]}'>
+					<img src="{$img_url}/metv5/{$vimgurl}?new" width='70' height='70' />
+<!--
+EOT;
+if($val[sum]){
+echo <<<EOT
+--> 					
+					<span class="cloumn_num">{$val[sum]}</span>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+					<h2>{$val['name']}</h2>
+				</a>
+			</div>
+		</li>
+<!--
+EOT;
+}
+}
+echo <<<EOT
+--> 
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<script type="text/javascript">
+function searchzdx(dom,label,color1,color2){
+	if(dom.val()=='')label.show();
+	dom.focus(function(){
+		label.css("color",color2);
+	});
+	dom.keyup(function(){
+		if($(this).val()==''){
+			label.show();
+		}else{
+			label.hide();
+		}
+	});
+	dom.focusout(function(){
+		if($(this).val()==''){
+		label.show();
+		label.css("color",color1);
+		}
+	});
+}
+searchzdx($('#topsearch .stxt'),$('#topsearch label'),"#666","#ccc");
+var element = document.getElementById("program"); 
+document.getElementById("program").onfocus=function(){
+if(!+[1,]){
+element.onpropertychange = webChange; 
+}else{ 
+element.addEventListener("input",webChange,false); 
+} 
+}
+function webChange(){ 
+$.ajax({
+		url: 'originate.php?lang={$lang}&id='+escape(element.value),
+		type: 'GET',
+		cache: false,
+		success: function(data) {
+			$('#test').html(data);
+		}
+	});
+} 
+$('.contmorehver').hover(
+	function () {
+		$(this).find('div.contmore').show();
+	},
+	function () {
+		$(this).find('div.contmore').hide();
+	}
+);
+function metHeight(group,type) {
+	tallest = 0;
+	group.each(function() {
+		thisHeight = $(this).height();
+		if(thisHeight > tallest) {
+			tallest = thisHeight;
+		}
+	});
+	if(type==1){
+		group.each(function(){
+			if($(this).outerHeight(true)<tallest){
+				var ht = (tallest - $(this).outerHeight(true))/2;
+				$(this).css('padding-top',ht+'px');
+				$(this).css('padding-bottom',ht+'px');
+			}
+		});
+	}else{
+		group.height(tallest);
+		group.each(function(){
+			var h = tallest - $(this).find('.img').outerHeight(true);
+			var x = h - $(this).find('.title').outerHeight(true);
+			if(x>0){
+				var ht = (x/2)+3;
+				$(this).find('.title').css('padding-top',ht+'px');
+				$(this).find('.title').css('padding-bottom',ht+'px');
+			}
+		});
+	}
+}
+metHeight($('.box'));
+metHeight($('.contlist .text'),1);
+function Focus(obj) {
+	if(obj.value==obj.defaultValue){
+		obj.value='';
+	}
+}
+
+
+
+function Blur(obj) {
+	if(obj.value==''){
+		obj.value=obj.defaultValue;
+
+	}
+} 
+</script>
+<div class="clear"></div>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

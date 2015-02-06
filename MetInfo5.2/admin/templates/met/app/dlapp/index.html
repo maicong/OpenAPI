@@ -1,0 +1,237 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+require_once template('head'); 
+echo <<<EOT
+-->
+<title>{$lang_setbasicWebInfoSet}</title>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<div class="metv5">
+<!--
+EOT;
+if($new_app==1){
+echo <<<EOT
+--> 
+<h3 class="v52fmbx_hr metsliding v52fmbx_tbmaxmt" sliding="1"><a href="#" onclick="return change_left();" class="red">{$lang_dlapptips19}</a></h3>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+<h3 class="v52fmbx_hr metsliding v52fmbx_tbmaxmt" sliding="1">{$lang_unitytxt_19}</h3>
+<div class="metsliding_box metsliding_box_1">
+	<ul class="applist">
+<!--
+EOT;
+foreach($ad_navlist3[$anyid] as $key=>$val){
+$app_update=0;
+if($val[field]=='1502'){
+	if($app[12]['ver']!=$app_dl[12]['ver']&&$app[12]['ver']&&$app_dl[12]['ver'])$app_update=1;
+}
+$val[url]='../'.$val[url];
+$valiconx=explode('.gif',$val[icon]);
+$val[icon]=$valiconx[0].'.png';
+$admin_column_power="admin_pops".$val[field];
+if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+	continue;
+}
+if($met_agents_type>=2){
+	$val[info]=preg_replace('/<a[\s\S]+>[\s\S]+<\/a>/','',$val[info]);
+}
+if($val[icon]=='wap.png'){
+	if($db->get_one("SELECT * FROM $met_app WHERE file='wap' and download='1'")){
+		$val[name]=$lang_tradewap;	
+	}
+}
+echo <<<EOT
+-->
+	<li>
+		<div class="img"><a href="{$val[url]}" title="{$val[name]}"><img src="{$img_url}/icon/{$val[icon]}"></a></div>
+		<div class="text">
+			<span class="downbox">
+				<a href="{$val[url]}"><img src='{$img_url}/open.png' /><p>{$lang_dlapptips5}</p></a>
+			</span>
+			<div class="name"><span class="title"><a href="{$val[url]}">{$val[name]}</a>
+<!--
+EOT;
+if($app_update==1){
+echo <<<EOT
+--> 
+			<a href="#" onclick="return change_left();" class="red" style="text-decoration:underline">{$lang_dlapptips20}</a>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+			</span></div>
+			<div class="info">
+				<dl>
+				<dd>{$val[info]}</dd>
+				</dl>
+			</div>
+		</div>
+	</li>
+<!--
+EOT;
+}
+if($met_agents_app==1){
+echo <<<EOT
+--> 
+	</ul>
+</div>
+<div class="clear" style="height:10px;"></div>
+<h3 class="v52fmbx_hr metsliding v52fmbx_tbmaxmt" sliding="2">{$lang_unitytxt_20}</h3>
+<div class="metsliding_box metsliding_box_2">
+	<ul class="applist">
+<!--
+EOT;
+
+foreach($app as $keyapps=>$valapps){
+$app_update=0;
+if($valapps['ver']!=$app_dl[$keyapps]['ver']&&$app_dl[$keyapps]['ver']&&$valapps['ver'])$app_update=1;
+if(file_exists("../$valapps[file]/setapp.php")){$set_url="../$valapps[file]/setapp.php";}
+else{$set_url="setapp.php";}
+$valapps[img]=$valapps[img]==''?'../../../../'.$met_agents_img:$valapps[img];
+$textdesc = utf8substr(get_word($valapps[info]),0,35);
+	$query="select * from $met_admin_column where url like '%app/$val5[file]/%'";
+	$app_sys=$db->get_one($query);
+	if($valapps[no]==12)continue;
+	if($app_sys){
+		$admin_column_power="admin_pops".$valapps[field];
+		if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+			continue;
+		}
+	}else{
+		$admin_column_power="admin_popa".$valapps[no];
+		if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+			continue;
+		}
+	}
+	//接口函数
+	if($valapps[appver] == 1){
+		$new_set_url = "../../index.php?lang={$lang}&n={$valapps['m_name']}&c={$valapps['m_class']}&a={$valapps['m_action']}&anyid={$anyid}";
+		$valapps[img] = "../../../app/app/{$valapps['m_name']}/icon.png";
+		$valapps[appname]=get_word($valapps[appname]);
+		$valapps[info]=get_word($valapps[info]);
+echo <<<EOT
+--> 
+		<li>
+			<div class="img"><a href="{$new_set_url}"><img src="{$valapps[img]}"></a></div>
+			<div class="text">
+				<span class="downbox">
+					<a href="{$new_set_url}"><img src='{$img_url}/open.png' /><p>{$lang_dlapptips5}</p></a><br/>
+				</span>
+				<div class="name"><span class="title"><a href="{$new_set_url}">{$valapps[appname]}</a>
+<!--
+EOT;
+if($app_update==1){
+echo <<<EOT
+--> 
+			<a href="#" onclick="return change_left();"  class="red" style="text-decoration:underline">{$lang_dlapptips20}</a>
+<!--
+EOT;
+}
+
+echo <<<EOT
+-->				
+				</span></div>
+				<div class="info">
+					<dl>
+					<dd title="{$valapps[info]}">{$textdesc}</dd>
+					</dl>
+				</div>
+			</div>
+		</li>
+		
+		
+<!--
+EOT;
+	}else{
+	//结束
+echo <<<EOT
+--> 
+		<li>
+			<div class="img"><a href="$set_url?lang={$lang}&id={$valapps[id]}&anyid={$anyid}"><img src="img/{$valapps[img]}"></a></div>
+			<div class="text">
+				<span class="downbox">
+					<a href="$set_url?lang={$lang}&id={$valapps[id]}&anyid={$anyid}"><img src='{$img_url}/open.png' /><p>{$lang_dlapptips5}</p></a><br/>
+				</span>
+				<div class="name"><span class="title"><a href="$set_url?lang={$lang}&id={$valapps[id]}&anyid={$anyid}">{$valapps[name]}</a>
+<!--
+EOT;
+if($app_update==1){
+echo <<<EOT
+--> 
+			<a href="#" onclick="return change_left();"  class="red" style="text-decoration:underline">{$lang_dlapptips20}</a>
+<!--
+EOT;
+}
+
+echo <<<EOT
+-->				
+				</span></div>
+				<div class="info">
+					<dl>
+					<dd title="{$valapps[info]}">{$textdesc}</dd>
+					</dl>
+				</div>
+			</div>
+		</li>
+		
+		
+<!--
+EOT;
+	}
+}
+echo <<<EOT
+--> 
+<!--
+EOT;
+if(!count($app)){
+echo <<<EOT
+-->
+		<div style="margin:10px;">{$lang_unitytxt_21}</div>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+function dplistjs(){
+	var	wdth   = ($('.applist').width() - 10)/2;
+	$('.applist li').width(wdth);
+	$('.applist li div.text').width(wdth-96);
+}
+dplistjs();
+$(window).resize(function() {
+	dplistjs();
+});
+function change_left(){
+	window.parent.document.getElementById("nav_4_61").click();
+	return false;
+}
+</script>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

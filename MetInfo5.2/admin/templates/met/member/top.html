@@ -1,0 +1,22 @@
+<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+require_once template('metlangs');
+if($cs==4)$depth='../';
+echo <<<EOT
+-->
+<div class="stat_list">
+	<ul>
+
+		<li {$listclass[1]}><a href="{$depth}../member/index.php?lang={$lang}&anyid={$anyid}&cs=1" title="{$lang_membertips}">{$lang_membertips}</a></li>
+		<li {$listclass[2]}><a href="{$depth}../member/array.php?lang={$lang}&anyid={$anyid}&cs=2" title="{$lang_memberstyle}">{$lang_memberstyle}</a></li>
+		<li {$listclass[3]}><a href="{$depth}../column/parameter/parameter.php?anyid={$anyid}&lang={$lang}&module=10&cs=4" title="{$lang_memberInformation}">{$lang_memberInformation}</a></li>
+		<li {$listclass[4]}><a href="{$depth}../member/member.php?lang={$lang}&anyid={$anyid}&cs=3" title="{$lang_memberflashset}">{$lang_memberflashset}</a></li>
+	</ul>
+</div>
+<div style="clear:both;"></div>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>

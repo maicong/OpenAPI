@@ -1,0 +1,26 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$en_title = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-crumb">
+                <a href="{$index_url}" title="{$lang_home}">{$lang_home} &gt;</a> {$nav_x[name]}
+            </div>
+            <div class="page-content p-article">
+                <h1 class="title">
+                    {$en_title}
+                    <p>{$class_list[$classnow][name]}</p>
+                </h1>
+                {$show[content]}
+                <div class="clear"></div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </div>
+</section>
+<!--
+EOT;
+require_once template('foot');
+?>

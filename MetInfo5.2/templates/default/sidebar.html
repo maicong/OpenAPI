@@ -1,0 +1,40 @@
+<!--<?php
+$sb_en_title = ucfirst(str_replace('_',' ',$class_list[$class1]['filename']));
+$sidebar = '';
+foreach ($nav_list2[$class1] as $key => $val) {
+    $val['en_title'] = ucfirst(str_replace('_',' ',$val['filename']));
+    $sidebar .= "<dl class=\"list-none\"><dt id=\"part{$val['classtype']}_{$val['id']}\"><a href=\"{$val['url']}\"  title=\"{$val['en_title']} {$val['name']}\">{$val['en_title']} {$val['name']}</a></dt></dl>";
+}
+if(strpos($nav_x['name'],"全站搜索")){
+    $class_list[$class1]['name'] = '全站搜索';
+    $class_list[$class1]['foldername'] = 'search';
+    $sidebar=methtml_advsearch('','',1,1,1);
+}
+if(!$sidebar){
+    $scid = $class_list[$classnow]['id'];
+    $surl = $class_list[$classnow]['url'];
+    $sname = $class_list[$classnow]['name'];
+    $senname = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+    $class2 = $scid;
+    $sidebar = "<dl class=\"list-none\"><dt id=\"part2_{$scid}\" ><a href=\"{$surl}\"  title=\"{$sb_en_title} {$sname}\">{$sb_en_title} {$sname}</a></dt></dl>";
+}
+echo <<<EOT
+-->
+<section class="section-banner" style="background-image: url({$banner_src});"></section>
+<section class="section-page">
+    <div class="inner">
+        <aside class="page-aside">
+            <div class="sb-nav" data-class2="{$class2}" data-class3="{$class3}">
+                <h3 class="title">
+                    {$class_list[$class1][name]}
+                    <p>{$sb_en_title}</p>
+                </h3>
+                {$sidebar}
+            </div>
+            <div class="sb-info">
+                {$otherinfo[info10]}
+            </div>
+        </aside>
+<!--
+EOT;
+?>

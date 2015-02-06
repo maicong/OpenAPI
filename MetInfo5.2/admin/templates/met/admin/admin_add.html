@@ -1,0 +1,406 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript">
+function pass2null(pass2){
+			$('#pass2').text('{$lang_memberjstxt1}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function pass1null(pass1){
+			$('#pass1').text('{$lang_memberjstxt2}');
+			$('#pass1').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function passnot(pass2){
+			$('#pass2').text('{$lang_memberjstxt3}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function usercheck(useid){
+	$.ajax({
+	   type: "POST",
+	   url: "ajax.php?lang={$lang}&anyid={$anyid}&action=admin&id="+useid.val(),
+	   success: function(msg){
+		 useid.next('span').html(msg);
+	   }
+	});
+}
+$(document).ready(function(){
+    var pass1 = $("input[name='pass1']");
+    var pass2 = $("input[name='pass2']");
+	pass1.focusout(function(){
+		if($(this).val()=='')pass1null($(this));
+		else 
+		if(pass2.val()!='' && pass2.val()!=pass1.val()){
+		$('#pass1').hide();
+		passnot(pass2);
+		}
+		else 
+		if(pass2.val()==''){
+		$('#pass1').hide();
+		pass2null(pass2);
+		}
+		else{ 
+		$('#pass1').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+	pass2.focusout(function(){
+		if($(this).val()=='')pass2null($(this));
+		else 
+		if(pass1.val()!='' && pass2.val()!=pass1.val())passnot($(this));
+		else 
+		if(pass1.val()==''){
+		$('#pass2').hide();
+		pass1null(pass1);
+		}
+		else{ 
+		$('#pass2').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+	$('#useid').focusout(function(){
+		if($(this).val()!=''){
+			usercheck($(this));
+		}
+	});
+});
+</script>
+<title>{$lang_add}{$lang_metadmin}</title>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" id="myform" action="save.php?action=add&lang=$lang&anyid=$anyid" target="_self">
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminusername}{$lang_marks}</dt>
+		<dd>
+			<input id="useid" name="useid" type="text" autocomplete="off" class="text nonull" /><span class="red"></span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminpassword}{$lang_marks}</dt>
+		<dd>
+			<input name="pass1" type="password" autocomplete="off" class="text nonull" /><span id="pass1"></span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminpassword1}{$lang_marks}</dt>
+		<dd>
+			<input name="pass2" type="password" autocomplete="off" class="text nonull" /><span id="pass2"></span>
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_admininfo}</h3>
+	<div class="metsliding_box metsliding_box_1">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminname}{$lang_marks}</dt>
+		<dd>
+			<input name="name" type="text" class="text" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminSex}{$lang_marks}</dt>
+		<dd>
+			<label><input name="sex" type="radio" class="radio" value="0" checked="checked">{$lang_adminMan}</label>
+			<label><input name="sex" type="radio" class="radio" value="1">{$lang_adminWoman}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_admintel}{$lang_marks}</dt>
+		<dd>
+			<input name="tel" type="text" class="text" size="20" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminmobile}{$lang_marks}</dt>
+		<dd>
+			<input name="mobile" type="text" class="text nonull" size="20" /> <span class="tips">{$lang_adminTip1}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>Email{$lang_marks}</dt>
+		<dd>
+			<input name="email" type="text" class="text nonull" size="20" /> <span class="tips">{$lang_adminTip1}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>QQ{$lang_marks}</dt>
+		<dd>
+			<input name="qq" type="text" class="text" size="20" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>MSN{$lang_marks}</dt>
+		<dd>
+			<input name="msn" type="text" class="text" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminTaoBao}{$lang_marks}</dt>
+		<dd>
+			<input name="taobao" type="text" class="text" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminIntro}{$lang_marks}</dt>
+		<dd>
+			<textarea name="admin_introduction" class="textarea" cols="60" rows="5" ></textarea>
+		</dd>
+	</dl>
+	</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_admintips7}</h3>
+	<div class="metsliding_box metsliding_box_1">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_admintips5}{$lang_marks}</dt>
+		<dd>
+			<label onclick="controle(1)"><input name="admin_group" type="radio" value="1" class="radio" $admin_groupx[1]>{$lang_managertyp4}</label>
+			<label onclick="controle(2)"><input name="admin_group" type="radio" value="2" class="radio" $admin_groupx[2]>{$lang_managertyp3}</label>
+<!--
+EOT;
+if($admin_list[admin_group]==10000){
+echo <<<EOT
+-->
+			<label onclick="controle(3)"><input name="admin_group" type="radio" value="3" class="radio" checked="checked">{$lang_managertyp2}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			<label onclick="controle(0)"><input name="admin_group" type="radio" value="0" class="radio" $admin_groupx[0]>{$lang_managertyp5}</label>
+		</dd>
+	</dl>
+	</div>
+
+<!--
+EOT;
+if(count($met_langok)>1){
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminjurisd}{$lang_marks}</dt>
+		<dd>
+			<div id="adpoplangok">
+<!--
+EOT;
+if($admin_list[langok]=='metinfo'){
+echo <<<EOT
+-->
+		  <label><input name="langok" type="checkbox" value="metinfo" class="checkbox" checked="checked">{$lang_admintips1}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+foreach($met_langoka as $key=>$val){
+echo <<<EOT
+-->
+<label><input name="langok_$val[mark]" type="checkbox" value="$val[mark]" class="checkbox langok_list" checked="checked">{$val[name]}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		  <span class="tips">{$lang_admintips2}</span>
+		  </div>
+		</dd>
+	</dl>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox tradpoplist">
+	<dl>
+		<dt>{$lang_adminPower}{$lang_marks}</dt>
+		<dd>
+			<label><input name="admin_issue" type="checkbox" class="checkbox" value="yes">{$lang_adminTip2}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox tradpoplist">
+	<dl>
+		<dt>{$lang_adminOperate}{$lang_marks}</dt>
+		<dd>
+			<div id="adminrate">
+			<label><input name="admin_op0" id="admin_op0" type="checkbox" class="checkbox" value="metinfo" checked="checked">{$lang_adminOperate1}</label>
+			<label><input name="admin_op1" type="checkbox" class="checkbox" value="add" checked="checked">{$lang_adminOperate2}</label>
+			<label><input name="admin_op2" type="checkbox" class="checkbox" value="editor" checked="checked">{$lang_adminOperate3}</label>
+			<label><input name="admin_op3" type="checkbox" class="checkbox" value="del" checked="checked">{$lang_adminOperate4}</label>
+			</div>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox v52fmbx_mo tradpoplist">
+	<dl>
+		<dt>{$lang_adminColumn}{$lang_marks}</dt>
+		<dd>
+		<label><input name="admin_pop" type="checkbox" value="yes" checked="checked" class="checkbox">{$lang_adminSelectAll}</label>
+<!--
+EOT;
+foreach($metinfocolumn as $key=>$val){
+echo <<<EOT
+-->
+<div class="admin_poplistdiv round">
+<h2>{$val[name]}</h2>
+<div class="clear"></div>
+<!--
+EOT;
+foreach($sidebarcolumn as $key=>$val2){
+if($val2[bigclass]==$val[id] && $val2[field]){
+echo <<<EOT
+-->
+<label><input name="admin_pops{$val2[field]}" type="checkbox" class="checkbox" value="s{$val2[field]}">{$val2[name]}</label>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+<!--
+EOT;
+if($val[id]==2){
+foreach($met_langoka as $key=>$val4){
+echo <<<EOT
+-->
+	<div class="adpopcnkdiv round poplang_{$val4[lang]}">
+		<h2>{$val4[name]}</h2>
+		<div class="clear"></div>
+<!--
+EOT;
+foreach($column_pop[$val4[lang]] as $key=>$val3){
+if($val3['module']<9 && !$val3['if_in']){
+echo <<<EOT
+-->
+	<label><input name="admin_popc{$val3[id]}" type="checkbox" class="checkbox" value="c{$val3[id]}">{$val3[name]}</label>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+	</div>
+<!--
+EOT;
+}}
+if($val[id]==4){
+echo <<<EOT
+-->
+<div class="adpopcnkdiv round">
+<div class="clear"></div>
+<!--
+EOT;
+foreach($ad_navlist3[44] as $key=>$val5){
+echo <<<EOT
+-->
+	<label><input name="admin_pops{$val5[field]}" type="checkbox" class="checkbox" value="s{$val5[field]}" />{$val5[name]}</label>
+<!--
+EOT;
+}
+foreach($app as $key=>$val5){
+//if($val5[no]==10||$val5[no]==9)continue;
+	$query="select * from $met_admin_column where url like '%app/$val5[file]/%'";
+	$app_sys=$db->get_one($query);
+	if(!$app_sys){
+echo <<<EOT
+-->
+	<label><input name="admin_popa{$val5[no]}" type="checkbox" class="checkbox" value="a{$val5[no]}" />{$val5[name]}</label>
+<!--
+EOT;
+	}
+}
+//接口函数
+$query="select * from $met_applist order by id DESC";
+$applist = $db->get_all($query);
+foreach($applist as $key=>$val6){
+echo <<<EOT
+-->
+	<label><input name="admin_popa{$val6[no]}" type="checkbox" class="checkbox" value="a{$val6[no]}" />{$val6[appname]}</label>
+<!--
+EOT;
+}
+//结束
+echo <<<EOT
+-->
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+if($val[id]==2){
+echo <<<EOT
+-->
+<label title="{$lang_admintips3}"><input name="admin_pop9999" type="checkbox" class="checkbox" value="9999" {$admin_popx[9999]}>{$lang_admintips4}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		</dd>
+	</dl>
+	</div>
+	</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">$foot</div>
+<script type="text/javascript">
+var apop_type='$admin_listed[admin_type]';
+</script>
+<script type="text/javascript" src="{$img_url}/js/admin_fuc.js"></script>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

@@ -1,0 +1,263 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+$listclass[1]='class="now"';
+require_once template('app/sms/top');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="sms.php?lang={$lang}&anyid={$anyid}&action=modify" target="_self">
+<input type="hidden" name="usertype" value="$met_smsprice" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips6}{$lang_marks}</dt>
+			<dd>
+				<span class="red" id="balance">{$lang_smstips50}</span> {$lang_smstips9}
+			</dd>
+		</dl>
+		</div>
+		<h3 class="v52fmbx_hr metsliding">
+			<ol>
+				<li class="red">{$lang_smstips31}</li>
+				<li id='audit_msg' class="red" style="display:none">{$lang_smstips90}
+<!--
+EOT;
+if($met_agents_type>1){
+echo <<<EOT
+-->
+				{$lang_smstips92}{$met_agents_copyright_en}{$lang_smstips93}
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+				{$lang_smstips91}
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+				</li>
+				<li>{$lang_smstips32}</li>
+			</ol>
+		</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips33}{$lang_marks}</dt>
+			<dd>
+				<textarea class="textarea gen nonull" id="smsbox" name="message" style="float:left; height:78px;"></textarea>
+				<span class="tips" style="float:left; margin-right:80px; position:relative; bottom:3px; margin-left:10px;">
+				{$lang_smstips34}
+				<br/>{$lang_smstips35}<span id='changeNum' class="color390"></span> {$lang_smstips36} ({$lang_smstips37} <span id='changetiao' class="color390"></span> {$lang_smstips38})
+				</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_password22}{$lang_marks}</dt>
+			<dd>
+				<textarea class="textarea nonull" id="smstelbox" style="float:left; width:120px; height:150px;" name="phone"></textarea>
+				<span class="tips" style="float:left; margin-right:80px; position:relative; bottom:3px; margin-left:10px;">{$lang_smstips39} <span id='changegetel' class="color390"></span> {$lang_smstips40}
+				<br/><a href="javascript:;" onclick="return smsmembertel($(this))" style="text-decoration:underline;">{$lang_smstips41}</a>&nbsp;&nbsp;<span class="tips"></span>
+				<br/><a href="javascript:;" onclick="return smsmetelrepeat()" style="text-decoration:underline;">{$lang_smstips42}</a>
+				</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips43}{$lang_marks}</dt>
+			<dd>
+			<input type="text" class="text" name="code" value="" />
+			<span class="tips"><a href="service.php?lang=$lang&anyid={$anyid}&cs={$cs}">{$lang_smstips44}</a></span>
+			</dd>
+		</dl>
+		</div>
+		<h3 class="v52fmbx_hr metsliding">
+			<span class="tips">{$lang_smstips45} <span id='changeqian' class="red"></span> {$lang_smstips9} ( <span id="sms_cost">$met_smsprice</span> {$lang_smstips46} <span id='changezt' class="color390"></span> {$lang_smstips47}) </span>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->				
+			<a href="http://www.metinfo.cn/faq/sms_costs.htm" target="_blank">{$lang_smstips15}</a>
+<!--
+EOT;
+}
+echo <<<EOT
+-->			
+		</h3>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" class="submit" disabled="disabled" value="{$lang_smstips48}" onclick="return smssubmit($(this))" />
+			<span class="tips red"></span>&nbsp;&nbsp;<span class="tips color999">{$lang_smstips49}</span>
+		</div>
+</div>
+</div>
+</div>
+</form>
+<script type="text/javascript">
+Array.prototype.delRepeat=function(){
+	var newArray=[];
+	var provisionalTable = {};
+	for (var i = 0, item; (item= this[i]) != null; i++) {
+        if (!provisionalTable[item]) {
+            newArray.push(item);
+            provisionalTable[item] = true;
+        }
+    }
+    return newArray;
+}
+function smsmetelrepeat(){
+	var tel = $("textarea[name='phone']").val();
+		tel = tel.replace(/\s+/g,"|");
+		tel = tel.split('|');
+		tel = tel.unique();
+	var tval = '';
+		for(var i=0;i<tel.length;i++){
+			tval+=i==tel.length-1?tel[i]:tel[i]+'\\n';
+		}
+		$("textarea[name='phone']").val(tval);
+		$("textarea[name='phone']").focus();
+}
+function smsmembertel(my){
+	var nxt = my.next();
+		nxt.empty();
+		nxt.html('{$lang_smstips50}');
+	$.ajax({
+		url : 'sms.php?lang={$lang}&anyid={$anyid}&action=membertel&action_ajax=1',type: "GET",
+		success: function(data){
+			data = data.replace(/\s+/g,""); 
+			if(data==''){
+				nxt.empty();
+				nxt.html('{$lang_smstips51}');
+			}else{
+				data = data.split('|'); 
+				var tel=$("textarea[name='phone']").val();
+					if(tel!='')tel+='\\n';
+				for(var i=0;i<data.length;i++){
+					tel+=i==data.length-1?data[i]:data[i]+'\\n';
+				}
+				$("textarea[name='phone']").val(tel);
+				$("textarea[name='phone']").focus();
+				nxt.empty();
+			}
+		}
+	});
+	return false;
+}
+function smssubmit(my){
+	$("input[type='submit']").attr("disabled", true);
+	var nxt = my.next();
+	nxt.empty();
+	nxt.html('<img src="'+metimgurl+'loadings.gif" style="position:relative; top:5px;" /> {$lang_smstips52}');
+
+	var message = encodeURIComponent($("textarea[name='message']").val());
+	var phone   = encodeURIComponent($("textarea[name='phone']").val());
+	var code    = encodeURIComponent($("input[name='code']").val());
+	var data    = 'phone='+phone+'&message='+message+'&code='+code;
+	$.ajax({
+		url : 'sms.php?lang={$lang}&anyid={$anyid}&action=modify',type: "POST",
+		data: data,
+		success: function(data){
+			nxt.empty();
+			nxt.html(data);
+			$("input[type='submit']").removeAttr('disabled'); 
+		}
+	});
+	return false;
+}
+function showNum(type){
+	var cost = $("input[name='usertype']").val();
+	var num = $("#smsbox").val().length;
+	if(num<=66){
+		$("#changeNum").html(num+'/66');
+		var tiao = num>0?Math.ceil(num/66):0;
+		if(type)return tiao;
+		$("#changetiao").html(tiao);
+	}else{
+		$("#changeNum").html(num+'/64');
+		var tiao = Math.ceil((num-66)/64)+1;
+		if(type)return tiao;
+		$("#changetiao").html(tiao);
+	}
+	//
+	var zt = telshowNum(1) * tiao;
+	var qian = cost * zt;
+		qian = Math.round(qian*100)/100;
+		$("#changeqian").html(qian);
+		$("#changezt").html(zt);
+}
+function telshowNum(type){
+	var cost = $("input[name='usertype']").val();
+	var tvl = $('#smstelbox').val();
+	    tvl = tvl.split('\\n');
+	var k=0;
+		for(var i=0;i<tvl.length;i++){
+			if(tvl[i]!='')k++;
+		}
+		if(type)return k;
+		$("#changegetel").html(k);
+	//
+	var zt = k * showNum(1);
+	var qian = cost * zt;
+		qian = Math.round(qian*100)/100;
+		$("#changeqian").html(qian);
+		$("#changezt").html(zt);
+} 
+$(document).ready(function(){
+	//balance
+	if('$total_passok[authpass]'==''){
+		$('#balance').html('0.00');
+	}else{
+		$('#balance').html(user_msg['jsx1']);
+		$.ajax({
+			url: 'http://{$met_host}/sms/remain.php?action=json&total_pass=$total_passok[authpass]',
+			type: 'GET',
+			dataType: 'jsonp',
+			jsonp: 'jsoncallback',
+			success: function(data) {
+				$('#balance').empty();
+				$('#balance').append(data.msg);
+				if(data.audit==0||data.audit==null){
+					$('#audit_msg').show();
+				}else{
+					$("[name='submit']").removeAttr('disabled');
+				}
+				ifreme_methei();
+			}
+		});
+		setTimeout(function() {
+			if($('#balance').html()==user_msg['jsx1']){
+				$('#balance').empty();
+				$('#balance').append(user_msg['jsx21']);
+			}
+		},
+		30000);
+	}
+	showNum();
+	$("#smsbox").bind('keyup change',function(){showNum() });
+	$("#smsbox").keydown(function(){showNum()});
+	telshowNum();
+	$("#smstelbox").bind('keyup change focus',function(){telshowNum() });
+	$("#smstelbox").keydown(function(){telshowNum()});
+
+});
+</script>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

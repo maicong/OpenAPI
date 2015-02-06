@@ -1,0 +1,31 @@
+<!--<?php
+require_once template('config');
+$nav_lang = array(
+    'cn'=>'<a href="../index.php?lang=en" class="nav-lang" data-deg="0" title="English"><i></i>English</a>',
+    'en'=>'<a href="../index.php?lang=cn" class="nav-lang" data-deg="0" title="中文"><i></i>中文</a>'
+
+);
+$banner_src = empty($met_flashimg[0])?'../upload/image/top.gif':$met_flashimg[0]['img_path'];
+echo <<<EOT
+-->
+<body>
+<header class="header">
+    <div class="inner">
+        <div class="top-logo">
+            <a href="{$index_url}" title="{$met_webname}">
+                <img src="{$met_logo}" alt="{$met_webname}" title="{$met_webname}">
+            </a>
+        </div>
+        <nav class="top-nav">{$met_nav}</nav>
+        <div class="top-search">
+            <form method="POST" action="{$searchurl}" target="_blank">
+                <input type="text" name="searchword" class="text" maxlength="30">
+                <input type="submit" value="" class="btn">
+            </form>
+        </div>
+        <div class="clear"></div>
+    </div>
+</header>
+<!--
+EOT;
+?>

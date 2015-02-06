@@ -1,0 +1,33 @@
+<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('metlangs');
+echo <<<EOT
+-->
+<div class="stat_list">
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->
+	<span class="stat_list_right"><a href="{$depth}../interface/info.php?cs=2&anyid={$anyid}&lang={$lang}&skin_file_s={$skin_file}" target="_blank">{$lang_indexskinset}</a></span>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<ul>
+		<li {$listclass[1]}><a href="{$depth}../interface/skin_editor.php?anyid={$anyid}&lang={$lang}&cs=1&skin_file={$skin_file}&id={$id}&kuaijieskin={$kuaijieskin}" title="{$lang_skinsetup}">{$lang_skinsetup}</a></li>
+		<li {$listclass[2]}><a href="{$depth}../interface/skin.php?cs=2&anyid={$anyid}&lang={$lang}&skin_file={$skin_file}&id={$id}&kuaijieskin={$kuaijieskin}" title="{$lang_indexhomeset}">{$lang_indexhomeset}</a></li>	
+		<li {$listclass[3]}><a href="{$depth}../interface/skin.php?cs=3&anyid={$anyid}&lang={$lang}&skin_file={$skin_file}&id={$id}&kuaijieskin={$kuaijieskin}" title="{$lang_pagesting}">{$lang_pagesting}</a></li>	
+		<li {$listclass[4]}><a href="{$depth}../interface/skin.php?cs=4&anyid={$anyid}&lang={$lang}&skin_file={$skin_file}&id={$id}&kuaijieskin={$kuaijieskin}" title="{$lang_contsting}">{$lang_contsting}</a></li>
+		<li {$listclass[5]}><a href="{$depth}../interface/flash/flash.php?anyid={$anyid}&lang={$lang}&kuaijieskin={$kuaijieskin}" title="{$lang_indexflashset}">{$lang_indexflashset}</a></li>
+		<li {$listclass[6]}><a href="{$depth}../interface/skin_manager.php?anyid={$anyid}&lang={$lang}" title="{$lang_temstyle}">{$lang_temstyle}</a></li>
+	</ul>
+</div>
+<div class="clear"></div>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>

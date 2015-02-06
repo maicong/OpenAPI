@@ -1,0 +1,156 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+<title>{$lang_memberAdd}</title>
+</head>
+<body>
+<script type="text/javascript">
+{$para_member_list[2]}
+function pass2null(pass2){
+			$('#pass2').text('{$lang_memberjstxt1}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function pass1null(pass1){
+			$('#pass1').text('{$lang_memberjstxt2}');
+			$('#pass1').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function passnot(pass2){
+			$('#pass2').text('{$lang_memberjstxt3}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function usercheck(useid){
+	$.ajax({
+	   type: "POST",
+	   url: "ajax.php?lang={$lang}&anyid={$anyid}&action=admin&id="+useid.val(),
+	   success: function(msg){
+		 useid.next('span').html(msg);
+	   }
+	});
+}
+$(document).ready(function(){
+    var pass1 = $("input[name='pass1']");
+    var pass2 = $("input[name='pass2']");
+	pass1.focusout(function(){
+		if($(this).val()=='')pass1null($(this));
+		else 
+		if(pass2.val()!='' && pass2.val()!=pass1.val()){
+		$('#pass1').hide();
+		passnot(pass2);
+		}
+		else 
+		if(pass2.val()==''){
+		$('#pass1').hide();
+		pass2null(pass2);
+		}
+		else{ 
+		$('#pass1').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+	pass2.focusout(function(){
+		if($(this).val()=='')pass2null($(this));
+		else 
+		if(pass1.val()!='' && pass2.val()!=pass1.val())passnot($(this));
+		else 
+		if(pass1.val()==''){
+		$('#pass2').hide();
+		pass1null(pass1);
+		}
+		else{ 
+		$('#pass2').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+	$('#useid').focusout(function(){
+		if($(this).val()!=''){
+			usercheck($(this));
+		}
+	});
+	
+});
+</script>
+<!--
+EOT;
+$title="{$lang_memberAdd}";
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" id="myform" action="save.php?action=add&lang=$lang&anyid={$anyid}" onSubmit='return Checkmember();' target="_self">
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberUserName}{$lang_marks}</dt>
+			<dd>
+				<input id='useid' name="useid" type="text" autocomplete="off" class="text nonull">
+				<span class="red"></span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberPs}{$lang_marks}</dt>
+			<dd>
+				<input name="pass1" type="password" autocomplete="off" class="text nonull" /><span id='pass1'></span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberPs1}{$lang_marks}</dt>
+			<dd>
+				<input name="pass2" type="password" autocomplete="off" class="text nonull" /><span id='pass2'></span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt><font color='#FF0000'>*</font>Email{$lang_marks}</dt>
+			<dd>
+				<input name="email" id='email' type="text" class="text nonull" />{$lang_memberTip1}
+			</dd>
+		</dl>
+		</div>
+
+
+		{$para_member_list[1]}	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberType}{$lang_marks}</dt>
+			<dd>
+				<select name="usertype" id="usertype" >
+				$level
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberCheck}{$lang_marks}</dt>
+			<dd>
+				<input name="checkid" type="checkbox" class="checkbox" value="1" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" id="passsubmit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

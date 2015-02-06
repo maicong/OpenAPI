@@ -1,0 +1,29 @@
+<!--<?php
+$foot_link1 = '<select class="select" onchange="window.open(options[selectedIndex].value)"><option>---企业内部链接---</option>';
+$foot_link2 = '<select class="select" onchange="window.open(options[selectedIndex].value)"><option>---企业外部链接---</option>';
+foreach ($nav_list3[$Columnlink1['id']] as $val1) {
+    $foot_link1 .= "<option value=\"{$val1[url]}\">{$val1[name]}</option>";
+}
+foreach ($nav_list3[$Columnlink2['id']] as $val2) {
+    $foot_link2 .= "<option value=\"{$val2[url]}\">{$val2[name]}</option>";
+}
+$foot_link1 .= '</select>';
+$foot_link2 .= '</select>';
+echo <<<EOT
+-->
+<footer class="footer">
+    <div class="inner">
+        <p><span class="sp">友情链接：</span>{$foot_link1}{$foot_link2}</p>
+        <p>{$met_footother}</p>
+        <p>{$met_footright} {$met_footstat}<a href="http://www.redyue.com.cn" target="_blank" class="license">技术支持: 红悦网络</a> </p>
+    </div>
+</footer>
+
+<script src="{$static_file}js/jquery-1.11.1.min.js"></script>
+<script src="{$static_file}js/global.js"></script>
+{$metonline}
+</body>
+</html>
+<!--
+EOT;
+?>-->

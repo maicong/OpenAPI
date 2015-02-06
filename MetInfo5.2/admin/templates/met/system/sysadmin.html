@@ -1,0 +1,500 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+<style type="text/css">
+.stsadmin_qyyy{ border:1px solid #dfdfdf; padding-bottom:0px!important;}
+.stsadmin_qyyy li{ float:left; padding:0px 15px; text-align:center;}
+.stsadmin_qyyy li img{ width:50px; height:50px;}
+.stsadmin_qyyy li a{ color:#666; text-decoration:none;}
+.stsadmin_qyyy li a p{ height:28px; line-height:28px;}
+</style>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+if($met_agents_type>=2){
+	$style3="style=\"width:100%\"";
+	$style4="style=\"margin-left:8px\"";
+}
+echo <<<EOT
+-->
+<div class="sysadmin">
+	<div class="sysadmin_box_1" style="width:100%;display:none;">
+		<div class="sysadmin_box_cont">	
+			<h3>常用应用</h3>
+			<div class="boxcont stsadmin_qyyy">
+			<ul class="list-none">
+<!--
+EOT;
+foreach($ad_navlist3[44] as $key=>$val){
+if($val[id]!=14&&$val[id]!=45){
+$valiconx=explode('.gif',$val[icon]);
+$val[icon]=$valiconx[0].'.png';
+$admin_column_power="admin_pops".$val[field];
+if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+	continue;
+}
+echo <<<EOT
+-->
+	<li>
+		<a href="{$val[url]}" title="{$val[name]}">
+			<img src="{$img_url}/icon/{$val[icon]}" />
+			<p>{$val[name]}</p>
+		</a>
+	</li>
+<!--
+EOT;
+}}
+echo <<<EOT
+--> 
+			</ul>
+			<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="sysadmin_box_1" $style1>
+		<div class="sysadmin_box_cont">	
+			<h3>{$lang_upfiletips30}</h3>
+			<div class="boxcont" style="padding:0px;">
+				<table cellpadding="0" cellspacing="1" class="stat_table">
+	<tr>
+		<td class="t" width="30">{$lang_statips35}</td>
+		<td class="t" width="20">PV</td>
+		<td class="t" width="60">{$lang_statips21}</td>
+		<td class="t" width="20">IP</td>
+		<td class="t" style="font-size:12px;">{$lang_statips22}</td>
+	</tr>
+	<tr class="mouse">
+		<td class="t">{$lang_statips10}</td>
+		<td>{$visit[pv]}</td>
+		<td>{$visit[alone]}</td>
+		<td>{$visit[ip]}</td>
+		<td>{$per_visit}</td>
+	</tr>
+	<tr class="mouse">
+		<td class="t">{$lang_statips11}</td>
+		<td>{$visit_summaryz[pv]}</td>
+		<td>{$visit_summaryz[alone]}</td>
+		<td>{$visit_summaryz[ip]}</td>
+		<td>{$visit_summaryz['per']}</td>
+	</tr>
+	<tr class="mouse">
+		<td class="t">{$lang_unitytxt_48}</td>
+		<td>{$visit_summaryq[pv]}</td>
+		<td>{$visit_summaryq[alone]}</td>
+		<td>{$visit_summaryq[ip]}</td>
+		<td>{$visit_summaryq['per']}</td>
+	</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+<!--
+EOT;
+if($met_classindex[8][0][id] != '' || $met_classindex[7][0][id] !='' || stristr($admin_power,'s'.$sysadminFriendlyLink) || stristr($admin_power,'s'.$sysadminMember)){
+echo <<<EOT
+--> 	
+	<div class="sysadmin_box_2" $style2>
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_sysadminUnread}</h3>
+			<table cellpadding="0" cellspacing="1" class="stat_table">
+<!--
+EOT;
+if($met_classindex[8][0][id] != ''){
+echo <<<EOT
+--> 
+				<tr class="mouse">
+					<td class="t" width="60">{$lang_sysadminFeedbackInfo}</td>
+					<td><a href="../content/feedback/index.php?lang=$lang&class1={$met_classindex[8][0][id]}&anyid=29">$feedback</a></td>
+				</tr>
+<!--
+EOT;
+}
+if($met_classindex[7][0][id] !=''){
+echo <<<EOT
+--> 
+				<tr class="mouse">
+					<td class="t">{$lang_sysadminLeaveMessage}</td>
+					<td><a href="../content/message/index.php?lang=$lang&class1={$met_classindex[7][0][id]}&anyid=29">$message</a></td>
+				</tr>
+<!--
+EOT;
+}
+if($admin_power == 'metinfo' || stristr($admin_power,'s'.$sysadminFriendlyLink)){
+echo <<<EOT
+--> 
+				<tr class="mouse">
+					<td class="t">{$lang_sysadminFriendlyLink}</td>
+					<td><a href="../seo/link/index.php?lang=$lang&class1={$met_classindex[9][0][id]}&anyid=29">$link</a></td>
+				</tr>
+<!--
+EOT;
+}
+if($admin_power == 'metinfo' || stristr($admin_power,'s'.$sysadminMember)){
+echo <<<EOT
+--> 
+				<tr class="mouse">
+					<td class="t">{$lang_sysadminMember}</td>
+					<td><a href="../member/index.php?lang=$lang&class1={$met_classindex[10][0][id]}&anyid=44">$member</a></td>
+				</tr>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+			</table>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+	<div class="sysadmin_box_3 none">
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_sysadminUserInfo}</h3>
+			<ul class="user">
+				<li><span>{$lang_sysadminUsername}{$lang_marks}</span>$metinfo_admin_name</li>
+				<li><span>{$lang_sysadminLoginNum}{$lang_marks}</span>$admin_login</li>
+				<li><span>IP{$lang_marks}</span>$m_user_ip</li>
+				<li><span>{$lang_sysadminLoginTime}{$lang_marks}</span>$admin_modify_date</li>
+			</ul>
+		</div>
+	</div>
+<!--
+EOT;
+if(!$met_agents_type){
+echo <<<EOT
+-->
+	<div class="sysadmin_box_3">
+		<div class="sysadmin_box_cont">
+			<h3>MetInfo{$lang_upfiletips37}</h3>
+			<div class="text" id="newslist"></div>
+		</div>
+	</div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+	<div class="sysadmin_box_3">
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_about}</h3>
+			<div class="text">
+			<table cellpadding="0" cellspacing="1" class="stat_table" style="height: 141px;">
+				<tr class="mouse">
+					<td style="vertical-align:text-top;padding:5px;">{$met_agents_about}</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="clear"></div>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->
+	<div class="sysadmin_box_6">
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_upfiletips35}</h3>
+<!--
+EOT;
+if($authinfo['authcode']&&$authinfo['authpass']){
+echo <<<EOT
+-->
+			<table cellpadding="0" cellspacing="1" class="stat_table showauth_n">
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_54}</td>
+					<td id="authcode_domain"></td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_55}</td>
+					<td id="authcode_webname"></td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_56}</td>
+					<td id="authcode_webtype"></td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_57}</td>
+					<td id="authcode_buytime"></td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_58}</td>
+					<td id="authcode_lifetime"></td>
+				</tr>
+				<tr class="mouse">
+					<td colspan="2" style="text-align:center;"><a href="javascript:showauth();" style="color:#999; text-decoration:none;">{$lang_unitytxt_59}</a></td>
+				</tr>
+			</table>
+<!--
+EOT;
+$snone = 'showauth none';
+$smhtml = "<a href=\"javascript:showauth(1);\" style=\"position:relative; left:4px;\">{$lang_adminBackup}</a>";
+}else{
+$snone = '';
+$smhtml = "<a href=\"http://www.metinfo.cn/web/licensefaq.htm\" target=\"_blank\" title=\"{$lang_unitytxt_47}\" style=\"color:#f00; position:relative; left:4px;\">{$lang_unitytxt_47}</a>";
+}
+echo <<<EOT
+-->
+
+		<div class="boxcont {$snone}">
+		<form method="POST" name="myform"  action="authcode.php?anyid={$anyid}&action=modify&lang={$lang}&sysadmin=1" target="_self">
+		    <input name="id" type="hidden" value="$authinfo[id]">
+			<div class="authdivinput">
+				<input name="authpass" class="text nonull" placeholder="{$lang_authKey}" per="1" value="{$authinfo[authpass]}" />
+			</div>
+			<div class="authdivinput">
+				<textarea name="authcode" rows="5" class="textarea nonull" placeholder="{$lang_authAuthorizedCode}" per="1">{$authinfo[authcode]}</textarea>
+			</div>
+			<div class="authsubmit">
+				<input type="submit" name="Submit" value="{$lang_upfiletips6}" class="submit" onclick="return Smit($(this),'myform')" />
+				{$smhtml}
+			</div>
+        </form>
+			</div>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="sysadmin_box_8" $style3>
+		<div class="sysadmin_box_cont" $style4>
+		<h3>{$lang_upfiletips38}</h3>
+			<table cellpadding="0" cellspacing="1" class="stat_table">
+				<tr class="mouse">
+					<td class="t">{$lang_upfiletips39}</td>
+					<td colspan='2'>{$lang_metinfo}</td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_metinfoversion}</td>
+					<td colspan='2'>{$metcms_v}{$new_metcms_v}</td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_Operating}</td>
+					<td colspan='2'>{$xitong}</td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">PHP | Mysql</td>
+					<td>{$met_sever1}</td>
+					<td>{$mysql1}</td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_reserved}</td>
+					<td colspan='2'>{$lang_copyright}</td>
+				</tr>
+				<tr class="mouse">
+					<td class="t">{$lang_upfiletips42}</td>
+					<td colspan='2'>
+	<span id="oltest_cms" style="padding:0px; font-size:100%; color:#390;"><a id="updatenow" href="http://$met_host/dl/olupdate.php" onclick="return olupdate('cms','new','test');">{$lang_upfiletips43}</a></span>
+	<input id="sucess_cms" type="hidden" value="" />
+	<input id="addr_cms" type="hidden" value="" />
+	<input id="met_url_r" type="hidden" value="http://$met_host/dl/olupdate.php?" />
+	<input id="met_url_h" type="hidden" value="olupdate.php?type=1&" />
+	<input id="ver_now_cms" type="hidden" value="$metcms_v" />
+	<input id="ver_to_cms" type="hidden" value="new" />
+	<input id="date_back" type="hidden" value="0" />
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="clear"></div>
+<!--
+EOT;
+if($authinfo['authcode']&&$authinfo['authpass']&&$met_agents_type<=1){
+echo <<<EOT
+-->
+	<div class="sysadmin_box_7">
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_unitytxt_60}</h3>
+			<table cellpadding="0" cellspacing="1" class="stat_table">
+				<tr class="mouse">
+					<td class="t">{$lang_unitytxt_61}</td>
+					<td class="t">{$lang_unitytxt_62}</td>
+					<td class="t">{$lang_unitytxt_63}</td>
+					<td class="t">{$lang_unitytxt_64}</td>
+				</tr>
+				<tr>
+					<td class="t">{$lang_unitytxt_65}</td>
+					<td id="authcode_server_3"></td>
+					<td id="authcode_server_2"></td>
+					<td id="authcode_server_1"></td>
+				</tr>
+				<tr>
+					<td class="t">{$lang_unitytxt_66}</td>
+					<td id="authcode_server_time_3"></td>
+					<td id="authcode_server_time_2"></td>
+					<td id="authcode_server_time_1"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="clear"></div>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->
+	<div class="sysadmin_box_7">
+		<div class="sysadmin_box_cont">
+			<h3>{$lang_upfiletips31}</h3>
+			<div class="bangzhu">
+				<ul>
+				<li class="d"><a href="http://www.metinfo.cn/course/" target="_blank">{$lang_indexebook}</a></li>
+				<li class="to"><a href="http://www.metinfo.cn/web/product.htm" target="_blank">{$lang_upfiletips35}</a></li>
+				<li class="d"><a href="http://bbs.metinfo.cn" target="_blank">{$lang_upfiletips32}</a></li>
+				<li class="to"><a href="http://www.metinfo.cn/product/" target="_blank">{$lang_upfiletips34}</a></li>
+				<li class="d"><a href="http://www.metinfo.cn" target="_blank">{$lang_sysadminOfficialWebsite}</a></li>
+				<li class="to"><a href="http://www.metinfo.cn/idc/index.htm" target="_blank">{$lang_upfiletips33}</a></li>
+				<li class="d"><a href="mailto:sales@metinfo.cn">sales@metinfo.cn</a></li>
+				<li class="to"><a href="http://www.metinfo.cn/web/web.htm" target="_blank">{$lang_upfiletips36}</a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="clear"></div>
+</div>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+<!--
+EOT;
+if($click==1){
+echo <<<EOT
+-->
+$('#updatenow').click();
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+metgetdata('#newslist','http://www.metinfo.cn/metv5news.php?fromurl=$met_weburl&action=json');
+function metHeight(group){
+	tallest=0;
+	group.each(function(){
+		thisHeight=jQuery(this).height();
+		if(thisHeight>tallest){
+			tallest=thisHeight;
+		}
+	});
+	group.height(tallest);
+}
+$(document).ready(function(){
+	var autbox = $(".sysadmin_box_6 .boxcont");
+	var fubox = $(".sysadmin_box_8 .stat_table");
+	if(autbox.size()>0){
+		var nhh = autbox.height()+12;
+		if(fubox.height()<nhh){
+			fubox.height(nhh);
+		}else{
+			autbox.height(fubox.height()-12);
+		}
+	}
+	var group1 = $(".sysadmin_box_1 .stat_table,.sysadmin_box_2 .stat_table,.sysadmin_box_3 .text");
+	metHeight(group1);
+	ifreme_methei();
+});
+function divshowiframe(div){
+	var content=$('#update_content_control', parent.document);
+	content.click();
+	//
+	//content.height($(window).height());
+	//content.width($(window).width());
+	//content.show();
+}
+</script>
+<!--
+EOT;
+if($authinfo['authcode']&&$authinfo['authpass']){
+$authinfo['authcode']=urlencode($authinfo['authcode']);
+$authinfo['authpass']=urlencode($authinfo['authpass']);
+echo <<<EOT
+-->
+<script type="text/javascript">
+function showauth(tp){
+	if(tp==1){
+		setTimeout("$('.showauth').hide();$('.showauth_n').show();",200);
+	}else{
+		setTimeout("$('.showauth').show();$('.showauth_n').hide();",200);
+	}
+}
+$(document).ready(function(){
+	var autbox = $(".sysadmin_box_6 .stat_table");
+	var fubox = $(".sysadmin_box_8 .stat_table");
+	if(fubox.height()>autbox.height()){
+		autbox.height(fubox.height());
+	}
+	$('#authcode_domain').html("$lang_jsx1");
+	$.ajax({
+		url: 'http://{$met_host}/authorize.php?action=json&met_code={$authinfo[authcode]}&met_key={$authinfo[authpass]}&url=$met_weburl&datatype=data&weblang={$lang}',
+		type: 'GET',
+		dataType: 'jsonp',
+		jsonp: 'jsoncallback',
+		success: function(data) {
+			$('#authcode_domain').html('');
+			//
+			$("#authcode_domain").html(data.msg.domain);
+			$("#authcode_webname").html(data.msg.webname);
+			$("#authcode_webtype").html(data.msg.webtype_h);
+			$("#authcode_buytime").html(data.msg.buytime);
+			$("#authcode_lifetime").html(data.msg.lifetime);
+			//
+			$("#authcode_server_1").html(data.msg.bbshtml);
+			$("#authcode_server_2").html(data.msg.qqhtml);
+			$("#authcode_server_3").html(data.msg.telhtml);
+			$("#authcode_server_time_1").html(data.msg.bbstime);
+			$("#authcode_server_time_2").html(data.msg.qqtime);
+			$("#authcode_server_time_3").html(data.msg.teltime);
+			//
+			setTimeout("ifreme_methei()",100);
+			setTimeout("ifreme_methei()",500);
+			setTimeout("ifreme_methei()",1000);
+			setTimeout("ifreme_methei()",2000);
+		}
+	});
+	setTimeout(function() {
+		if($('#loading').html()=='$lang_jsx1'){
+			$('#loading').html('$lang_jsx21');
+		}
+	},
+	30000);
+});
+</script>
+
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

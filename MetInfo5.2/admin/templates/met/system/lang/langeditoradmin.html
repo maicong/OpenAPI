@@ -1,0 +1,143 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+<title>{$lang_langeadminditor}</title>
+</head>
+<body>
+<!--
+EOT;
+$title=$lang_langeadminditor.'('.$met_langadmin[$langeditor][name].')';
+$rurl='lang.php?anyid='.$anyid.'&lang='.$lang.'&cs=2';
+require_once template('metlangs');
+echo <<<EOT
+-->
+<style type="text/css">
+.ymsearchbox{ padding:10px 5px 0px;}
+.ymsearchbox p{ margin:8px 0px;}
+</style>
+<div class="clear"></div>
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<span class="tips color999" style="padding-left:5px;">{$lang_xtips}</span>
+<h3 class="v52fmbx_hr color390">{$lang_langexplain1}</h3>	
+<div class="v52fmbx_dlbox">
+<dl>
+	<dd>
+		<input name="ymsearchkey" type="text" class="text" value="" /> 
+		<input type="submit" name="Submit" value="{$lang_search}" class="submit" onclick="return ymsearch('')" />
+		<span class="v52fmbx_hr color390">{$lang_savenow}</span>
+		<div class="ymsearchbox"></div>
+	</dd>
+</dl>
+</div>
+        <form method="POST" name="myform" action="langeditoradmin.php?anyid={$anyid}&cs={$cs}&lang=$lang" target="_self">
+		<input name="action" type="hidden" value="modify">
+		<input name="langnum" type="hidden" value="$j">
+		<input name="lang" type="hidden" value="$lang">
+		<input name="langeditor" type="hidden" value="$langeditor">
+		<input name="metinfolangid" type="hidden" value="{$langid}">
+		<input id="ato_disable" type="hidden" value="1">
+		<h3 class="v52fmbx_hr v52fmbx_search metsliding" sliding="0" style="display:none;">{$lang_searchresult}</h3>
+<!--
+EOT;
+$j=count($langtext[0]);
+for($i=1;$i<=$j;$i++){
+echo <<<EOT
+-->
+	<div class="metsliding_box metsliding_box_{$i}">
+<!--
+EOT;
+foreach($langtext[$i] as $key=>$val){
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox div_{$val[name]}_metinfo" style="display:none">
+	<dl>
+		<dd>
+			<input name="$val[name]_metinfo" type="text" class="text ymsearch nonull" value="$val[value]" disabled="disabled"/>&nbsp;&nbsp;
+			<span class="tips">&#123;&#36;lang_{$val[name]}&#125;</span>
+		</dd>
+	</dl>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="v52fmbx_submit" style="display:none;">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+        </form>
+</div>
+<script type="text/javascript">
+function ymsearch(key){
+	if(key){
+		key = $("input[name='"+key+"']").val();
+	}else{
+		key = $("input[name='ymsearchkey']").val();
+	}
+	if(key==''){
+		$("div[class*='div_']").hide();
+		$(".v52fmbx_search").show();
+		var puts = $(".ymsearch");
+		puts.attr('disabled',false);
+		var i=0;
+		$(".ymsearchbox").empty();
+		puts.each(function(){
+			var str = $(this).val();
+			if(str==key){
+				$(".div_"+$(this).attr('name')).show();
+				i++;
+			}else{
+				$(this).attr('disabled',true);
+			}
+		});
+		$(".v52fmbx_submit").show();
+		ifreme_methei();
+		if(i==0){
+			$(".ymsearchbox").append("<span class='tips'>{$lang_csvnodata}</span>");
+		}
+	}else{
+		$("div[class*='div_']").hide();
+		$(".v52fmbx_search").show();
+		var puts = $(".ymsearch");
+		puts.attr('disabled',false);
+		var i=0;
+		$(".ymsearchbox").empty();
+		puts.each(function(){
+			var str = $(this).val();
+			if(str.indexOf(key)>=0){
+				$(".div_"+$(this).attr('name')).show();
+				i++;
+			}else{
+				$(this).attr('disabled',true);
+			}
+		});
+		$(".v52fmbx_submit").show();
+		ifreme_methei();
+		if(i==0){
+			$(".ymsearchbox").append("<span class='tips'>{$lang_csvnodata}</span>");
+		}
+	}
+	return false;
+}
+</script>
+</div>
+</div>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

@@ -1,0 +1,359 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+$boxwidth=$met_kzqie?'99%':'1000px';
+$qietext =$met_kzqie?$lang_indexnarrowver1:$lang_indexwidever1;
+$qietext_title =$met_kzqie?$lang_indexnarrowver2:$lang_indexwidever2;
+$jsrand=str_replace('.','',$metcms_v).$met_patch;
+echo <<<EOT
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$lang_metinfo}</title>
+<link href="../favicon.ico" rel="shortcut icon" />
+<link href="{$img_url}/css/metinfo_box.css?$jsrand" rel="stylesheet" />
+<link href="{$img_url}/css/nanoscroller.css?$jsrand" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../public/js/jQuery1.7.2.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/cookie.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/iframes.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/jquery.nanoscroller.js?$jsrand"></script>
+<script type="text/javascript">
+var lang='{$lang}';
+var atop='{$lang_authTip13}';
+var user_msg = new Array();
+	user_msg['jsx1']='{$lang_jsx1}';
+	user_msg['langtips1']='{$lang_langtips1}';
+$(function(){
+	var clang = $.cookie('clang');
+	if(clang){
+		window.location.href='index.php?lang='+clang;
+		$.cookie('clang', null);
+	}
+});
+//宽窄版切换
+$(document).ready(function() {
+	$("#kzqie").click(function(){
+		var my=$(this);
+		if(my.text()=='{$lang_indexwidever1}'){
+			$('#content,#top .topnbox').animate({ width: '99%'}, 380);
+			$.ajax({url : 'include/config.php?lang={$lang}&met_kzqie=1',type: "POST"});
+			my.attr('title','{$lang_indexnarrowver2}');
+			my.text('{$lang_indexnarrowver1}');
+			setTimeout("topwidth(400)",100);
+		}else{
+			$('#content,#top .topnbox').animate({ width: '1000px'}, 380);
+			$.ajax({url : 'include/config.php?lang={$lang}&met_kzqie=0',type: "POST"});
+			my.attr('title','{$lang_indexwidever1}');
+			my.text('{$lang_indexwidever1}');
+			setTimeout("topwidth(400)",400);
+		}
+	});
+});
+</script>
+<style>
+#content,#top .topnbox{ width:$boxwidth;}
+#top .floatr li a span{ behavior: url({$img_url}/iepngfix.htc); }
+</style>
+<body id="indexid">
+<div id="metcmsbox">
+<div id="top"> 
+	<div class="topnbox">
+    <div class="floatr">
+		<div class="top-r-box">
+		<div class="top-right-boxr">
+			<div class="top-r-t">
+				<ol class="rnav">
+<!--
+EOT;
+$metinfo_admin_name=$metinfo_admin_name;
+$metinfo_admin_name_r=utf8substr($metinfo_admin_name, 0, 3);
+echo <<<EOT
+-->
+					<li class="list">{$lang_indexwelcom} <a href="index.php?lang={$lang}" id="mydata" title="{$lang_editor} {$metinfo_admin_name} {$lang_indexpeople}" class='tui'>{$metinfo_admin_name_r}</a></li>
+					<li class="line">|</li>
+					<li class="list"><a target="_top" href="login/login_out.php" id="outhome" title="{$lang_indexloginout}" class='tui'>{$lang_indexloginout}</a></li>
+					<li class="line">|</li>
+					<li class="list"><a href="javascript:;" id="kzqie" title="{$qietext_title}">{$qietext}</a></li>
+<!--
+EOT;
+if(count($met_langok)>1 and (count($adminlang)>3 or $langadminok=="metinfo" or $langadminok=='metinfo')){
+$langname=$met_langok[$lang][name];
+$langname_r=utf8substr($met_langok[$lang][name], 0, 4);
+$met_langok[$lang][flag]=$met_langok[$lang][flag]?$met_langok[$lang][flag]:$met_langok[$lang][mark].'.gif';
+echo <<<EOT
+-->
+					<li id="langcig" class="list langli">
+						<span class="title" title="{$lang_langtips1}{$langname}" lang="{$lang}"><img src="../public/images/flag/{$met_langok[$lang][flag]}" />{$langname_r}</span>
+						<div class="langlist" style="display:none;"></div>
+					</li>
+<!--
+EOT;
+}else{
+$langname=$met_langok[$lang][name];
+$langname_r=utf8substr($met_langok[$lang][name], 0, 4);
+$met_langok[$lang][flag]=$met_langok[$lang][flag]?$met_langok[$lang][flag]:$met_langok[$lang][mark].'.gif';
+echo <<<EOT
+-->
+					<li id="langcig" class="list langli">
+						<span class="title" title="{$lang_langtips1}{$langname}" lang="{$lang}"><img src="../public/images/flag/{$met_langok[$lang][flag]}" />{$langname_r}</span>
+						<div class="langlist" style="display:none;"></div>
+					</li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+				</ol>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div></div>
+		<div class="nav">
+            <ul id="topnav">
+<!--
+EOT;
+$i=0;$c=0;
+foreach($metinfocolumn as $key=>$val){
+$i++;
+if($val['display']!=1){
+foreach($sidebarcolumn as $sidekey=>$sideval){
+if($sideval['bigclass']==$val['id']){
+$c++;$onnav=$c==1?'class="onnav"':'';
+echo <<<EOT
+-->
+                <li id="metnav_{$val[id]}" class="list">
+					<a href="javascript:;" id="nav_{$i}" {$onnav} hidefocus="true">
+					<span class="c{$i}"></span>
+					<p>{$val[name]}</p>
+					</a>
+				</li>
+<!--
+EOT;
+break;
+}}}}
+echo <<<EOT
+-->
+            </ul>
+		</div>
+		</div>
+    </div>
+    <div class="floatl">
+	    <a href="index.php?lang={$lang}" hidefocus="true" id="met_logo"><img src="{$met_agents_logo_index}" alt="{$lang_metinfo}" title="{$lang_metinfo}" /></a>
+	</div>
+	</div>
+</div>
+<div id="content">
+    <div class="floatl" id="metleft">
+		<div class="floatl_box">
+	    <div class="nav_list" id="leftnav">
+			<div class="fast">
+				<a target="_blank" href="../" id="qthome" title="{$lang_indexhome}">{$lang_indexhome}</a>
+			</div>
+<!--
+EOT;
+$k=0;
+foreach($metinfocolumn as $key=>$val){
+if(count($ad_navlist2[$val[id]])){
+$k++;
+$none=$k==1?'':'style="display:none;"';
+echo <<<EOT
+-->
+                <ul {$none} id="ul_{$val[id]}">
+<!--
+EOT;
+$x=0;
+foreach($ad_navlist2[$val[id]] as $key=>$val2){
+$x++;
+if($k==1 && $x==1){
+$val2[property]=$val2[property].' class="on"';
+$morenurl=$val2[url];
+}
+echo <<<EOT
+-->
+                <li ><a href="{$val2[url]}" {$val2[property]} title="{$val2[name]}" hidefocus="true">{$val2[name]}</a></li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+				</ul>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+	    </div>
+		<div class="claer"></div>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->	
+		<div class="left_footer"><div class="left_footer_box"><a href="http://www.metinfo.cn/proposal/index.php?ver=$metcms_v" target="_blank">{$lang_proposal}</a></div></div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->	
+	<div class="left_footer"><div class="left_footer_box">{$lang_indexthanks}</div></div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+		</div>
+	</div>
+    <div class="floatr" id="metright">
+        <div class="iframe">
+		    <div class="min"><iframe frameborder="0" id="main" name="main" src="{$morenurl}" scrolling="no"></iframe></div>
+		</div>
+    </div>
+	<div class="clear"></div>
+	</div>
+</div>
+<div class="footer">{$foot}</div>
+<script src="{$img_url}/js/metinfo.js?$jsrand" type="text/javascript"></script>
+<script type="text/javascript">
+
+if(!$.cookie('upgraderemind')){
+	var src=$("#main").attr("src");
+	if(src.substring(0,15)=='system/sysadmin'){
+		$.ajax({
+			url: 'http://$met_host/sysnew.php?ver=$metcms_v&patch=$met_patch',
+			type: 'GET',
+			dataType: 'jsonp',
+			jsonp: 'jsoncallback',
+			cache: false,
+			success: function(data) {
+				if(data.metok==1){
+					//alert(data.message);
+					$("#main").attr("src",src+'&click=1');
+				}
+				if(data.metpatch==1&&$met_automatic_upgrade){
+					$.ajax({
+						url: '../include/interface/patch.php?action=patch',
+						type: 'GET',
+						cache: false,
+						success: function(data) {
+						}
+					});	
+				}
+			}
+		});	
+	}
+	$.cookie('upgraderemind', '1');
+}
+if(!$.cookie('appsynchronous')|| {$appaddok} == 0){
+	$.ajax({
+		url: 'app/dlapp/upapp.php',
+		type: 'GET',
+		cache: false,
+		success: function(data) {
+		}
+	});	
+	$.cookie('appsynchronous', '1');
+}
+
+//$(window).unload(function () { alert("Bye now!"); });
+function closediv(){
+	var type=$('#update_content_control').html().split(',');
+	$('#update_content_back').hide();
+	$('#update_contents').hide();
+	$("#main").contents().find("#oltest_"+type[0]+" a").eq(0).hide();
+	$("#main").contents().find("#oltest_"+type[0]+" a").eq(1).show();
+	$('html,body').css('overflow','auto');
+}
+function shut(){
+	var type=$('#update_content_control').html().split(',');
+	$('#update_content_back').hide();
+	$('#update_contents').hide();
+	$('html,body').css('overflow','auto');
+	$('#a2').attr("onclick","okdiv(2);");
+	$('#uptitle').html('在线升级');
+	$('#a2').html('立即升级');
+	$('#a1').html('稍后升级');
+}
+
+function zsyfunc(){
+	$('#update_content_back').height($(document).height());
+	$('#update_content_back').width($(document).width());
+	$('#update_contents').css('left',$(window).width()/2-$('#update_contents').width()/2);
+	$('#update_contents').css('top',$(window).height()/2-$('#update_contents').height()/2+$("html,body").scrollTop()+$("body").scrollTop());
+}
+function showdiv(){
+	$('#update_content_back').show();
+	$('#update_contents').show();
+	$('html,body').css('overflow','hidden');
+	zsyfunc();
+	$("#update_content_back").css({ opacity: 0.7 });
+	var type=$('#update_content_control').html().split(',');
+	$.ajax({
+		url: 'http://{$met_host}/dl/olupdate_contents.php?type='+type[0]+'&ver='+type[1],
+		type: 'GET',
+		dataType: 'jsonp',
+		jsonp: 'jsoncallback',
+		cache: false,
+		success: function(data) {
+			//alert(data.message);
+			$('#update_contents .content').html(data.message);
+			$(".nano").nanoScroller({alwaysVisible: true});
+		}
+	});	
+}
+function okdiv(olupdate_type){
+	if(olupdate_type==1){
+	alert("{$lang_checkupdatetips}");
+	return false;
+	}
+	var type=$('#update_content_control').html().split(',');
+	$('#update_content_back').hide();
+	$('#update_contents').hide();
+	$("#main").contents().find("#oltest_"+type[0]+" a").eq(0).show();
+	$("#main").contents().find("#oltest_"+type[0]+" a").eq(1).hide();
+	$("#main").contents().find("#oltest_"+type[0]+" a").eq(0).click();
+	$('html,body').css('overflow','auto');
+}
+
+
+
+$(window).on('resize', function(e) {
+	zsyfunc();
+});
+
+</script>
+<!--
+EOT;
+$admin_date_type=$db->get_one("select * from $met_admin_table where admin_id='$metinfo_admin_name'");
+if($admin_date_type[admin_op]!='metinfo'){
+	$olupdate_type=1;
+}else{
+	$olupdate_type=2;
+}
+echo <<<EOT
+-->	
+<div id="update_content_control" onclick="showdiv()" style="display:none;"></div>
+<div id="update_content_back"></div>
+<div id="update_contents">
+	<h3 class="uptitle" id="uptitle">{$lang_onlineupdate}</h3>
+	<div class="nano">
+		<div class="content">
+
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="botom">
+		<a href="javascript:void(0)" id='a2' onclick="okdiv({$olupdate_type})">{$lang_updatenow}</a>
+		<a href="javascript:void(0)" onclick="closediv()" id='a1' class="nosj">{$lang_updatelater}</a>
+	</div>
+</div>
+
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

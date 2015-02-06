@@ -1,0 +1,46 @@
+<?php
+/*页面全局标签（顶部）-------------------------------*/
+$static_file = $navurl."static_file/";
+$metlang=metlable_lang('<span>|</span>');//语言切换标签
+$met_nav=metlabel_nav(1,'');//顶部导航标签
+/*页面全局标签（底部）--------------------------------*/
+$met_foot_nav=methtml_footnav('<span>|</span>');//底部导航标签（次导航）
+$met_foot_txt=metlabel_foot();//底部信息标签
+$metonline=methtml_online();//在线交流漂浮框标签
+/*---------------------------------------------------*/
+if($classnow==10001){//首页标签
+    $Column1=tmpcentarr($lang_Column1);
+    $Column2=tmpcentarr($lang_Column2);
+    $indexLinkTxt=methtm_link('text','com','','',1);
+}
+$Columnlink1=tmpcentarr($lang_Columnlink1);
+$Columnlink2=tmpcentarr($lang_Columnlink2);
+echo <<<EOT
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$met_title}</title>
+<meta name="keywords" content="{$show[keywords]}">
+<meta name="description" content="{$show[description]}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="shortcut icon" href="{$navurl}favicon.ico">
+<link rel="icon" href="{$navurl}favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="{$static_file}img/apple-touch-icon-precomposed.png">
+<link rel="stylesheet" href="{$static_file}css/global.css" media="all">
+<!--[if lt IE 9]>
+    <script src="{$static_file}js/html5.js"></script>
+    <script src="{$static_file}js/respond.min.js"></script>
+<![endif]-->
+</head>
+<!--
+EOT;
+?>

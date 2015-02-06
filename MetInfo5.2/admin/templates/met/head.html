@@ -1,0 +1,61 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+$lang_fontfamily=str_replace("'","\"",$lang_fontfamily);
+$lang_fontfamily=str_replace("&quot;","\"",$lang_fontfamily);
+$jsrand=str_replace('.','',$metcms_v).$met_patch;
+$query = "select content_type from {$met_admin_table} where admin_id='{$metinfo_admin_name}'";
+$met_content_type1 = $db->get_one($query);
+$met_content_type = $met_content_type1['content_type'];
+echo <<<EOT
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="$img_url/css/metinfo.css?$jsrand" />
+<link rel="stylesheet" type="text/css" href="$img_url/css/newstyle.css?$jsrand" />
+<script type="text/javascript">var basepath='{$img_url}?$jsrand';</script>
+<!--
+EOT;
+if(strpos($php_self,'skin_editor') !== false){
+echo <<<EOT
+-->
+<script type="text/javascript" src="{$depth}../../public/js/jQuery1.8.2.js?$jsrand"></script>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+<script type="text/javascript" src="{$depth}../../public/js/jQuery1.7.2.js?$jsrand"></script>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<script type="text/javascript"src="{$depth}../include/metvar.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/uploadify/jquery.uploadify.v2.1.4.min.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/iframes.js?$jsrand"></script>
+<script type="text/javascript" src="{$img_url}/js/cookie.js?$jsrand"></script>
+<script type="text/javascript">
+/*ajax执行*/
+var lang = '$lang';
+var metimgurl='{$img_url}/';
+var depth='{$depth}';
+$(document).ready(function(){
+	ifreme_methei();
+});
+</script>
+<!--[if lte IE 9]>
+<SCRIPT language=JavaScript>  
+function killErrors() {  
+return true;  
+}  
+window.onerror = killErrors;  
+</SCRIPT> 
+<![endif]-->
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>

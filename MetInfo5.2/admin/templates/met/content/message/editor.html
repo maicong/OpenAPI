@@ -1,0 +1,136 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+if(!$customerid){
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a> > ";
+$title.="{$lang_messageeditor}";
+}else{
+$title="{$lang_messageeditor}";
+}
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+$langname=$db->get_one("select * from $met_language where name='Name' and lang='$lang'");
+$lang_Name=$langname[value];
+echo <<<EOT
+-->
+<script type="text/javascript">
+</script>
+<form  method="POST" name="myform"  action="editor.php?anyid={$anyid}&action=editor&lang=$lang&class1=$class1&customerid={$customerid}" target="_self">
+		<input name="id" type="hidden" value="$id">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<!--
+EOT;
+foreach($para_list as $key=>$val){
+echo <<<EOT
+-->		
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$val[imgname]}{$lang_marks}</dt>
+			<dd>
+				$val[info]
+			</dd>
+		</dl>
+		</div>
+		
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+<!--
+EOT;
+if($message_content1){
+$paras_name="para".$message_content1[paraid];
+echo <<<EOT
+-->		
+		<div class='v52fmbx_dlbox'>
+		<dl>
+			<dt><font color='#FF0000'>*</font>{$message_content1[imgname]}{$lang_marks}</dt>
+			<dd>
+				<textarea name='$paras_name' class='textarea gen nonull'>$message_content1[info]</textarea>
+			</dd>
+		</dl>
+		</div>
+		
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_messageTime}{$lang_marks}</dt>
+			<dd>
+				$message_list[addtime]
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_messageID}{$lang_marks}</dt>
+			<dd>
+				$message_list[customerid]
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+if($met_member_use){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_access}{$lang_marks}</dt>
+			<dd>
+			<select name="access" id="access" >
+             $level
+            </select>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_messageeditorReply}{$lang_marks}</dt>
+			<dd>
+				<textarea name="useinfo" cols="50" class="textarea gen" rows="5">$message_list[useinfo]</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_messageeditorCheck}{$lang_marks}</dt>
+			<dd>
+				<label><input name="readok" type="checkbox" class="checkbox" value="1" $met_readok>{$lang_messageeditorShow}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

@@ -1,0 +1,14 @@
+figure{ margin:0px; padding:0px;}
+.met_flash,.inner{ overflow:visible!important;}
+#viewport-shadow{position:relative; text-align:center; padding:20px 0px 50px;background:url(box-shadow.png) bottom no-repeat; margin-bottom:-10px;}
+.metinfo-banner7 #viewport, #box, .slide{height:100%;}
+.metinfo-banner7 #viewport{overflow:hidden;}
+.metinfo-banner7 #controls{position:absolute;bottom:65px;left:50%;overflow:hidden; display:none;}
+.metinfo-banner7 #controls li{display:inline;}
+.metinfo-banner7 .goto-slide{margin-left:10px;width:10px;height:10px;display:block;float:left;border:solid 1px #eee;background-color:#f1f1f1;border-radius:2px;-webkit-box-shadow:inset 0px 0px 2px #f1f1f1;-moz-box-shadow:inset 0px 0px 2px #f1f1f1;box-shadow:inset 0px 0px 2px #f1f1f1;outline:none;blr:expression(this.onFocus=this.blur());}
+.metinfo-banner7 .goto-slide.current{background-color:#f87e2b;}
+.metinfo-banner7 #next, #prev{position:absolute;top:0px;width:41px;height:100%;background:url(icon-slides.png) no-repeat;display:block; z-index:10; outline:none;blr:expression(this.onFocus=this.blur());}
+.metinfo-banner7 #next{ right:0; background-position:-124px center;}
+.metinfo-banner7 #prev{ left:0px; background-position:-84px center;}
+.metinfo-banner7 #next:hover{ background-position:-42px center;}
+.metinfo-banner7 #prev:hover{ background-position:left center;}

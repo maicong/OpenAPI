@@ -1,0 +1,207 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+echo <<<EOT
+-->
+<link href="../member/templates/met/css/style.css" rel="stylesheet" />
+{$fdjs}
+<form enctype='multipart/form-data' method="POST" name="myform" action="save.php?action=editor" onSubmit='return Checkmember();' target="_self">
+		<input name="useid" type="hidden"size="20" maxlength="20" value="$admin_list[admin_id]">
+		<input name="lang" type="hidden" value="$lang">
+<table cellpadding="2" cellspacing="1" border="0" width="95%" class="table_member">
+          <tr> 
+            <td class="member_text"><font color="#FF0000">*</font>{$lang_memberbasicUserName}&nbsp;</td>
+            <td colspan="2" class="member_input"> <input name="useid" type="text" class="input" size="20" maxlength="20" value="$admin_list[admin_id]" disabled="disabled"></td>
+          </tr> 
+		  <tr> 
+            <td class="member_text"><font color="#FF0000">*</font>{$lang_membereditorPs}&nbsp;</td>
+            <td colspan="2" class="member_input"> <input name="pass1" type="password" class="input" size="20" maxlength="20">{$lang_membereditorTip}</td>
+          </tr> 
+		   <tr> 
+            <td class="member_text"><font color="#FF0000">*</font>{$lang_membereditorPs1}&nbsp;</td>
+            <td colspan="2" class="member_input"> <input name="pass2" type="password" class="input" size="20" maxlength="20">{$lang_membereditorTip}</td>
+          </tr>
+		  <tr> 
+            <td class="member_text"><font color="#FF0000">*</font>email&nbsp;</td>
+            <td colspan="2" class="member_input"> <input name="email" id='email' type="text" class="input" size="20" maxlength="50" value="$admin_list[admin_email]">  {$lang_membereditorTip1}</td>
+          </tr>
+		<!--
+EOT;
+$parahtml="";
+foreach($para_list as $key=>$val){
+$paras_name="para".$val[id];
+if($val[type]==1){
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	if($val[wr_ok]==1){
+		$para_class="text nonull";
+		$para_class1="<font color='#FF0000'>*</font>";
+	}else{
+		$para_class="text";
+		$para_class1="";
+	}
+	$parahtml.="<tr> 
+            <td class='member_text'>{$para_class1}{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'> 
+				<input name='$paras_name' id='$paras_name' type='text' class='$para_class' value='{$paras_value[info]}' />
+			</td>
+			</tr>";
+}
+if($val[type]==2){
+	$sum=count($para_xial)*2;
+	for($i=0;$i<$sum;$i++)
+		{
+		   unset($para_xial[$i]);
+		}
+	if($val[wr_ok]==1){
+		$para_class1="<font color='#FF0000'>*</font>";
+	}else{
+		$para_class1="";
+	}
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	$query = "SELECT * FROM $met_list WHERE lang='$lang' and bigid='$val[id]'";
+	$result = $db->query($query);
+	while($list2 = $db->fetch_array($result)){
+			$para_xial[]=$list2;
+	}
+	$parahtml.="<tr> 
+            <td class='member_text'>{$para_class1}{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+				<select id='$paras_name' name='$paras_name' >";
+	foreach($para_xial as $key=>$val1){
+		if($paras_value[info]==$val1[info]){
+			$pitchon[$i]="selected='selected'";
+		}
+		$parahtml.="<option value='$val1[info]' $pitchon[$i]>$val1[info]</option>";
+		$i=$i+1;
+	}
+	$parahtml.="</select>
+				</td>
+			</tr>";
+}
+if($val[type]==3){
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	if($val[wr_ok]==1){
+		$para_class="textarea gen nonull";
+		$para_class1="<font color='#FF0000'>*</font>";
+	}else{
+		$para_class="textarea gen";
+		$para_class1="";
+	}
+	$parahtml.="<tr> 
+            <td class='member_text'>{$para_class1}{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+				<textarea name='$paras_name' id='$paras_name' class='$para_class'>$paras_value[info]</textarea>
+			</td>
+			</tr>";
+}
+if($val[type]==4){
+	$sum=count($para_duox)*2;
+	for($i=0;$i<$sum;$i++)
+		{
+		   unset($para_duox[$i]);
+		}
+	if($val[wr_ok]==1){
+		$para_class1="<font color='#FF0000'>*</font>";
+	}else{
+		$para_class1="";
+	}
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	$para_value=explode("、",$paras_value[info]);
+	$query = "SELECT * FROM $met_list WHERE lang='$lang' and bigid='$val[id]'";
+	$result = $db->query($query);
+	while($list3 = $db->fetch_array($result)){
+			$para_duox[]=$list3;
+	}
+	$parahtml.="<tr> 
+            <td class='member_text'>{$para_class1}{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+			    ";
+	$i=1;
+	foreach($para_duox as $key=>$val2){
+	foreach($para_value as $key=>$val21){
+		if($i==$val21){
+			$pitchon1[$i]="checked";
+		}
+		}
+		$paras_names="para".$val[id]."_".$i;
+		$parahtml.="<label><input name='$paras_names' type='checkbox' class='checkbox' value='$i' $pitchon1[$i]>$val2[info]</label>&nbsp;&nbsp;";
+		$i=$i+1;
+	}
+	$parahtml.="</td>
+					</tr>";
+	$pitchon1=array();
+}
+if($val[type]==5){
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	$lang_clickview=$db->get_one("SELECT * FROM $met_language WHERE name='clickview' and lang='$lang'");
+	$lang_unitytxt=$db->get_one("SELECT * FROM $met_language WHERE name='unitytxt_67' and lang='$lang'");
+	$paras_names=$$paras_name;
+	$paras_name1=$paras_name.$val[id];
+	if($val[wr_ok]==1){
+		$para_class="text nonull";
+		$para_class1="<font color='#FF0000'>*</font>";
+	}else{
+		$para_class="text";
+		$para_class1="";
+	}
+	if(!$paras_names){
+		$paras_names=$paras_value[info];
+	}
+	$parahtml.="<tr> 
+			<input type='hidden' name='{$paras_name1}' value='{$paras_names}'>
+            <td class='member_text'>{$para_class1}{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+				<a href='{$paras_names}' target='_blank'>{$lang_clickview[value]}</a>
+			</td>
+					</tr>
+			<tr> 
+            <td class='member_text'>{$lang_unitytxt[value]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+				<input name='{$paras_name}' id='{$paras_name}' type='file' size='20' >
+			</td>
+					</tr>";
+}
+if($val[type]==6){
+	$sum=count($para_danx)*2;
+	for($i=0;$i<$sum;$i++)
+		{
+		   unset($para_danx[$i]);
+		}
+	$paras_value=$db->get_one("SELECT * FROM $met_plist WHERE listid='$admin_list[id]' and paraid='$val[id]' and module='10'");
+	$query = "SELECT * FROM $met_list WHERE lang='$lang' and bigid='$val[id]'";
+	$result = $db->query($query);
+	while($list5 = $db->fetch_array($result)){
+			$para_danx[]=$list5;
+	}
+	$parahtml.="<tr> 
+            <td class='member_text'><font color='#FF0000'>*</font>{$val[name]}&nbsp;</td>
+			<td colspan='2' class='member_input'>
+			    ";
+	$i=1;
+	foreach($para_danx as $key=>$val3){
+		if($val3[info]==$paras_value[info]){
+			$pitchon2[$i]="checked";
+		}
+		$parahtml.="<label><input name='$paras_name' id='$paras_name' type='radio' value='$val3[info]' $pitchon2[$i]> {$val3[info]}</label>&nbsp;&nbsp;";
+		$i=$i+1;
+	}
+	$parahtml.="</td>
+					</tr>";
+	$pitchon2=array();
+}
+}
+echo <<<EOT
+-->
+		{$parahtml}	
+ 		  <tr> 
+            <td class="member_text"></td>
+	      <td class="member_submit"><input type="submit" name="Submit" value="{$lang_Submit}" class="submit"></td>
+          </tr>
+        </form>
+         
+</table>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>

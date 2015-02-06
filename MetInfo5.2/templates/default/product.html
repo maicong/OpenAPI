@@ -1,0 +1,46 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$en_title = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-crumb">
+                <a href="{$index_url}" title="{$lang_home}">{$lang_home} &gt;</a> {$nav_x[name]}
+            </div>
+            <div class="page-content p-product">
+                <h1 class="title">
+                    {$en_title}
+                    <p>{$class_list[$classnow][name]}</p>
+                </h1>
+                <ul>
+<!--
+EOT;
+foreach($product_list as $key=>$val){
+echo <<<EOT
+-->
+                    <li class="list-none">
+                        <div class="pic transition">
+                            <a href="$val[url]" target="$Blank" title="$val[title]">
+                                <img src="$val[imgurls]" alt="$val[title]" title="$val[title]" />
+                                <span class="mask transition">$val[title]</span>
+                            </a>
+                        </div>
+                    </li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                </ul>
+                <div class="clear"></div>
+                <div class="pagination">$page_list</div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </div>
+</section>
+<!--
+EOT;
+require_once template('foot');
+?>

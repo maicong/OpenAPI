@@ -1,0 +1,39 @@
+<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('metlangs');
+echo <<<EOT
+-->
+<!--
+EOT;
+if($kuaijieskin){
+echo <<<EOT
+-->
+<div class="lablelist" style="margin:8px 10px 0px; padding-bottom:0px;">
+	<ul>
+		<li {$listclass[1]}><a href="{$depth}../interface/flash/setflash.php?anyid={$anyid}&lang={$lang}&cs=1&kuaijieskin={$kuaijieskin}" title="{$lang_indexflashset}">{$lang_indexflashset}</a></li>
+		<li {$listclass[2]}><a href="{$depth}../interface/flash/flash.php?anyid={$anyid}&lang={$lang}&cs=2&kuaijieskin={$kuaijieskin}" title="{$lang_indexflash}">{$lang_indexflash}</a></li>
+	</ul>
+</div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+<div class="stat_list">
+	<ul>
+		<li {$listclass[1]}><a href="setflash.php?anyid={$anyid}&lang={$lang}&cs=1" title="{$lang_indexflashset}">{$lang_indexflashset}</a></li>
+		<li {$listclass[2]}><a href="flash.php?anyid={$anyid}&lang={$lang}&cs=2" title="{$lang_indexflash}">{$lang_indexflash}</a></li>
+	</ul>
+</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<div class="clear"></div>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>

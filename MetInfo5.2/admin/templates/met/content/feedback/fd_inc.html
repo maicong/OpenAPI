@@ -1,0 +1,214 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. d.
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a>";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('content/feedback/top');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="inc.php?anyid={$anyid}&lang=$lang&class1=$class1" target="_self">
+		<input name="action" type="hidden" value="modify">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_feedbacksubmit}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_fd_ok" type="radio" class="radio" value="1" $met_fd_ok1[1] />{$lang_open}</label>
+				<label><input name="met_fd_ok" type="radio" class="radio" value="0"  $met_fd_ok1[0]/>{$lang_close}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincName}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fdtable" type="text" class="text" value="$met_fdtable">
+				<span class="tips">{$lang_feedbackexplain1}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincTime}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_time" type="text" class="text mid" value="$met_fd_time" />
+				<span class="tips">{$lang_fdincTip4}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincSlash}{$lang_marks}</dt>
+			<dd>
+				<textarea name="met_fd_word" class="textarea gen" cols="50" rows="3" >$met_fd_word</textarea>
+				<span class="tips">{$lang_fdincTip5}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincClassName}{$lang_marks}</dt>
+			<dd>
+			<select name="met_fd_class">
+<!--
+EOT;
+foreach($fd_paraall as $key=>$val){
+$select1='';
+if($val[id]==$met_fd_class)$select1="selected='selected'";
+echo <<<EOT
+-->				<option value="$val[id]" $select1 >$val[name]</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+			
+			</select>			
+			<span class="tips">{$lang_fdincTip6}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAcceptType}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_fd_type" type="radio" class="radio" value="0" $met_fd_type1[0]>{$lang_fdincAccept}</label>
+				<label><input name="met_fd_type" type="radio" class="radio" value="1" $met_fd_type1[1]>{$lang_fdincTip7}</label>
+				<label><input name="met_fd_type" type="radio" value="2" $met_fd_type1[2]>{$lang_fdincTip8}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAcceptMail}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_to" type="text" class="text" value="$met_fd_to" />
+				<span class="tips">{$lang_fdincTip9}</span>
+			</dd>
+		</dl>
+		</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_feedbackauto}</h3>
+	<div class="metsliding_box metsliding_box_1">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAuto}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_fd_back" type="checkbox" class="checkbox" value="1" $met_fd_back1>{$lang_fdincTip10}</label>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<div class="metsliding_box metsliding_box_1">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincEmailName}{$lang_marks}</dt>
+			<dd>
+			<select name="met_fd_email">
+<!--
+EOT;
+foreach($fd_para[1] as $key=>$val){
+$select1='';
+if($val[id]==$met_fd_email)$select1="selected='selected'";
+echo <<<EOT
+-->				
+				<option value="$val[id]" $select1 >$val[name]</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+			
+			</select>
+			<span class="tips">{$lang_fdincTip11}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincFeedbackTitle}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_title" type="text" class="text" value="$met_fd_title" />
+				<span class="tips">{$lang_fdincAutoFbTitle}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAutoContent}{$lang_marks}</dt>
+			<dd>
+				<textarea name="met_fd_content" class="textarea gen" cols="50" rows="3" >$met_fd_content</textarea>
+				<span class="tips">{$lang_htmlok}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_feedbackautosms}</h3>
+	<div class="metsliding_box metsliding_box_1">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAutosms}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_fd_sms_back" type="checkbox" class="checkbox" value="1" $met_fd_sms_back1>{$lang_fdincTipsms}</label>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<div class="metsliding_box metsliding_box_1">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdinctellsms}{$lang_marks}</dt>
+			<dd>
+			<select name="met_fd_sms_dell">
+<!--
+EOT;
+foreach($fd_para[1] as $key=>$val){
+$select1='';
+if($val[id]==$met_fd_sms_dell)$select1="selected='selected'";
+echo <<<EOT
+-->				
+				<option value="$val[id]" $select1 >$val[name]</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+			
+			</select>
+			<span class="tips">{$lang_fdinctells}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdincAutoContentsms}{$lang_marks}</dt>
+			<dd>
+				<textarea name="met_fd_sms_content" class="textarea gen" cols="50" rows="3" >$met_fd_sms_content</textarea>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

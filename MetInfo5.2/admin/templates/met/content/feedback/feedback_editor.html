@@ -1,0 +1,92 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<!--
+EOT;
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a> > ";
+$title.=$lang_editor."{$lang_sysadminFeedbackInfo}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form  method="POST" name="myform"  action="editor.php?anyid={$anyid}&action=editor&lang={$lang}&class1={$class1}&customerid={$customerid}&id=$id" target="_self">
+		<input name="id" type="hidden" value="$id">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">	
+<!--
+EOT;
+foreach($feedback_para as $key=>$val){
+$email=$val[id]==$met_fd_email&&$val[content]?"&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"./email.php?lang={$lang}&cs={$cs}&anyid={$anyid}&class1={$class1}&customerid={$customerid}&id={$id}&email={$val[content]}\">{$lang_unitytxt_35}</a>":'';
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$val[name]}{$lang_marks}</dt>
+			<dd>
+				$val[content]{$email}
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdeditorTime}{$lang_marks}</dt>
+			<dd>
+				{$feedback_list[addtime]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdeditorFrom}{$lang_marks}</dt>
+			<dd>
+				{$feedback_list[fromurl]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_feedbackID}{$lang_marks}</dt>
+			<dd>
+				{$feedback_list[customerid]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_fdeditorRecord}{$lang_marks}</dt>
+			<dd>
+			<textarea class="ckeditor" name="useinfo">$feedback_list[useinfo]</textarea>
+<script type="text/javascript">
+met_ckeditor('$depth','useinfo',1);
+</script>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div> 
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

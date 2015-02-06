@@ -1,0 +1,410 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. ed.
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
+</head>
+$listjs
+<body>
+<!--
+EOT;
+$title=$class1?"<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a>":"<a href='index.php?anyid={$anyid}&lang={$lang}'>{$lang_modulemanagement4}</a>";
+$title.=$action=='editor'?" > {$lang_editor}{$lang_content}":" > {$lang_add}{$lang_content}";
+$rurl="index.php?anyid={$anyid}&lang={$lang}&class1={$class1}";
+if($cengci==2)$rurl="index.php?anyid={$anyid}&lang={$lang}&class1={$class1}&class2={$class2}";
+if($cengci==3)$rurl="index.php?anyid={$anyid}&lang={$lang}&class1={$class1}&class2={$class2}&class3={$class3}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form  method="POST" name="myform" action="save.php?anyid={$anyid}&action=$action" target="_self">
+		<input name="id" type="hidden" value="$id">
+		<input name="reclass1" type="hidden" value="$reclass1">
+		<input name="reclass2" type="hidden" value="$reclass2">
+		<input name="reclass3" type="hidden" value="$reclass3">
+		<input name="lang" type="hidden" value="$lang">
+		<input name="module" type="hidden" value="$module">
+		<input id="acesss_contents" type="hidden"   value="$download_list[access]">
+		<input id="acesss_contents_dl" type="hidden"   value="$download_list[downloadaccess]">
+		<input name="filenameold" type="hidden"  value="$download_list[filename]">
+		<input name="updatetimeold" type="hidden"  value="$download_list[updatetime]">
+		<input name="page" type="hidden"  value="$page">
+		<input type="hidden" name="no_order" value="$download_list[no_order]" />
+		<input type="hidden" name="cengci" value="$cengci" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_category}{$lang_marks}</dt>
+			<dd>
+		<select name="class1" id="class1select" class="noselect" onChange="changelocation_contents(document.myform.class1.options[document.myform.class1.selectedIndex].value,1)" $class1style>		
+		<option value="">{$lang_modClass1}</option>
+<!--
+EOT;
+foreach($met_classindex[$module] as $key=>$val1){
+$k=$val1['id'];
+$admin_column_power="admin_popc".$val1[id];
+if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo'))continue;
+echo <<<EOT
+-->			
+<option  value="$val1[id]" $class1x[$k]>$val1[name]</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		</select>
+		<select name="class2" id="class2select" class="noselect" onChange="changelocation_contents(document.myform.class2.options[document.myform.class2.selectedIndex].value,2)" $class2style> 
+<!--
+EOT;
+if(count($met_class22[$class1])&&$class1){	
+echo <<<EOT
+-->	
+		<option value=''>{$lang_modClass2}</option>		
+<!--
+EOT;
+	foreach($met_class22[$class1] as $key=>$val2){
+	$k=$val2[id];
+echo <<<EOT
+-->	
+		<option  value="$val2[id]" {$class2x[$k]}>$val2[name]</option>
+<!--
+EOT;
+	}
+}else{
+echo <<<EOT
+-->
+		<option value=0>----------</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+		</select>
+		<select name="class3" id="class3select" class="noselect" onChange="changepower(3);changelocation_para();" $class3style> 
+<!--
+EOT;
+if(count($met_class3[$class2])&&$class2){
+echo <<<EOT
+-->			
+	<option value=''>{$lang_modClass3}</option>
+<!--
+EOT;
+	foreach($met_class3[$class2] as $key=>$val3){
+	$k=$val3[id];
+echo <<<EOT
+-->	
+	<option  value="$val3[id]" {$class3x[$k]}>$val3[name]</option>	
+<!--
+EOT;
+	}
+}else{
+echo <<<EOT
+-->
+	<option value=0>----------</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+		</select>
+		<a href="{$met_weburl}{$met_adminfile}/index.php?lang={$lang}" onclick="return tocloumn();" target="_blank">{$lang_indexcolumn}</a>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_title}{$lang_marks}</dt>
+			<dd>
+				<input name="title" type="text" class="text nonull" value="$download_list[title]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_modpublish}{$lang_marks}</dt>
+			<dd>
+				<input name="issue" type="text" class="text mid" value="$download_list[issue]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_hits}{$lang_marks}</dt>
+			<dd>
+				<input name="hits" type="text" class="text mid" value="$download_list[hits]" />
+				<span class="tips">{$lang_modhits}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox v52fmbx_inline">
+		<dl>
+			<dt>{$lang_article1}{$lang_marks}</dt>
+			<dd>
+<!--
+EOT;
+if($metadmin['downloadnew']){
+echo <<<EOT
+-->
+				<label><input name="new_ok" type="checkbox" class="checkbox" value="1" {$new_ok}>{$lang_newest}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+<!--
+EOT;
+if($metadmin['downloadcom']){
+echo <<<EOT
+-->
+				<label><input name="com_ok" type="checkbox" class="checkbox" value="1" {$com_ok}>{$lang_recom}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+				<label><input name="top_ok" type="checkbox" class="checkbox" value="1" {$top_ok}>{$lang_top}</label>
+<!--
+EOT;
+echo <<<EOT
+-->
+<!--
+EOT;
+if($met_wap && $met_wap_ok){
+echo <<<EOT
+-->	
+				<label><input name="wap_ok" type="checkbox" class="checkbox" value="1" {$wap_ok}>{$lang_article3}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</dd>
+		</dl>
+		</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_unitytxt_34}</h3>
+	<div class="metsliding_box metsliding_box_1">  
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_downloadurl}{$lang_marks}</dt>
+			<dd>
+			<input name="downloadurl" type="text" class="text" value="$download_list[downloadurl]">
+			<input name="met_upsql" type="file" id="file_upload" />
+<script type="text/javascript">
+$(document).ready(function(){
+	metuploadify('#file_upload','upfile','downloadurl-filesize',4);
+});
+</script>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_downloadsize}{$lang_marks}</dt>
+			<dd>
+				<input name="filesize" type="text" class="text mid" value="$download_list[filesize]" />
+				KB
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2"><a href="{$met_weburl}{$met_adminfile}/index.php?lang={$lang}" onclick="return topara('3|{$class1}'); "target="_blank">{$lang_article6}</a></h3>
+	<div class="metsliding_box metsliding_box_2" id='parastart'>
+<!--
+EOT;
+$a=0;
+$b=0;
+foreach($para_list as $key=>$val){
+if($val[type]==4&&$a==1){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" name='paralist1'>
+<!--
+EOT;
+$a++;
+}else if($val[type]==4&&$a==2){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" name='paralist2'>
+<!--
+EOT;
+}else if($val[type]==6&&$b==2){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" name='paralist2'>
+<!--
+EOT;
+}else if($val[type]==6&&$b==1){
+echo <<<EOT
+-->		
+		<div class="v52fmbx_dlbox" name='paralist1'>
+<!--
+EOT;
+$b++;
+}else{
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" name='paralist'>
+<!--
+EOT;
+if($val[type]==6){
+$b++;
+}
+if($val[type]==4){
+$a++;
+}
+}		
+echo <<<EOT
+-->		
+		<dl>
+			<dt>{$val[name]}{$lang_marks}</dt>
+			<dd>
+				{$val[inputcont]}
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="0">{$lang_contentdetail}</h3>
+	<div class="metsliding_box metsliding_box_0">
+		<div class="v52fmbx_dlbox_content">
+			<textarea class="ckeditor" name="content">$download_list[content]</textarea>
+<script type="text/javascript">
+met_ckeditor('$depth','content');
+</script>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="3">{$lang_columnSEO}</h3>
+	<div class="metsliding_box metsliding_box_3">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmtitle}{$lang_marks}</dt>
+			<dd>
+				<input name="ctitle" type="text" class="text" value="{$download_list[ctitle]}" />
+				<span class="tips">{$lang_ctitleinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_keywords}{$lang_marks}</dt>
+			<dd>
+				<input name="keywords" type="text" class="text" value="{$download_list[keywords]}">
+				<span class="tips">{$lang_descriptioninfo},{$lang_keywordsinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_description}{$lang_marks}</dt>
+			<dd>
+				<textarea name="description" cols="60" class="textarea gen" rows="5" >{$download_list[description]}</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnhtmlname}{$lang_marks}</dt>
+			<dd>
+				<input name="filename" type="text" class="text med" value="$download_list[filename]">
+				<span class="tips">{$lang_columntip14}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_tag}{$lang_marks}</dt>
+			<dd>
+				<input name="tag" type="text" class="text" value="$download_list[tag]">
+				<span class="tips">{$lang_tagtips}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="4">{$lang_unitytxt_28}</h3>
+	<div class="metsliding_box metsliding_box_4">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_addtime}{$lang_marks}</dt>
+			<dd>
+				<input name="addtime" type="text" class="text" value="$download_list[addtime]" />
+				<span class="tips">{$lang_modtimenow}$m_now_date {$lang_modtimenow1}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_updatetime}{$lang_marks}</dt>
+			<dd>
+				<input name="updatetime" type="text" class="text" value="$m_now_date" />
+				<span class="tips">{$lang_modtimenow}$m_now_date {$lang_modtimenow1}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="5">{$lang_unitytxt_33}</h3>
+<!--
+EOT;
+if($met_member_use){
+echo <<<EOT
+-->		  
+	
+	<div class="metsliding_box metsliding_box_5">  
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_webaccess}{$lang_marks}</dt>
+			<dd>
+				<select name="access" id="access" >
+				$level
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_downloadaccess}{$lang_marks}</dt>
+			<dd>
+				<select name="downloadaccess" id="downloadaccess" >
+				$leve2
+				</select>
+			</dd>
+		</dl>
+		</div>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_displaytype}{$lang_marks}</dt>
+			<dd>
+			<label><input name="displaytype" type="radio" class="radio" {$displaytypes[0]} value="1" />{$lang_yes}</label>
+			<label><input name="displaytype" type="radio" class="radio" {$displaytypes[1]} value="0" />{$lang_no}</label>
+			</dd>
+		</dl>
+		</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>        
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

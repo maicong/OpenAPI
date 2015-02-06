@@ -1,0 +1,103 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+$listclass[5]='class="now"';
+require_once template('app/sms/top');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+	<h3 class="v52fmbx_hr">
+		{$lang_smstips16}
+	</h3>
+<table cellpadding="2" cellspacing="1" class="table">
+		<tr id="list-top">
+                <td class="list" width="60" style="padding:0px; text-align:center;">{$lang_smstips17}</td>
+                <td class="list" width="60">
+				<form method="POST" name="filterform" action="recharge.php?anyid={$anyid}&lang={$lang}" target="_self">
+					<select name="notes_type" onChange="handle_form('filterform')">
+						<option value="0" {$selec_type[0]}>{$lang_smstips18}</option>
+						<option value="1" {$selec_type[1]}>{$lang_smstips19}</option>
+						<option value="-1" {$selec_type[-1]}>{$lang_smstips20}</option>
+					</select>
+				</form>
+				</td>
+                <td class="list" width="80">{$lang_smstips21}</td>
+                <td class="list" width="80">{$lang_smstips22}</td>
+                <td class="list">{$lang_smstips23}</td>
+                <td class="list" width="120">{$lang_smstips24}</td>
+        </tr>
+</table>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("<tr><td colspan=\"6\" class=\"footer\" id=\"loading\">$lang_jsx1</td></tr>").insertAfter("#list-top");
+	$.ajax({
+		url: 'http://{$met_host}/sms/recharge.php?action=json&md5={$total_pass[authpass]}&userlang={$lang}&useranyid={$anyid}&notes_type={$notes_type}&userpage=$page',
+		type: 'GET',
+		dataType: 'jsonp',
+		jsonp: 'jsoncallback',
+		success: function(data) {
+			$('#loading').remove();
+			var langarray=new Array();
+			langarray[0]=new Array();
+			langarray[0][0]=/lang_smsrecharge/g;
+			langarray[0][1]='$lang_smsrecharge';
+			langarray[1]=new Array();
+			langarray[1][0]=/lang_smschargeback/g;
+			langarray[1][1]='$lang_smschargeback';
+			langarray[2]=new Array();
+			langarray[2][0]=/lang_smstips1/g;
+			langarray[2][1]='$lang_smstips1';
+			langarray[3]=new Array();
+			langarray[3][0]=/lang_smstips58/g;
+			langarray[3][1]='$lang_smstips58';
+			langarray[4]=new Array();
+			langarray[4][0]=/lang_smstips59/g;
+			langarray[4][1]='$lang_smstips59';
+			langarray[5]=new Array();
+			langarray[5][0]=/lang_smstips60/g;
+			langarray[5][1]='$lang_smstips60';
+			langarray[6]=new Array();
+			langarray[6][0]=/lang_smstips61/g;
+			langarray[6][1]='$lang_smstips61';
+			
+			langarray[7]=new Array();
+			langarray[7][0]=/lang_smstips96/g;
+			langarray[7][1]='$lang_smstips96';
+			
+			langarray[8]=new Array();
+			langarray[8][0]=/lang_smstips97/g;
+			langarray[8][1]='$lang_smstips97';
+			var i;
+			for(i=0;i<=8;i++){
+				data.msg=data.msg.replace(langarray[i][0],langarray[i][1]);
+			}
+			$(data.msg).insertAfter("#list-top");
+			ifreme_methei();
+		}
+	});
+	setTimeout(function() {
+		if($('#loading').html()=='$lang_jsx1'){
+			$('#loading').html('$lang_jsx21');
+		}
+	},
+	30000);
+});
+</script>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.ed.
+?>-->

@@ -1,0 +1,52 @@
+<!--<?php
+require_once template('head');
+$en_title_column2 = strtoupper(str_replace('_',' ',$Column2['filename']));
+echo <<<EOT
+-->
+    <section class="section-home">
+        <div class="home-slide">
+            <div class="bd">
+                <ul>
+<!--
+EOT;
+foreach($met_flashimg as $val){
+echo <<<EOT
+-->
+                    <li><a href="{$val[img_link]}" title="{$val[img_title]}" target="_blank"><img src="{$val[img_path]}" alt="{$val[img_title]}"></a></li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                </ul>
+            </div>
+            <div class="hd">
+                <ul>
+<!--
+EOT;
+$i=1;
+foreach($met_flashimg as $vali){
+echo <<<EOT
+-->
+                    <li>{$i}</li>
+<!--
+EOT;
+$i++;
+}
+echo <<<EOT
+-->
+                </ul>
+            </div>
+        </div>
+        <div class="home-content">
+            <div class="inner">
+                <div class="content"></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+<!--
+EOT;
+require_once template('foot');
+?>

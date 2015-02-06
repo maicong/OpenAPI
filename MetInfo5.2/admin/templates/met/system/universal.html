@@ -1,0 +1,153 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+//<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+require_once template('head'); 
+echo <<<EOT
+-->
+<script type="text/javascript" src="{$img_url}/js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+    <form method="POST" name="myform" action="universal.php?anyid={$anyid}&lang={$lang}" target="_self">
+	<input name="action" type="hidden" value="modify" />
+	<input name="met_deleteimg" type="hidden" value=0 />
+	<input name="met_img_rename" type="hidden" value=0 />
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+	<div class="v52fmbx">
+		<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_unitytxt_4}</h3>
+		<div class="metsliding_box metsliding_box_1">
+			<div class="v52fmbx_dlbox">
+			<dl>
+				<dt>{$lang_upfiletips25}{$lang_marks}</dt>
+				<dd>
+					<label><input name="met_recycle" type="radio" value="1" {$met_recycle1[1]} >{$lang_open}</label>
+					<label><input name="met_recycle" type="radio" value="0" {$met_recycle1[0]}>{$lang_close}</label>
+					<span class="tips">{$lang_upfiletips26}</span>
+				</dd>
+			</dl>
+			</div>
+		</div>
+		<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_unitytxt_5}</h3>
+		<div class="metsliding_box metsliding_box_2">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setimgrename}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_img_rename" type="checkbox" class="checkbox" value=1 {$met_img_rename1}>{$lang_setimgrename1}</label>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->		
+				<span class="tips">{$lang_setimgrename2}</span>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox v52fmbx_mo">
+		<dl>
+			<dt>{$lang_setimgdeleteimg}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_deleteimg" type="checkbox" class="checkbox" value=1 {$met_deleteimg1}>{$lang_setimgdeleteimg1}</label>
+			</dd>
+		</dl>
+		</div>
+		</div>
+		<h3 class="v52fmbx_hr metsliding" sliding="3">{$lang_setbasicTip6}</h3>
+		<div class="metsliding_box metsliding_box_3">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicFromName}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_fromname" type="text" class="text" autocomplete="off" value="{$met_fd_fromname}" />
+				<span class="tips">{$lang_setbasicTip7}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicEmailAccount}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_usename" type="text" class="text" autocomplete="off" value="{$met_fd_usename}" />
+				<span class="tips">{$lang_setbasicTip8}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicSMTPPassword}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_password" type="password" class="text" autocomplete="off" value="passwordhidden" />
+				<span class="tips">{$lang_setbasicTip11}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setbasicSMTPServer}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_smtp" type="text" class="text" autocomplete="off" value="{$met_fd_smtp}" />
+				<span class="tips">{$lang_setbasicTip10}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox none hidebox1">
+		<dl>
+			<dt>{$lang_setbasicSMTPPort}{$lang_marks}</dt>
+			<dd>
+				<input name="met_fd_port" type="text" class="text" autocomplete="off" value="{$met_fd_port}" />
+				<span class="tips">{$lang_setbasicTip12}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox none hidebox1">
+		<dl>
+			<dt>{$lang_setbasicSMTPWay}{$lang_marks}</dt>
+			<dd>
+				<label><input type="radio" name="met_fd_way" class="radio" value="ssl" $met_admin_smtp_ssl/>{$lang_ssl}</label> 
+				<label><input type="radio" name="met_fd_way" class="radio" value="tls" $met_admin_smtp_tls>{$lang_tls}</label>	   
+				<span class="tips">{$lang_setbasicTip13}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt></dt>
+			<dd>
+				<a href="javascript:;" onclick="openhidebox($(this),$('.hidebox1'))">{$lang_jsx33}</a>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox v52fmbx_mo">
+		<dl>
+			<dt>{$lang_upfiletips16}{$lang_marks}</dt>
+			<dd>
+				<a href="universal.php?lang={$lang}&action=email" onclick="return emailtest($(this));">{$lang_upfiletips17}</a>
+				<span id="emailtest"></span>
+			</dd>
+		</dl>
+		</div>
+		</div>
+		<div class="v52fmbx_submit"><input type="submit" name="submit1" value="{$lang_Submit}" class="submit" onClick="return Smit($(this),'myform')" /></div>
+	</div>
+</div>
+</div>
+</form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

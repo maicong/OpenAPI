@@ -1,0 +1,100 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+$colspan=6;
+$colspanj=$colspan-1;
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+	<table cellpadding="2" cellspacing="1" class="table">
+		<tr>
+			<td colspan="4" class="centle" style=" height:20px; line-height:30px; font-weight:normal; padding-left:10px;">
+				<div style="float:left;">
+				<a href="shortcut_editor.php?anyid={$anyid}&lang={$lang}">+{$lang_shortcut}</a>
+				<span style="font-weight:normal; color:#999; padding-left:10px;">{$lang_article4}</span>
+				</div>
+			</td>
+		</tr>
+              <tr id="list-top">
+                <td width="30" class="list">{$lang_selected}</td>
+				<td width="30" class="list">{$lang_sort}</td>
+                <td class="list list_left">{$lang_title}</td>				
+	           <td width="50" class="list" >{$lang_operate}</td>
+              </tr>
+			  <form name="del" method="Post" action="shortcut.php?anyid={$anyid}&lang=$lang">
+<!--
+EOT;
+foreach($shortcut_list as $key=>$val){
+$val[id]=$key;
+$val[name]=urldecode($val[name]);
+if($met_agents_type>=2&&$val[lang]=='lang_tmptips'){
+	continue;
+}
+echo <<<EOT
+-->          
+              <tr class="mouse click">
+                <td class="list-text"><input name='id' type='checkbox' id="id" value='$val[id]' $discheck /></td>
+                <td class="list-text"><input type="text" name="no_order_$val[id]" class="text no_order" value="$val[list_order]" /></td>
+			    <td class="list-text list_left">{$val[name]}</td>
+				<td class="list-text">
+<!--
+EOT;
+if($val[protect]==1){
+	if($val[hidden]==1){
+echo <<<EOT
+--> 
+					<a href="shortcut.php?anyid={$anyid}&lang=$lang&id=$val[id]&action=hidden&hidden=0">{$lang_skinindexok}</a>
+<!--
+EOT;
+	}else{
+echo <<<EOT
+--> 
+					<a href="shortcut.php?anyid={$anyid}&lang=$lang&id=$val[id]&action=hidden&hidden=1">{$lang_skinindexno}</a>
+<!--
+EOT;
+	}
+}else{
+echo <<<EOT
+--> 
+					<a href="shortcut.php?anyid={$anyid}&lang=$lang&id=$val[id]&action=delete" {$met_del}>{$lang_delete}</a>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+				</td>
+              </tr>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<input name="action" type="hidden" id="action" value="del"><input name="allid" type="hidden" id="allid" value="">  
+</form>
+   	   <tr> 
+            <td class="all"><input name="chkAll" type="checkbox" id="chkAll" onclick="CheckAllx($(this),'del')" value="checkbox"></td>
+			 <td class="all-submit" colspan="3" style="padding:5px 10px;">
+				<input name="submit" type='submit' value='{$lang_deleteselected}' class="submit li-submit" onclick="return met_modify($(this),'del','del');" /> 
+				<input name="saveorder" type='submit' value='{$lang_Submit}{$lang_sort}' class="submit li-submit" onclick="return met_modify($(this),'del','editor');" />
+			  </td>
+          </tr>
+</table>
+</div>
+</div>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.ed.
+?>-->

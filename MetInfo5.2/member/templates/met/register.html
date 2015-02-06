@@ -1,0 +1,114 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+echo <<<EOT
+-->
+<link href="../member/templates/met/css/style.css" type="text/css" rel="stylesheet" />
+<script src="../member/templates/met/common.js" ></script>
+<script>
+function form_submit(id,delid){
+var str="";
+   if(id==0)
+   { //====n等于1表示可以增加
+    if(formcheck())
+     { 
+	  document.myform.action="save.php?action=add";
+      document.myform.method="post";
+      document.myform.submit();
+      }
+  }
+  
+}
+  function formcheck() 
+    { 
+       if(trim(document.myform.yhid.value) == "") 
+         { alert("{$lang_memberRegisterName}");
+		   document.myform.yhid.focus();
+		   document.myform.yhid.select(); 
+           return false;
+         }
+       //else if(/[^0-9a-zA-Z]/g.test(document.myform.yhid.value))
+		  //{alert("{$lang_js6}");
+		  // document.myform.yhid.focus();
+		  // document.myform.yhid.select(); 
+		 //  return false;
+		 //  }
+	   if(trim(document.myform.yhid.value).length<3) 
+         { alert("{$lang_js7}");
+		   document.myform.yhid.focus();
+		   document.myform.yhid.select(); 
+           return false;
+         }
+
+	   if(trim(document.myform.yhid.value).length >15)
+	   {	alert("{$lang_js26}");
+			document.myform.yhid.focus();
+			document.myform.yhid.select();
+			return false; 
+	   }
+		 
+        else if(trim(document.myform.mm.value)=="")
+         { alert("{$lang_memberPassword}");
+           document.myform.mm.focus();
+		   document.myform.mm.select(); 
+		   return false;
+         }
+		  else if ((document.myform.mm.value).length<6)
+          {alert("{$lang_js8}");
+		   document.myform.mm.focus();
+		   document.myform.mm.select(); 
+           return false;
+          }
+		 else if(trim(document.myform.mm1.value)=="")
+         { alert("{$lang_js9}");
+           document.myform.mm.focus();
+		   document.myform.mm.select(); 
+		   return false;
+         }
+		 else if(document.myform.mm1.value!=document.myform.mm.value)
+         { alert("{$lang_js10}");
+           document.myform.mm.focus();
+		   document.myform.mm.select(); 
+		   return false;
+         }
+	   else if(trim(document.myform.email.value)=="")
+         { alert("{$lang_js12}");
+           document.myform.email.focus();
+		   document.myform.email.select(); 
+		   return false;
+         }
+	   else if(trim(document.myform.companyname.value)=="")
+         { alert("{$lang_js11}");
+		   document.myform.companyname.focus();
+		   document.myform.companyname.select();  
+           return false;
+         }
+	  else if(!isValidEmail(document.myform.email.value))
+         { alert("{$lang_js13}");
+           document.myform.email.focus();
+		   document.myform.email.select(); 
+		   return false;
+         }
+ 
+    return true;      
+    }
+function pressCaptcha(obj)//字母变大写
+  {
+    obj.value = obj.value.toUpperCase();
+  }
+</script>
+<div class="main_zhuce">
+<div class="main_top" ><span style='margin：20px;'>{$lang_memberReg}</span></div>
+<!--
+EOT;
+$membertabel=metlabel_member();
+echo <<<EOT
+-->
+            {$membertabel}
+        </div>
+
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>

@@ -1,0 +1,145 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+$listclass='';
+$listclass[6]='class="now"';
+require_once template('app/stat/top');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="set.php?lang={$lang}&anyid={$anyid}&action=modify" target="_self">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding" sliding="0">{$lang_unitytxt_1}</h3>
+	<div class="metsliding_box metsliding_box_0">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips47}{$lang_marks}</dt>
+			<dd>
+				<label><input type="radio" name="met_stat" value="1" class="radio" {$stat[1]} />{$lang_open}</label>
+				<label><input type="radio" name="met_stat" value="0" class="radio" {$stat[0]} />{$lang_close}</label>
+				<span class="tips">{$lang_statips48}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_statips49}</h3>
+	<div class="metsliding_box metsliding_box_1">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips1}{$lang_marks}</dt>
+			<dd>
+				<select name="met_stat_cr1">
+					<option value="1" {$stat_cr1[1]}>{$lang_stat_cr1}</option>
+					<option value="2" {$stat_cr1[2]}>{$lang_stat_cr2}</option>
+					<option value="3" {$stat_cr1[3]}>{$lang_stat_cr3}</option>
+					<option value="4" {$stat_cr1[4]}>{$lang_stat_cr4}</option>
+					<option value="0" {$stat_cr1[0]}>{$lang_stat_cr0}</option>
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips3}{$lang_marks}</dt>
+			<dd>
+				<select name="met_stat_cr2">
+					<option value="1" {$stat_cr2[1]}>{$lang_stat_cr1}</option>
+					<option value="2" {$stat_cr2[2]}>{$lang_stat_cr2}</option>
+					<option value="3" {$stat_cr2[3]}>{$lang_stat_cr3}</option>
+					<option value="4" {$stat_cr2[4]}>{$lang_stat_cr4}</option>
+					<option value="0" {$stat_cr2[0]}>{$lang_stat_cr0}</option>
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips4}{$lang_marks}</dt>
+			<dd>
+				<select name="met_stat_cr3">
+					<option value="1" {$stat_cr3[1]}>{$lang_stat_cr1}</option>
+					<option value="2" {$stat_cr3[2]}>{$lang_stat_cr2}</option>
+					<option value="3" {$stat_cr3[3]}>{$lang_stat_cr3}</option>
+					<option value="4" {$stat_cr3[4]}>{$lang_stat_cr4}</option>
+					<option value="0" {$stat_cr3[0]}>{$lang_stat_cr0}</option>
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips5}{$lang_marks}</dt>
+			<dd>
+				<select name="met_stat_cr4">
+					<option value="1" {$stat_cr4[1]}>{$lang_stat_cr1}</option>
+					<option value="2" {$stat_cr4[2]}>{$lang_stat_cr2}</option>
+					<option value="3" {$stat_cr4[3]}>{$lang_stat_cr3}</option>
+					<option value="4" {$stat_cr4[4]}>{$lang_stat_cr4}</option>
+					<option value="0" {$stat_cr4[0]}>{$lang_stat_cr0}</option>
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips6}{$lang_marks}</dt>
+			<dd>
+				<select name="met_stat_cr5">
+					<option value="1" {$stat_cr5[1]}>{$lang_stat_cr1}</option>
+					<option value="2" {$stat_cr5[2]}>{$lang_stat_cr2}</option>
+					<option value="3" {$stat_cr5[3]}>{$lang_stat_cr3}</option>
+					<option value="4" {$stat_cr5[4]}>{$lang_stat_cr4}</option>
+					<option value="0" {$stat_cr5[0]}>{$lang_stat_cr0}</option>
+				</select>&nbsp;&nbsp;
+				<span class="tips">{$lang_statips50}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_statips51}</h3>
+	<div class="metsliding_box metsliding_box_2">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips52}{$lang_marks}</dt>
+			<dd>
+				<a href="set.php?lang={$lang}&anyid={$anyid}&action=empty&st={$dtime}" title="{$lang_statips53}" style="color:#f00;" onclick="return linkSmit($(this),1);">{$lang_statips54}</a>
+				<span style="font-size:12px;">{$lang_statips55}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="3">{$lang_statips56}</h3>
+	<div class="metsliding_box metsliding_box_3">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_statips57}{$lang_marks}</dt>
+			<dd>
+				<input type="text" name="met_stat_max" value="{$met_stat_max}" />&nbsp;PV
+				<span class="tips">{$lang_statips58}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

@@ -1,0 +1,46 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$en_title = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+$met_product=methtml_imgdisplay('product');
+$met_productnext=methtml_prenextinfo(1);
+$methits=methtml_hits('product');
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-crumb">
+                <a href="{$index_url}" title="{$lang_home}">{$lang_home} &gt;</a> {$nav_x[name]}
+            </div>
+            <div class="page-content p-article">
+                <h1 class="title">
+                    {$en_title}
+                    <p>{$class_list[$classnow][name]}</p>
+                </h1>
+                <h2 class="stitle">{$product[title]}</h2>
+                <div class="thumb">{$met_product}</div>
+                <div class="paralist">
+<!--
+EOT;
+foreach($product_paralist as $key=>$val2){
+echo <<<EOT
+-->
+                        <p><span class="name">{$val2[name]}</span>： <span class="value">{$product[$val2[para]]}</span></p>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                </div>
+                <div class="text">{$product[content]}</div>
+                <div class="hits">{$methits}</div>
+                <div class="page">{$met_productnext}</div>
+                <div class="clear"></div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </div>
+</section>
+<!--
+EOT;
+require_once template('foot');
+?>

@@ -1,0 +1,503 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. ed.
+require_once template('head');
+echo <<<EOT
+-->
+<script language="javascript" type="text/javascript">
+function viewpage(imgid){
+   $("#pageimg").attr("src","../../public/images/page/page"+imgid+".png");
+}
+</script>
+</head>
+<body>
+<!--
+EOT;
+$littr=11;
+require_once template('interface/skin_top');
+echo <<<EOT
+-->
+    <form method="POST" name="myform" action="?anyid={$anyid}&lang={$lang}&cs={$cs}&kuaijieskin={$kuaijieskin}" target="_self">
+	<input name="action" type="hidden" value="modify" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<!--
+EOT;
+if($cs==2){
+echo <<<EOT
+-->	
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_indexhomeset}</h3>
+	<div class="metsliding_box metsliding_box_1">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_skinindex}{$lang_marks}</dt>
+		<dd>
+			<label><input name="index_hadd_ok" type="radio" class="radio" value="1" {$hadd_ok1[1]}>{$lang_skinindexok}</label>
+			<label><input name="index_hadd_ok" type="radio" class="radio" value="0" {$hadd_ok1[0]}>{$lang_skinindexno}</label>
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->	
+			<span class="tips">{$lang_skinindexexplain1}</span>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_unitytxt_40}</h3>
+	<div class="metsliding_box metsliding_box_1">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod2}{$lang_indexsetnum}{$lang_marks}</dt>
+		<dd>
+			<input name="index_news_no" type="text" class="text mid" value="$index_news_no" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod3}{$lang_indexsetnum}{$lang_marks}</dt>
+		<dd>
+			<input name="index_product_no" type="text" class="text mid" value="$index_product_no" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod5}{$lang_indexsetnum}{$lang_marks}</dt>
+		<dd>
+			<input name="index_img_no" type="text" class="text mid" value="$index_img_no" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod4}{$lang_indexsetnum}{$lang_marks}</dt>
+		<dd>
+			<input name="index_download_no" type="text" class="text mid" value="$index_download_no" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod6}{$lang_indexsetnum}{$lang_marks}</dt>
+		<dd>
+			<input name="index_job_no" type="text" class="text mid" value="$index_job_no" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_unitytxt_41}</h3>
+	<div class="metsliding_box metsliding_box_2">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_indexsetFriendly}{$lang_marks}</dt>
+		<dd>
+			<label><input name="index_link_ok" type="radio" class="radio" value="1" {$link_ok1[1]}>{$lang_open}</label>
+			<label><input name="index_link_ok" type="radio" class="radio" value="0" {$link_ok1[0]}>{$lang_close}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_indexsetImgLink}{$lang_marks}</dt>
+		<dd>
+			<input name="index_link_img" type="text" class="text mid" value="$index_link_img" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_indexsetWordLink}{$lang_marks}</dt>
+		<dd>
+			<input name="index_link_text" type="text" class="text mid" value="$index_link_text" />
+			<span class="tips">{$lang_item}</span>
+		</dd>
+	</dl>
+	</div>
+<!--
+EOT;
+if(count($indexpages)){
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_indexsetskin}{$lang_marks}</dt>
+		<dd>
+			<ul class="indexskin">
+<!--
+EOT;
+$h=0;
+foreach($indexpages as $key=>$vall){
+if($met_indexskin==$vall[1])$skinok="checked='checked'";
+$h++;
+echo <<<EOT
+-->
+<label><input name="met_indexskin" type="radio" class="radio" value="$vall[1]" $skinok >$vall[0]</label>
+<p style="padding-left:17px; margin-bottom:5px;">{$vall[2]}</p>
+<!--
+EOT;
+$skinok='';
+}
+echo <<<EOT
+-->
+			</ul>
+		</dd>
+	</dl>
+	</div>
+	
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		 
+<!--
+EOT;
+}elseif($cs==3){
+echo <<<EOT
+-->
+	<h3 class="v52fmbx_hr metsliding" sliding="1">{$lang_unitytxt_42}</h3>
+	<div class="metsliding_box metsliding_box_1">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod3}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_product_list" type="text" class="text mid" value="{$met_product_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod2}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_news_list" type="text" class="text mid" value="{$met_news_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod4}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_download_list" type="text" class="text mid" value="{$met_download_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod5}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_img_list" type="text" class="text mid" value="{$met_img_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod6}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_job_list" type="text" class="text mid" value="{$met_job_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod7}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_message_list" type="text" class="text mid" value="{$met_message_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod11}{$lang_marks}</dt>
+		<dd>
+			{$lang_setskinNumOfPage}
+			<input name="met_search_list" type="text" class="text mid" value="{$met_search_list}" />
+			{$lang_item}
+		</dd>
+	</dl>
+	</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_unitytxt_76}</h3>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod3}{$lang_marks}</dt>
+		<dd>
+			<input name="met_productimg_x" type="text" class="text mid" value="$met_productimg_x" /> ×
+			<input name="met_productimg_y" type="text" class="text mid" value="$met_productimg_y" /> <span class="tips">({$lang_setimgWidth} × {$lang_setimgHeight})({$lang_setimgPixel})</span>
+			<input name="moren_productimg_x" type="hidden" value="$met_productimg_x" />
+			<input name="moren_productimg_y" type="hidden" value="$met_productimg_y" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod5}{$lang_marks}</dt>
+		<dd>
+			<input name="met_imgs_x" type="text" class="text mid" value="$met_imgs_x" /> ×
+			<input name="met_imgs_y" type="text" class="text mid" value="$met_imgs_y" /> <span class="tips">({$lang_setimgWidth} × {$lang_setimgHeight})({$lang_setimgPixel})</span>
+			<input name="moren_imgs_x" type="hidden" value="$met_imgs_x" />
+			<input name="moren_imgs_y" type="hidden" value="$met_imgs_y" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox v52fmbx_mo">
+	<dl>
+		<dt>{$lang_mod2}{$lang_marks}</dt>
+		<dd>
+			<input name="met_newsimg_x" type="text" class="text mid" value="$met_newsimg_x" /> ×           
+			<input name="met_newsimg_y" type="text" class="text mid" value="$met_newsimg_y" /> <span class="tips">({$lang_setimgWidth} × {$lang_setimgHeight})({$lang_setimgPixel})</span>
+			<input name="moren_newsimg_x" type="hidden" value="$met_newsimg_x" />
+			<input name="moren_newsimg_y" type="hidden" value="$met_newsimg_y" />
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_unitytxt_43}</h3>
+	<div class="metsliding_box metsliding_box_2">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod3}{$lang_setskinListPage}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_product_page" type="radio" class="radio" value="0" {$met_product_page1[0]} />{$lang_setskinproduct1}</label>
+			<span class="tips">{$lang_unitytxt_44}</span>
+			<label><input name="met_product_page" class="radio" type="radio" value="1" {$met_product_page1[1]} />{$lang_setskinproduct2}</label>
+			<span class="tips">{$lang_unitytxt_45}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod5}{$lang_setskinListPage}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_img_page" type="radio" class="radio" value="0" {$met_img_page1[0]} />{$lang_setskinproduct1}</label>
+			<label><input name="met_img_page" type="radio" class="radio" value="1" {$met_img_page1[1]} />{$lang_setskinproduct2}</label>
+		</dd>
+	</dl>
+	</div>
+	</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="3">{$lang_unitytxt_46}</h3>
+	<div class="metsliding_box metsliding_box_3">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setseotype}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_urlblank" type="radio" class="radio" value="0" {$met_urlblank1[0]} />{$lang_setseodopen}</label>
+			<label><input name="met_urlblank" class="radio" type="radio" value="1" {$met_urlblank1[1]} />{$lang_setseonewopen}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskinnews}{$lang_marks}</dt>
+		<dd>
+			<input name="met_newsdays" type="text" class="text mid" value="{$met_newsdays}" />
+			{$lang_setskinnews2}
+			<img src="../../templates/$met_skin_user/images/news.gif" />
+			{$lang_setskinnews3}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskinhot}{$lang_marks}</dt>
+		<dd>
+			<input name="met_hot" type="text" class="text mid" value="{$met_hot}" />
+			{$lang_setskinhot2}
+			<img src="../../templates/$met_skin_user/images/hot.gif" />
+			{$lang_setskinhot3}
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskindatelist}{$lang_marks}</dt>
+		<dd>
+			<select name="met_listtime">
+<!--
+EOT;
+for($i=0;$i<9;$i++){
+echo <<<EOT
+-->
+			    <option value="{$met_timetype[$i][1]}" {$met_listtime1[$i]}>{$met_timetype[$i][2]}</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</select>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskinpage}{$lang_marks}</dt>
+		<dd>
+			<select name="met_pageskin" onChange="viewpage($(this).val());" style=" float:left; position:relative; top:5px;">
+<!--
+EOT;
+for($i=1;$i<10;$i++){
+echo <<<EOT
+-->
+			<option value="$i" {$met_pageskin1[$i]}>{$lang_setskinpage}{$i}</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</select>
+			<img id="pageimg" src="../../public/images/page/page{$met_pageskin}.png" />
+		</dd>
+	</dl>
+	</div>
+	</div>
+<!--
+EOT;
+}elseif($cs==4){
+echo <<<EOT
+-->
+<input name="met_pageclick" type="hidden" value="0" />
+<input name="met_pagetime" type="hidden" value="0" />
+<input name="met_pageprint" type="hidden" value="0" />
+<input name="met_pageclose" type="hidden" value="0" />
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setseojiathis}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_tools_ok" type="radio" value="1" {$met_tools_ok1[1]} />&nbsp;{$lang_open}</label>
+			<label><input name="met_tools_ok" type="radio" value="0" {$met_tools_ok1[0]} />&nbsp;{$lang_close}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskindatecontent}{$lang_marks}</dt>
+		<dd>
+			<select name="met_contenttime">
+<!--
+EOT;
+for($i=0;$i<9;$i++){
+echo <<<EOT
+-->
+			<option value="{$met_timetype[$i][1]}" {$met_contenttime1[$i]}>{$met_timetype[$i][2]}</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</select>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod3}{$lang_setskinimgdetail}{$lang_marks}</dt>
+		<dd>
+			<select name="met_product_detail" onChange="viewproduct(this.options[this.selectedIndex].value);">
+<!--
+EOT;
+for($i=1;$i<3;$i++){
+echo <<<EOT
+-->
+			<option value="$i" {$met_product_detail1[$i]}>{$lang_setflashimgtext}{$i}</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</select>
+			{$lang_setflashWidth}&nbsp;
+			<input type="text" class="text mid" name="met_productdetail_x" value="{$met_productdetail_x}" /><font style="font-family:'宋体';"> × </font><input name="met_productdetail_y" type="text" class="text mid" value="{$met_productdetail_y}" />&nbsp;{$lang_setflashHeight}({$lang_setflashPixel})
+			<span class="tips" style="padding-left:15px;">{$lang_skinerr1}</span>
+			<input name="moren_productdetail_x" type="hidden" value="{$met_productdetail_x}" />
+			<input name="moren_productdetail_y" type="hidden" value="{$met_productdetail_y}" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_mod5}{$lang_setskinimgdetail}{$lang_marks}</dt>
+		<dd>
+			<select name="met_img_detail" onChange="viewimg(this.options[this.selectedIndex].value);">
+<!--
+EOT;
+for($i=1;$i<3;$i++){
+echo <<<EOT
+-->
+			<option value="$i" {$met_img_detail1[$i]}>{$lang_setflashimgtext}{$i}</option>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+			</select>
+			{$lang_setflashWidth}&nbsp;
+			<input type="text"  name="met_imgdetail_x" class="text mid" value="{$met_imgdetail_x}" /><font style="font-family:'宋体';"> × </font><input type="text" name="met_imgdetail_y" class="text mid" value="{$met_imgdetail_y}" />&nbsp;{$lang_setflashHeight}({$lang_setflashPixel})
+			<span class="tips" style="padding-left:15px;">{$lang_skinerr1}</span>
+			<input name="moren_imgdetail_x" type="hidden" value="{$met_imgdetail_x}" />
+			<input name="moren_imgdetail_y" type="hidden" value="{$met_imgdetail_y}" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setskincontentxian}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_pageclick" type="checkbox" class="radio" value="1" {$met_page[1]} />&nbsp;{$lang_hits}</label>
+			<label><input name="met_pagetime" type="checkbox" class="radio" value="1" {$met_page[2]} />&nbsp;{$lang_updatetime}</label>
+			<label><input name="met_pageprint" type="checkbox" class="radio" value="1" {$met_page[3]} />&nbsp;{$lang_printpage}</label>
+			<label><input name="met_pageclose" type="checkbox" class="radio" value="1" {$met_page[4]} />&nbsp;{$lang_closebutton}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_setpnorder}{$lang_marks}</dt>
+		<dd>
+			<label><input name="met_pnorder" type="radio" class="radio" value="0" {$met_pnorder1[0]} />{$lang_settopcolumns}{$lang_skinunder}</label>
+			<label><input name="met_pnorder" class="radio" type="radio" value="1" {$met_pnorder1[1]} />{$lang_setequivalentcolumns}{$lang_skinunder}</label>
+		</dd>
+	</dl>
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

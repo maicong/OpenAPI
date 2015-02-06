@@ -1,0 +1,300 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.d.
+//<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+require_once template('head'); 
+echo <<<EOT
+-->
+<script type="text/javascript" src="{$img_url}/js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<div style="clear:both;"></div>
+    <form method="POST" name="myform" action="shortcut_editor.php?anyid={$anyid}&lang={$lang}&cs={$cs}" target="_self">
+	<input name="action" type="hidden" value="modify" />
+	<input name="bigclass" type="hidden" class="text" value="1" />
+	<input name="url" type="hidden" class="text" value="" />
+	<input name="field" type="hidden" class="text" value="" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding" style="margin-bottom:10px;">{$lang_unitytxt_49}</h3>
+		<div class="v52fmbx_dlbox kuaijiedaohang">
+<!--
+EOT;
+$i=0;
+foreach($metinfocolumn as $key=>$val){
+$i++;
+if($i>1){
+echo <<<EOT
+-->
+<div class="admin_poplistdiv round">
+<h2>{$val[name]}</h2>
+<div class="clear"></div>
+<!--
+EOT;
+foreach($sidebarcolumn as $key=>$val2){
+if($val2[bigclass]==$val[id] && $val2[field]){
+echo <<<EOT
+-->
+<label value="{$val2[url]}" onclick="select_shortcut($(this),'s{$val2[field]}');">{$val2[name]}</label>
+<!--
+EOT;
+}}
+if($val[id]==2){
+$anyid=29;
+echo <<<EOT
+-->
+	<div class="adpopcnkdiv round poplang_{$val2[lang]}">
+		<div class="clear"></div>
+<!--
+EOT;
+if(count($met_classindex[1])){
+echo <<<EOT
+-->
+		<label value="content/about/index.php?module=1&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cabout');">{$lang_mod1content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[2])){
+echo <<<EOT
+-->
+		<label value="content/article/index.php?module=2&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cnews');">{$lang_mod2content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[3])){
+echo <<<EOT
+-->
+		<label value="content/product/index.php?module=3&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cproduct');">{$lang_mod3content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[4])){
+echo <<<EOT
+-->
+		<label value="content/download/index.php?module=4&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cdownload');">{$lang_mod4content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[5])){
+echo <<<EOT
+-->
+		<label value="content/img/index.php?module=5&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this)),'cimg');">{$lang_mod5content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[6])){
+echo <<<EOT
+-->
+		<label value="content/job/cv.php?class1={$met_classindex[6][0][id]}&lang={$lang}&anyid={$anyid}&cs=2" onclick="select_shortcut($(this),'cjob');">{$lang_mod6content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[7])){
+echo <<<EOT
+-->
+		<label value="content/message/index.php?class1={$met_classindex[7][0][id]}&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cmessage');">{$lang_mod7content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[8])){
+echo <<<EOT
+-->
+		<label value="content/feedback/index.php?class1={$met_classindex[8][0][id]}&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this),'cfeedback');">{$lang_mod8content}</label>
+<!--
+EOT;
+}
+if(count($met_classindex[2])||count($met_classindex[3])||count($met_classindex[4])||count($met_classindex[5])||count($met_classindex[6])){
+echo <<<EOT
+-->
+		<div class="clear"></div>
+<!--
+EOT;
+if(count($met_classindex[2])){
+echo <<<EOT
+-->
+		<label value="content/article/content.php?action=add&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this));">{$lang_mod2add}</label>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		
+<!--
+EOT;
+}
+if(count($met_classindex[3])){
+echo <<<EOT
+-->
+		<label value="content/product/content.php?action=add&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this));">{$lang_mod3add}</label>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		
+<!--
+EOT;
+}
+if(count($met_classindex[4])){
+echo <<<EOT
+-->
+		<label value="content/download/content.php?action=add&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this));">{$lang_mod4add}</label>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		
+<!--
+EOT;
+}
+if(count($met_classindex[5])){
+echo <<<EOT
+-->
+		<label value="content/img/content.php?action=add&lang={$lang}&anyid={$anyid}" onclick="select_shortcut($(this));">{$lang_mod5add}</label>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		
+<!--
+EOT;
+}
+if(count($met_classindex[6])){
+echo <<<EOT
+-->
+		<label value="content/job/index.php?anyid={$anyid}&lang={$lang}&class1={$met_classindex[6][0][id]}&cs=1" onclick="select_shortcut($(this));">{$lang_mod6add}</label>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		
+<!--
+EOT;
+}
+}
+echo <<<EOT
+-->
+	</div>
+	
+<!--
+EOT;
+}
+if($val[id]==4){
+echo <<<EOT
+-->
+<div class="adpopcnkdiv round poplang_{$val4[lang]}">
+<div class="clear"></div>
+<!--
+EOT;
+foreach($ad_navlist3[44] as $key=>$val5){
+$admin_column_power="admin_pops".$val5[field];
+if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo'))continue;
+$val5[url]=str_replace('../','',$val5[url]);
+echo <<<EOT
+-->
+	<label value="{$val5[url]}" onclick="select_shortcut($(this),'s{$val5[field]}');">{$val5[name]}</label>
+<!--
+EOT;
+}
+foreach($app as $key=>$val5){
+$val5[url]="app/dlapp/setapp.php?lang=cn&id={$val5[id]}&anyid=44";
+	$query="select * from $met_admin_column where url like '%app/$val5[file]/%'";
+	$app_sys=$db->get_one($query);
+	if($app_sys){
+		$admin_column_power="admin_pops".$val[field];
+		if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+			continue;
+		}
+	}else{
+		$admin_column_power="admin_popa".$val[no];
+		if(!($metinfo_admin_pop=='metinfo'||$$admin_column_power=='metinfo')){
+			continue;
+		}
+	}
+echo <<<EOT
+-->
+	<label value="{$val5[url]}"  onclick="select_shortcut($(this),'a{$val5[no]}');">{$val5[name]}</label>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+		    <span class="tips"></span>
+		</div>
+		<h3 class="v52fmbx_hr metsliding none" style="margin-bottom:10px;">{$lang_unitytxt_50}</h3>
+		<div class="v52fmbx_dlbox none" style="padding:0px 10px;">
+			<input name="name" type="text" class="text" value="" />
+		</dl>
+		</div>
+		<h3 class="v52fmbx_hr metsliding" style="margin:10px 0px;">{$lang_sort}</h3>
+		<div class="v52fmbx_dlbox" style="padding:0px 10px;">
+			<input name="list_order" type="text " class="text small" value="0" />
+			<span class="tips">{$lang_article4}</span>
+		</dl>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit1" value="{$lang_Submit}" class="submit" onClick="return shortcutform()" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">$foot</div>
+</body>
+<script type="text/javascript">
+function shortcutform(){
+	var url = $("input[name='url']").val();
+	var name = $("input[name='name']").val();
+	if(url==''){
+		alert('{$lang_unitytxt_52}');
+		return false;
+	}
+	if(name==''){
+		alert('{$lang_unitytxt_52}');
+		$("input[name='name']").focus();
+		return false;
+	}
+	return true;
+}
+function select_shortcut(my,field){
+	//alert(my.attr('value'));
+	$(".kuaijiedaohang label").removeClass("ons");
+	my.addClass('ons');
+	$("input[name='url']").val(my.attr('value'));
+	$("input[name='name']").val(my.html());
+	$("input[name='field']").val(field);
+}
+$(document).ready(function() {
+	$(".kuaijiedaohang label").hover(function(){ 
+		$(this).addClass('hoverons');
+	},function(){
+		$(this).removeClass("hoverons"); 
+	});
+});
+</script>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

@@ -1,0 +1,69 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+require_once template('system/database/top');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+	<span class="xtips red">{$lang_unitytxt_7}</span>
+<table cellpadding="2" cellspacing="1" class="table filedown">
+		   <tr> 
+            <td width="40" class="list">{$lang_smstips17}</td>
+            <td width="60" class="list">{$lang_type}</td>
+            <td width="80" class="list">{$lang_setdbFilename}</td>
+            <td width="80" class="list">{$lang_setdbFilesize}</td>
+            <td width="160" class="list">{$lang_setdbTime}</td>
+            <td class="list list_left">{$lang_operate}</td>
+			</tr>
+
+<!--
+EOT;
+if(count($metinfodata)>0){
+$i=0;
+foreach($metinfodata as $id => $info){
+$i++;
+$info[lhtml]="";
+if($info[type]=='web'||$info[type]=='upload'){
+$info[lhtml]="onClick=\"return linkSmit($(this),1,'{$lang_unitytxt_51}');\"";
+}
+echo <<<EOT
+-->
+            <tr class="mouse"> 
+            <td class="list-text">{$i}</td>
+            <td class="list-text">{$info[typename]}</td>
+            <td class="list-text">{$info[filename]}</td>
+            <td class="list-text">{$info[filesize]} MB</td>
+            <td class="list-text">{$info[maketime]}</td>
+            <td class="list-text list_left">
+	<a href="?anyid={$anyid}&action=delete&filenames=$info[filename]&fileon={$info[type]}&lang=$lang" onClick="return linkSmit($(this),1);" title="{$lang_delete}">{$lang_delete}</a>&nbsp;&nbsp;<a href="../../databack/{$info[type]}/$info[filename]" target="_blank" {$info[lhtml]} title="{$lang_setdbDownload}">{$lang_setdbDownload}</a></td>
+			</tr>
+<!--
+EOT;
+}}else{
+echo <<<EOT
+-->
+<tr><td colspan="6" class="list-text list_left color999">{$lang_dataexplain1}</td></tr>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</table>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

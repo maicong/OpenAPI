@@ -1,0 +1,403 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+if($column_list[module]==100 or $column_list[module]==101)$bigclass=$lang_funMod100;
+echo <<<EOT
+-->
+</head>
+{$edjs}
+<body>
+<!--
+EOT;
+$title="{$lang_columnmeditor}({$column_list[name]})";
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="save.php?anyid={$anyid}&action=editor" target="_self">
+			<input name="bigclass" type="hidden" value="$class" />
+			<input name="id" type="hidden" value="$id" />
+			<input name="module" type="hidden" value="$column_list[module]" />
+			<input name="foldername" type="hidden" value="$column_list[foldername]" />
+			<input name="filename" type="hidden" value="$column_list[filename]" />
+			<input name="filenameold" type="hidden" value="$column_list[filename]" />
+			<input name="if_in" type="hidden" value="$column_list[if_in]" />
+			<input name="classtype" type="hidden" value="$classtype" />
+			<input name="releclass" type="hidden" value="$releclass" />
+			<input name="access" type="hidden" value="$column_list[access]" />
+			<input name="lang" type="hidden" value="$lang" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<!--
+EOT;
+if($column_list[classtype]!=1){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnPreName}{$lang_marks}</dt>
+			<dd>
+				{$bigclass}
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnname}{$lang_marks}</dt>
+			<dd>
+				<input name="name" type="text" class="text nonull" value="$column_list[name]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnorder}{$lang_marks}</dt>
+			<dd>
+			<input name="no_order" type="text" class="text small" value="$column_list[no_order]" />
+			<span class="tips">{$lang_noorderinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnnav}{$lang_marks}</dt>
+			<dd>
+				<label><input name="nav" type="radio" value="0" class="radio" {$nav[0]} />{$lang_columnnav1}</label>
+				<label><input name="nav" type="radio" value="1" class="radio" {$nav[1]} />{$lang_columnnav2}</label>
+				<label><input name="nav" type="radio" value="2" class="radio" {$nav[2]} />{$lang_columnnav3}</label>
+				<label><input name="nav" type="radio" value="3" class="radio" {$nav[3]} />{$lang_columnnav4}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnnewwindow}{$lang_marks}</dt>
+			<dd>
+			<label><input name="new_windows" type="radio" class="radio" {$new_windows[1]} value="1" />{$lang_yes}</label>
+			<label><input name="new_windows" type="radio" class="radio" {$new_windows[0]} value="0" />{$lang_no}</label>
+			<span class="tips">{$lang_columnexplain4}</span>
+			</dd>
+		</dl>
+		</div>
+		
+<!--
+EOT;
+if($column_list[if_in]==0||$column_list[module]>1000){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" id="list_order" style="display:{$list_orderok}">
+		<dl>
+			<dt>{$lang_columncontentorder}{$lang_marks}</dt>
+			<dd>
+				<label><input name="list_order" type="radio" class="radio" value="1" $list_order[1] />{$lang_updatetime}</label>
+				<label><input name="list_order" type="radio" class="radio" value="2" $list_order[2]>{$lang_addtime}</label>
+				<label><input name="list_order" type="radio" class="radio" value="3" $list_order[3]>{$lang_hits}</label>
+				<label><input name="list_order" type="radio" class="radio" value="4" $list_order[4]>ID{$lang_columnReverseSort} </label>
+				<label><input name="list_order" type="radio" class="radio" value="5" $list_order[5]>ID{$lang_columnaddOrder}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox" id="static2" style="display:{$filenameok}">
+		<dl>
+			<dt>{$lang_columnshow}{$lang_marks}</dt>
+			<dd>
+			<label><input name="isshow" type="radio" class="radio" value="1" {$isshowcheck[1]} />{$lang_columnmallow}</label>
+			<label><input name="isshow" type="radio" class="radio" value="0" {$isshowcheck[0]} />{$lang_columnmnotallow}</label>
+			<span class="tips">{$lang_columntip8}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+if($column_list[module]==9){
+$met_addlinkopens[$met_addlinkopen]="checked";
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmlink}{$lang_marks}</dt>
+			<dd>
+			<label><input name="met_addlinkopen" type="radio" class="radio" value="1" {$met_addlinkopens[1]}>{$lang_open}</label>
+			<label><input name="met_addlinkopen" type="radio" class="radio" value="0" {$met_addlinkopens[0]}>{$lang_close}</label>
+			<span class="tips">{$lang_columnexplain5}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}	
+echo <<<EOT
+-->
+
+<!--
+EOT;
+if($met_wap && $met_wap_ok){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmwap}{$lang_marks}</dt>
+			<dd>
+			<label><input name="wap_ok" type="checkbox" class="checkbox" value="1" {$wap_ok}>{$lang_wapcontentcom}</label>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+			<label><input name="wap_ok" type="hidden" value="$column_list[wap_ok]"></label>
+<!--
+EOT;
+}
+if($column_list[module]==8){
+echo <<<EOT
+-->
+		<h3 class="v52fmbx_hr metsliding">{$lang_columnmfeedback}</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmfeedback1}{$lang_marks}</dt>
+			<dd>
+			<select name="copyculmnid">
+				<option value="0">{$lang_columnmfeedback2}</option>
+<!--
+EOT;
+foreach($met_module[8] as $key=>$val){
+if($val[id]!=$id){
+echo <<<EOT
+-->	
+				<option value="{$val[id]}">{$val[name]}</option>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->	
+			</select>
+			&nbsp;<a href="copyfeed.php?lang={$lang}&id={$id}" onclick="return copyfromlist($(this));" title="{$lang_columnmfeedback3}">{$lang_columnmfeedback4}</a>
+			<span class="tips">{$lang_columnexplain6}</span>
+			<br/>
+			<a href="parameter/parameter.php?anyid=31&lang=cn&module=8&class1={$id}&cs=2" title="{$lang_columnmfeedback5}">{$lang_columnmfeedback6}</a>
+			</dd>
+		</dl>
+		</div>
+		
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<h3 class="v52fmbx_hr metsliding">
+			{$lang_columnSEO}
+		</h3>
+<!--
+EOT;
+}
+if($column_list[if_in]==1){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox" id="static1" style="display:{$filenameok1}">
+		<dl>
+			<dt>{$lang_columnhref}{$lang_marks}</dt>
+			<dd>
+				<input name="out_url" type="text" class="text" value="{$column_list[out_url]}" />
+				<span class="tips">{$lang_columntip7}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+
+if($column_list[if_in]!=1){
+echo <<<EOT
+-->			
+		<div class="v52fmbx_dlbox on_dlbox">
+		<dl>
+			<dt style='width:96px;'>{$lang_columnctitle}{$lang_marks}</dt>
+			<dd>
+			<input name="ctitle" type="text" class="text" maxlength="200" value="$column_list[ctitle]" />
+			<span class="tips">{$lang_ctitleinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_keywords}{$lang_marks}</dt>
+			<dd>
+			<input name="keywords" type="text" class="text" maxlength="200" value="$column_list[keywords]" />
+			<span class="tips">{$lang_keywordsinfo}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->			
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_description}{$lang_marks}</dt>
+			<dd>
+			<textarea name="description" class="textarea keytext" cols="50" rows="4" >$column_list[description]</textarea>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+if($column_list[if_in]==0){	
+echo <<<EOT
+-->			
+		<div class="v52fmbx_dlbox" id="static1" style="display:{$filenameok1}">
+		<dl>
+			<dt>{$lang_columnhtmlname}{$lang_marks}</dt>
+			<dd>
+			<input name="filename" type="text" class="text med" value="$column_list[filename]" $filenameable />
+			<span class="tips">{$lang_columntip14}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}			
+echo <<<EOT
+-->	
+		<h3 class="v52fmbx_hr metsliding">{$lang_columnnamemarkinfo}</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmark}{$lang_marks}</dt>
+			<dd>
+				<input name="index_num" type="text" class="text small" value="$column_list[index_num]" />
+				<span class="tips">{$lang_columnexplain7}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+if($metadmin[categorynamemark]){	
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnnamemark}{$lang_marks}</dt>
+			<dd>
+				<input name="namemark" type="text" class="text" value="$column_list[namemark]" />
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}	
+if($metadmin[categorymarkimage]){
+echo <<<EOT
+--> 
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnImg1}{$lang_marks}</dt>
+			<dd>
+				<input name="indeximg" type="text" class="text" value="$column_list[indeximg]" />
+				<input name="met_upsql" type="file" id="file_upload" />
+<script type="text/javascript">
+$(document).ready(function(){
+	metuploadify('#file_upload','upimage','indeximg');
+});
+</script>	
+			</dd>
+		</dl>
+		</div>	
+		
+<!--
+EOT;
+}
+if($metadmin[categoryimage]){
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnImg2}{$lang_marks}</dt>
+			<dd>
+				<input name="columnimg" type="text" class="text" value="$column_list[columnimg]" />
+				<input name="met_upsql" type="file" id="file_upload1" />
+<script type="text/javascript">
+$(document).ready(function(){
+	metuploadify('#file_upload1','upimage','columnimg');
+});
+</script>				
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}	
+if($column_list[module]>=2&&$column_list[module]<=5){
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmappend}</dt>
+			<dd>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+			<textarea class="ckeditor" name="content">$column_list[content]</textarea>
+<script type="text/javascript">
+met_ckeditor('ckeditor','content',1);
+</script>
+<span class="tips">{$lang_columnexplain8}</span>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->		
+		<h3 class="v52fmbx_hr metsliding">{$lang_unitytxt_33}</h3>
+<!--
+EOT;
+	
+if($met_member_use&&$column_list[if_in]!=1){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_webaccess}{$lang_marks}</dt>
+			<dd>
+			<select name="access" id="access" >$level</select>
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}	
+echo <<<EOT
+-->	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_displaytype}{$lang_marks}</dt>
+			<dd>
+			<label><input name="displays" type="radio" class="radio" {$displays1[0]} value="0" />{$lang_yes}</label>
+			<label><input name="displays" type="radio" class="radio" {$displays1[1]} value="1" />{$lang_no}</label>
+			</dd>
+		</dl>
+		</div>
+
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform');" />
+		</div>
+</div>
+</div>
+</div>		
+</form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

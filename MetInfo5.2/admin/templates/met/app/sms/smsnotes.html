@@ -1,0 +1,111 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<script src="$img_url/My97DatePicker/WdatePicker.js" type="text/javascript" language="javascript"></script>
+<body>
+<!--
+EOT;
+$listclass[4]='class="now"';
+require_once template('app/sms/top');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+	<h3 class="v52fmbx_hr">
+		<a href="smsnotes.php?anyid={$anyid}&lang={$lang}&action=deqing&cs={$cs}" onclick="return linkSmit('',1,'{$lang_smstips53}');">{$lang_setsafesq3text}</a>
+		<span id="msg" style="font-weight:normal; color:#FF0000; padding:15px 0px 0px 20px;"></span>
+		<div class="formright">
+		<form method="POST" name="search" action="smsnotes.php?anyid={$anyid}&lang={$lang}&search=detail_search" target="_self">
+			<input name="title" type="text" class="text" style="width:150px!important;" id="searchtext" value="{$lang_smstips54}" />				
+			<input type="submit" name="searchsubmit" value="{$lang_search}" class="submitmi" />
+		</form>
+		</div>
+	</h3>
+	<table cellpadding="2" cellspacing="1" class="table">
+		<tr id="list-top">
+                <td class="list" width="110">{$lang_smstips55}</td>
+                <td class="list" width="60">
+				<form method="POST" name="filterform" action="smsnotes.php?anyid={$anyid}&lang={$lang}&search=type_search&cs={$cs}" target="_self">
+					<select name="notes_type" onChange="handle_form('filterform')">
+						<option value="-1" {$selec_notes_type[-1]}>{$lang_smstips56}</option>
+						<option value="1" {$selec_notes_type[1]}>{$lang_smstips57}</option>
+						<option value="2" {$selec_notes_type[2]}>{$lang_smstips58}</option>
+						<option value="3" {$selec_notes_type[3]}>{$lang_smstips59}</option>
+						<option value="4" {$selec_notes_type[4]}>{$lang_smstips60}</option>
+						<option value="5" {$selec_notes_type[5]}>{$lang_smstips61}</option>
+						<option value="6" {$selec_notes_type[6]}>{$lang_smstips97}</option>
+						<option value="0" {$selec_notes_type[0]}>{$lang_smstips96}</option>
+					</select>
+				</form>
+				</td>
+				<td class="list">{$lang_smstips62}</td>
+				<td class="list">{$lang_smstips63}</td>
+				<td class="list">{$lang_smstips64}</td>
+				<td class="list" width="60">{$lang_smstips65}</td>
+        </tr>
+<!--
+EOT;
+foreach ($record_list as $key=>$val){
+echo <<<EOT
+-->          
+              <tr class="mouse click">
+			    <td class="list-text color666">{$val[time]}</td>
+			    <td class="list-text color666">{$val[type]}</td>
+			    <td class="list-text color666 alignleft" title="{$val[content]}">&nbsp;&nbsp;{$val[text]}</td>
+			    <td class="list-text color666 alignleft" title="{$val[tel]}">&nbsp;&nbsp;{$val[teltext]}({$val[telnum]}{$lang_smstips40})</td>
+			    <td class="list-text color666">{$val[remark]}</td>
+                <td class="list-text color666"><a href="smsnotes_detail.php?anyid={$anyid}&lang={$lang}&id={$val[id]}&cs=$cs">{$lang_authDetail}</a></td>
+              </tr>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+   	   <tr> 
+			 <td class="page_list" colspan="6">$page_list</td>
+        </tr>
+</table>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+seachinput($('#searchtext'),'{$lang_smstips54}');
+$(document).ready(function(){
+	$.ajax({
+		url: 'http://{$met_host}/sms/smsnotes.php?md5={$total_pass[authpass]}&action=json',
+		type: 'GET',
+		dataType: 'jsonp',
+		jsonp: 'jsoncallback',
+		success: function(data) {
+			if(data.msg=='yes'){
+					$('#msg').html('{$lang_smstips85}');
+					$.ajax({
+						url: 'smsnotes.php?action=getdate',
+						type: 'GET',
+						success: function(data) {
+							if(data=='ok'){
+								$('#msg').html('{$lang_smstips86}');
+								setTimeout(function (){window.location.reload();},3000);
+							}
+						}
+					});
+			}
+		}
+	});
+});
+</script>
+</body>
+</html>
+<!--
+EOT;
+echo <<<EOT
+-->
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.ed.
+?>-->

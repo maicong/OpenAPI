@@ -1,0 +1,170 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+$paras_email=$db->get_one("SELECT * FROM $met_language WHERE name='js13' and no_order='13' and lang='$lang'");
+echo <<<EOT
+-->
+</head>
+<script type="text/javascript">
+function Disb1(M,K){
+var ty= K==1?false:true;
+    M.attr('disabled',ty);
+}
+{$para_member_list[2]}
+function pass2null(pass2){
+			Disb1($('#passsubmit'),0);
+			$('#pass2').text('{$lang_memberjstxt1}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+			
+}
+function pass1null(pass1){
+			Disb1($('#passsubmit'),0);
+			$('#pass1').text('{$lang_memberjstxt2}');
+			$('#pass1').show();
+			$("input[type='submit']").attr('disabled',true);
+}
+function passnot(pass2){
+			Disb1($('#passsubmit'),0);
+			$('#pass2').text('{$lang_memberjstxt3}');
+			$('#pass2').show();
+			$("input[type='submit']").attr('disabled',true);
+			
+}
+$(document).ready(function(){
+    var pass1 = $("input[name='pass1']");
+    var pass2 = $("input[name='pass2']");
+	pass1.focusout(function(){
+		if(pass2.val()!='' && pass2.val()!=pass1.val()){
+		$('#pass1').hide();
+		passnot(pass2);
+		}else if($(this).val()!='' && pass2.val()==''){
+			$('#pass1').hide();
+			pass2null(pass2);
+		}else{ 
+		$('#pass1').hide();
+		$('#pass2').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+	pass2.focusout(function(){
+		if(pass1.val()!='' && pass2.val()!=pass1.val())passnot($(this));
+		else if($(this).val()!='' && pass1.val()==''){
+			$('#pass2').hide();
+			pass1null(pass1);
+		}else{ 
+		$('#pass1').hide();
+		$('#pass2').hide();
+		$("input[type='submit']").attr('disabled',false);
+		}
+	});
+});
+</script>
+<body>
+
+<!--
+EOT;
+$title="{$lang_editor}{$lang_content}({$admin_list[admin_id]})";
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="save.php?action=editor&id=$id&lang=$lang&anyid={$anyid}" onSubmit='return Checkmember();' target="_self">
+		<input name="useid" type="hidden" value="$admin_list[admin_id]">
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberUserName}{$lang_marks}</dt>
+			<dd>
+				<input name="useid" type="text" class="text" autocomplete="off" value="{$admin_list[admin_id]}" disabled="disabled" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_membertips1}{$lang_marks}</dt>
+			<dd>
+				{$admin_list[admin_register_date]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_adminLastIP}{$lang_marks}</dt>
+			<dd>
+				{$admin_list[admin_modify_ip]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_adminLastLogin}{$lang_marks}</dt>
+			<dd>
+				{$admin_list[admin_modify_date]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberPs}{$lang_marks}</dt>
+			<dd>
+				<input name="pass1" type="password" class="text" autocomplete="off" maxlength="20" />
+				<span class="tips">{$lang_memberTip}</span><span id='pass1'></span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberPs1}{$lang_marks}</dt>
+			<dd>
+				<input name="pass2" type="password" class="text" autocomplete="off" maxlength="20" />
+				<span class="tips">{$lang_memberTip}</span><span id='pass2'></span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt><font color='#FF0000'>*</font>Email{$lang_marks}</dt>
+			<dd>
+				<input name="email" id='email' type="text" class="text nonull" value="$admin_list[admin_email]" />{$lang_memberTip1}
+			</dd>
+		</dl>
+		</div>
+
+
+		{$para_member_list[1]}	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberType}{$lang_marks}</dt>
+			<dd>
+				<select name="usertype" id="usertype" >
+				{$level}
+				</select>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberCheck}{$lang_marks}</dt>
+			<dd>
+				<input name="checkid" type="checkbox" value="1" $checkid />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

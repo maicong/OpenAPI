@@ -1,0 +1,97 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<!--
+EOT;
+if($met_content_type==2){
+	if(!$met_class[$class2][releclass])$title="<a href='../about/index.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}'>{$met_class[$class1][name]}</a>";
+	if(!$met_class[$class2][releclass] && $ctp)$title.=" > ";
+	if($ctp)$title.=$ctype1?"<a href='../about/index.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}&class2={$class2}'>{$met_class[$class2][name]}</a>":"{$met_class[$class2][name]}";
+	if($nott)$title.=$ctype?" > <a href='../about/index.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}&class2={$id}'>{$about[name]}</a>":" > {$about[name]}";
+	if(!$met_class[$class2][releclass])$rurl="../about/index.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}";
+}else{
+	if(!$met_class[$class2][releclass])$title="<a href='../content.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}'>{$met_class[$class1][name]}</a>";
+	if(!$met_class[$class2][releclass] && $ctp)$title.=" > ";
+	if($ctp)$title.=$ctype1?"<a href='../content.php?anyid={$anyid}&lang={$lang}&module=1&class2={$class2}'>{$met_class[$class2][name]}</a>":"{$met_class[$class2][name]}";
+	if($nott)$title.=$ctype?" > <a href='../content.php?anyid={$anyid}&lang={$lang}&module=1&class2={$id}'>{$about[name]}</a>":" > {$about[name]}";
+	$class1=$class1?$class1:($id?$id:0);
+	$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+	if(!$met_class[$class2][releclass])$rurl="../content.php?anyid={$anyid}&lang={$lang}&module=1&class1={$class1}";
+}
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="about.php?anyid={$anyid}&action=modify" target="_self">
+		<input name="id" type="hidden" value="$about[id]">
+		<input name="lang" type="hidden" value="$lang">
+		<input name="filenameold" type="hidden"  value="$about[filename]">
+		<input name="updatetimeold" type="hidden"  value="$about[updatetime]">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding">{$lang_contentdetail}    <a href="{$met_weburl}{$met_adminfile}" onclick="return tocloumn();" target="_blank">{$lang_indexcolumn}</a></h3>
+		<div class="v52fmbx_dlbox_content">
+			<textarea class="ckeditor" name="content">$about[content]</textarea>
+		</div>
+	<h3 class="v52fmbx_hr metsliding" sliding="2">{$lang_columnSEO}</h3>
+	<div class="metsliding_box metsliding_box_2">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnmtitle}{$lang_marks}</dt>
+			<dd>
+				<input name="ctitle" type="text" class="text" maxlength="200" value="$about[ctitle]" />
+				<span class="tips">{$lang_ctitleinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_keywords}{$lang_marks}</dt>
+			<dd>
+				<input name="keywords" type="text" size="40" class="text" value="$about[keywords]" />
+				<span class="tips">{$lang_descriptioninfo},{$lang_keywordsinfo}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_description}{$lang_marks}</dt>
+			<dd>
+				<textarea name="description" cols="60" class="textarea" rows="5">$about[description]</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_columnhtmlname}{$lang_marks}</dt>
+			<dd>
+			    <input name="filename" type="text" class="text med" value="$about[filename]" />
+				<span class="tips">{$lang_columntip14}</span>
+			</dd>
+		</dl>
+		</div>
+	</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+met_ckeditor('$depth','content');
+</script>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.d.
+?>-->

@@ -1,0 +1,71 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+$listclass[4]='class="now"';
+$title=$lang_View.'('.$lang_smstips2.')';
+$rurl="smsnotes.php?lang={$lang}&anyid={$anyid}&cs=4";
+require_once template('app/sms/top');
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips55}{$lang_marks}</dt>
+			<dd>
+				{$sms_list['time']}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips56}{$lang_marks}</dt>
+			<dd>
+				{$sms_list['type']}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips64}{$lang_marks}</dt>
+			<dd>
+				{$sms_list['remark']}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips62}{$lang_marks}</dt>
+			<dd>
+				<textarea class="textarea gen nonull" id="smsbox" name="message" style="float:left; height:78px;">{$sms_list['content']}</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_smstips63}{$lang_marks}</dt>
+			<dd>
+			<textarea class="textarea nonull" id="smstelbox" style="width:120px; height:150px;" name="phone">{$sms_list['tel']}</textarea>
+			{$lang_smstips37}{$sms_list['telnum']}{$lang_physicaltips29}
+			</dd>
+		</dl>
+		</div>
+</div>
+</div>	
+</div>	
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.ed.
+?>-->

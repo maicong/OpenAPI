@@ -1,0 +1,88 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+<title>{$lang_memberset}</title>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<!--
+EOT;
+$listclass='';
+$listclass[4]='class="now"';
+require_once template('member/top');
+echo <<<EOT
+-->
+        <form method="POST" name="myform" action="member.php?lang=$lang&anyid=$anyid" target="_self">
+		<input name="action" type="hidden" value="modify">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberuse}{$lang_marks}</dt>
+			<dd>
+		 <label><input name="met_member_use" type="radio" class="radio" $met_member_use1[1] value="1">{$lang_open}</label>
+		 <label><input name="met_member_use" type="radio" class="radio" $met_member_use1[0] value="0">{$lang_close}</label>
+		 <span class="tips">{$lang_memberuseok2}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberlogin}{$lang_marks}</dt>
+			<dd>
+		 <label><input name="met_member_login" type="radio" class="radio" $met_member_login1[1] value="1">{$lang_open}</label>
+		 <label><input name="met_member_login" type="radio" class="radio" $met_member_login1[2] value="2">{$lang_memberloginok3}</label> 
+		 <label><input name="met_member_login" type="radio" class="radio" id="label7" $met_member_login1[3] value="3">{$lang_memberloginok4}</label>
+		 <label><input name="met_member_login" type="radio" class="radio" $met_member_login1[0] value="0">{$lang_close}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberregisteremail}{$lang_marks}</dt>
+			<dd>
+				<textarea name="met_memberemail" class="textarea ckeditor" cols="50" rows="3">$met_memberemail</textarea>
+				<span class="tips">$lang_htmlok</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_membercontrol}{$lang_marks}</dt>
+			<dd>
+				<textarea name="met_membercontrol" class="textarea ckeditor" cols="50" rows="5">$met_membercontrol</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberforce}{$lang_marks}</dt>
+			<dd>
+				<input name="met_member_force" type="text" class="text med" value="$met_member_force" size="8">
+				<br/><span class="tips" style="line-height:1.5;">{$lang_memberforceinfo} <br/>{$met_weburl}index.php?metmemberforce=$met_member_force</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">{$foot}</div>
+<script type="text/javascript">
+met_ckeditor('$depth','met_memberemail',1);
+met_ckeditor('$depth','met_membercontrol',1);
+</script>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

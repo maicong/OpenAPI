@@ -1,0 +1,138 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+$colspan=($langnowok=='metinfo')?3:2;
+$colspan1=$colspan-1;
+echo <<<EOT
+-->
+<link rel="stylesheet" media="screen" type="text/css" href="{$img_url}/colorpicker/css/colorpicker.css" />
+<script type="text/javascript" src="{$img_url}/colorpicker/js/colorpicker.js"></script>
+<script type="text/javascript" src="{$depth}../ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<!--
+EOT;
+$title="{$lang_skintypeset}({$skin_list[skin_name]})";
+$rurl="skin_manager.php?anyid={$anyid}&lang={$lang}";
+if($kuaijieskin){
+require_once template('interface/skin_top');
+}else{
+require_once template('metlangs');
+}
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="?anyid={$anyid}&lang={$lang}&id={$id}&skin_file={$skin_file}&cs={$cs}&kuaijieskin={$kuaijieskin}" target="_self">
+<input name="action" type="hidden" value="modify">
+<input name="skin_file" type="hidden" value="{$skin_file}">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<span class="xtips">{$lang_xtips}</span>
+<div class="skedtype" id="skedtype">
+<!--
+EOT;
+$i=0;
+foreach($langtextf as $key=>$val){
+$i++;
+echo <<<EOT
+-->
+	<div><span sliding='{$i}'>{$val[inputhtm]}</span></div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+$i=0;
+$k=0;
+foreach($langtext as $key=>$val){
+$k++;
+$cm='';
+$sliding='';
+$boxdibk='';
+$boxdibt='';
+echo <<<EOT
+-->
+<!--
+EOT;
+if($val[sliding]){
+$i++;
+if($i!=1)$boxdibk="</div>";
+$boxdibt="<div class='metsliding_box metsliding_box_{$i}'>";
+echo <<<EOT
+-->
+	{$boxdibk}
+	<h3 class="v52fmbx_hr metsliding" sliding='{$i}'>{$val[inputhtm]}</h3>
+	{$boxdibt}
+<!--
+EOT;
+}else{
+$divw='';
+if(count($langtext)==$k)$divw='</div>';
+echo <<<EOT
+-->
+	<div class="v52fmbx_dlbox v52fmbx_skined">
+	<dl>
+		<dt>{$val[valueinfo]}</dt>
+		<dd>
+			{$val[inputhtm]}
+		</dd>
+	</dl>
+	</div>
+	{$divw}
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+}
+$i++;
+echo <<<EOT
+-->
+	<h3 class="v52fmbx_hr metsliding" sliding='{$i}'>{$lang_skinbaseset}</h3>
+	<div class='metsliding_box metsliding_box_{$i}'>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_skinDocument}{$lang_marks}</dt>
+			<dd>
+				{$skin_list[skin_file]}
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_skintemplatename}{$lang_marks}</dt>
+			<dd>
+				<input name="skin_name" type="text" class="text" value="{$skin_list[skin_name]}" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_skintemplatedescription}{$lang_marks}</dt>
+			<dd>
+				<textarea name="skin_info" type="text" class="textarea" rows='5' style="width:300px;">{$skin_list[skin_info]}</textarea>
+			</dd>
+		</dl>
+		</div>
+	</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

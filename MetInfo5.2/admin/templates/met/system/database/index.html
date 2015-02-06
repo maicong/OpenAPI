@@ -1,0 +1,132 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+if($labtype==2)$title="{$lang_dataexplain3}";
+require_once template('system/database/top');
+echo <<<EOT
+-->
+<!--
+EOT;
+if($labtype==1){
+echo <<<EOT
+-->
+<script type="text/javascript">
+	function metdatabase(my){
+		var nxt=my.next('span.tips');
+		nxt.empty();
+		nxt.append('<img src="{$img_url}/loadings.gif" style="position:relative; top:3px;" />{$lang_dataexplain4}');
+		$("input[type='submit']").attr('disabled',true);
+		location.href=my.attr('url');
+		return false;
+	}
+</script>
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding">{$lang_dataexplain5}</h3>
+	<div class="v52fmbx_dlbox v52fmbx_detabes">
+	<dl>
+		<dt>{$lang_dataexplain10}{$lang_marks}</dt>
+		<dd class="detabes">
+			<input type="submit" url="index.php?anyid={$anyid}&lang={$lang}&action=allbase&tbl=1&cs={$cs}" class="submit" value="{$lang_databackup4}" onclick="return metdatabase($(this))" />
+			<span class="tips"></span>
+			<a href="index.php?anyid={$anyid}&lang={$lang}&labtype=2&cs={$cs}" title="{$lang_databackup5}" style="margin-left:10px;">{$lang_databackup5}</a>
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding">{$lang_dataexplain6}</h3>
+	<div class="v52fmbx_dlbox v52fmbx_detabes">
+	<dl>
+		<dt>{$lang_databackup6}{$lang_marks}</dt>
+		<dd class="detabes">
+			<input type="submit" url="index.php?anyid={$anyid}&lang={$lang}&action=uploadimg&cs={$cs}" class="submit" value="{$lang_databackup4}" onclick="return metdatabase($(this))" />
+			<span class="tips"></span>
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding">{$lang_dataexplain7}</h3>
+	<div class="v52fmbx_dlbox v52fmbx_mo v52fmbx_detabes">
+	<dl>
+		<dt>{$lang_databackup7}{$lang_marks}</dt>
+		<dd class="detabes">
+			<input type="submit" url="index.php?anyid={$anyid}&lang={$lang}&action=allfile&cs={$cs}" class="submit" value="{$lang_databackup8}" onclick="return metdatabase($(this))" />
+			<span class="tips"></span>
+		</dd>
+	</dl>
+	</div>
+</div>
+</div>
+</div>
+<!--
+EOT;
+}elseif($labtype==2){
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="index.php?anyid={$anyid}&action=allbase&lang={$lang}" target="_self">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<table cellpadding="2" cellspacing="1" class="table">
+	<tr> 
+        <td width="40" class="list">{$lang_selected}</td>
+		<td width="60" class="list">{$lang_setdbItems}</td>
+		<td width="90" class="list">{$lang_setdbSize}<br/><span class="color390">[{$lang_setdbAll} {$totalsize} M]</span></td>
+        <td class="list list_left">{$lang_setdbTable}</td>
+	</tr>
+<!--
+EOT;
+foreach($tables as $k => $val){
+echo <<<EOT
+-->
+	<tr class="mouse click">
+        <td class="list-text"><input type="checkbox" name="tables[]" value="$val" checked /></td>
+        <td class="list-text">$bkresults[$k]</td>
+		<td class="list-text">$size[$k] M</td>
+        <td class="list-text list_left">$val</td>
+	</tr>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	<tr class="mouse click"> 
+        <td class="list-text"></td>
+        <td class="list-text list_left" colspan="3">
+			{$lang_setdbEveryoneSize}
+			<select name="sizelimit">
+				<option value="2048">2 Mb</optioin>
+				<option value="4096">4 Mb</optioin>
+				<option value="8192">8 Mb</optioin>
+			</select>
+			<span class="tips">{$lang_setdbTip4}</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="list"><input name='chkAll' type='checkbox' onclick="CheckAllx($(this),'myform','tables[]')" value='check' checked /></td>
+		<td class="list list_left" colspan="3">
+			<input type="submit" name="dosubmit" value="{$lang_setdbStart}" class="submit" onclick="return Smit($(this),'myform')" />
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	</form>
+	<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

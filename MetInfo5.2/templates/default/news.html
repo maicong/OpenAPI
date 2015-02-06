@@ -1,0 +1,57 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$en_title = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-crumb">
+                <a href="{$index_url}" title="{$lang_home}">{$lang_home} &gt;</a> {$nav_x[name]}
+            </div>
+            <div class="page-content p-news">
+                <h1 class="title">
+                    {$en_title}
+                    <p>{$class_list[$classnow][name]}</p>
+                </h1>
+                <ul>
+<!--
+EOT;
+foreach($news_list as $key=>$val){
+$val['description'] = cut_content($val['description'], 70);
+echo <<<EOT
+-->
+                    <li class="list-none">
+                        <div class="news-thumb">
+                            <a href="$val[url]" target="$Blank" title="$val[title]">
+                                <img src="$val[imgurls]" alt="$val[title]" title="$val[title]" />
+                            </a>
+                        </div>
+                        <div class="news-body">
+                            <h3 class="title">
+                                <span class="time">[{$val[updatetime]}]</span>
+                                <a href="$val[url]" target="$Blank" title="$val[title]">$val[title]</a>
+                            </h3>
+                            <p>
+                                {$val[description]}
+                            </p>
+                            <a href="$val[url]" title="$val[title]" class="more">点击查看更多 &gt;&gt;</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                </ul>
+                <div class="clear"></div>
+                <div class="pagination">$page_list</div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </div>
+</section>
+<!--
+EOT;
+require_once template('foot');
+?>

@@ -1,0 +1,64 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<!--
+EOT;
+$title="ICO地址栏图标";
+$rurl="../dlapp/index.php?anyid={$anyid}&lang={$lang}";
+require_once template('metlangs');
+echo <<<EOT
+-->
+
+<script type="text/javascript" src="{$img_url}/js/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript" src="{$img_url}/js/uploadify/swfobject.js"></script>
+<body>
+<form method="POST" name="myform" action="index.php?anyid={$anyid}&lang={$lang}&cs={$cs}" target="_self">
+<input name="action" type="hidden" value="modify" />
+<table cellpadding="2" cellspacing="1" class="table">
+<tr>
+	<td class="text">生成ICO网址推荐：</td>
+	<td class="input upload">
+	<a href="http://www.ico.la/" target="_blank">http://www.ico.la/</a><br />
+	<a href="http://tool.alixixi.com/ico/" target="_blank">http://tool.alixixi.com/ico/</a><br />
+	<a href="http://ico.55.la/" target="_blank">http://ico.55.la/</a><br />
+	</td>
+</tr>
+<tr> 
+        <td class="text">ICO地址栏图标：</td>
+
+        <td class="input upload">
+			<input name="met_upsql" type="file" id="file_upload" />
+			<script type='text/javascript'>
+				$(document).ready(function(){
+					metuploadify('#file_upload','metico','','','','*.ico',"请选ico格式文件");
+				});
+			</script>
+			&nbsp;推荐上传32*32的ICO图标
+		</td>
+    </tr>
+	<tr>
+		<td class="text">更新本机IOC缓存：</td>
+		<td class="input upload">
+		<a href="{$met_weburl}favicon.ico" target="_blank">更新</a><span class="tips">&nbsp;注：如打开连接后任然未更新缓存，请刷新页面</span>
+		 </td>
+	</tr>
+	<tr>
+		<td class="text">注：</td>
+		<td class="input upload">
+		如无法看到新上传的ICO图标，请清空浏览器缓存，并重启浏览器。
+	</td>
+	</tr>
+</table>
+
+</form>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

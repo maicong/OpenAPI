@@ -1,0 +1,76 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+if(!$customerid){
+$title="<a href='index.php?anyid={$anyid}&lang={$lang}&class1={$class1}'>{$met_class[$class1][name]}</a> > ";
+$title.="{$lang_cveditorTitle}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('content/job/top');
+}else{
+$title.="{$lang_cveditorTitle}";
+$class1=$class1?$class1:($id?$id:0);
+$title=title($class1,$anyid,$lang)?title($class1,$anyid,$lang):$title;
+require_once template('metlangs');
+}
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx" style="position:relative;">
+<!--
+EOT;
+if($jobzhaop){
+if($jobzhaop!='../../'){
+echo <<<EOT
+-->
+	<div class="job_cv_img"><img src="{$jobzhaop}" width="200" /></div>
+<!--
+EOT;
+}}
+echo <<<EOT
+-->
+<!--
+EOT;
+foreach($cv_para as $key=>$val){
+echo <<<EOT
+-->
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$val[name]}{$lang_marks}</dt>
+			<dd>
+				{$val[content]}
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+--> 
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_cvAddtime}{$lang_marks}</dt>
+			<dd>
+				{$cv_list[addtime]}
+			</dd>
+		</dl>
+		</div>
+</div>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

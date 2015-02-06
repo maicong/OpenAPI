@@ -1,0 +1,141 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved..
+if($title)$title=' > '.$title;
+echo <<<EOT
+-->
+<script type="text/javascript">
+function metreturn(url){
+	if(url){
+		location.href=url;
+	}else if($.browser.msie){
+		history.go(-1);
+	}else{
+		history.go(-1);
+	}
+}
+</script>
+	<div class="metinfotop">
+<!--
+EOT;
+if($anyid){
+echo <<<EOT
+-->
+	<div class="position">{$met_langok[$lang][name]} > {$toplace[$letplace[$anyid][bigclass]][name]} > <a href="{$depth}../{$letplace[$anyid][url]}">{$letplace[$anyid][name]}</a>{$title}</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+if($title){
+echo <<<EOT
+-->
+	<div class="return"><a href="javascript:metreturn('{$rurl}');">&lt;&lt;{$lang_js55}</a></div>
+<!--
+EOT;
+}else if($other_op){
+echo <<<EOT
+-->
+	<div class="return">{$other_op}</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+	</div>
+	<div class="clear"></div>
+
+<script type="text/javascript">
+$("html",parent.document).find('.returnover').remove();
+</script>
+<!--
+EOT;
+if($turnovertext){
+echo <<<EOT
+-->
+	<div class="returnover none">{$turnovertext}</div>
+	<script type="text/javascript">
+	(function($){
+	jQuery.fn.PositionFixed = function(options) {
+		var defaults = {
+			css:'',
+			x:0,
+			y:0
+		};
+		var o = jQuery.extend(defaults, options);
+		var isIe6=false;
+		if($.browser.msie && parseInt($.browser.version)==6)isIe6=true;			
+		var html= $('html');
+		if (isIe6 && html.css('backgroundAttachment') !== 'fixed') {
+			html.css('backgroundAttachment','fixed') 
+		};
+		return this.each(function() {
+		var domThis=$(this)[0];
+		var objThis=$(this);
+			if(isIe6){
+				var left = parseInt(o.x) - html.scrollLeft(),
+					top = parseInt(o.y) - html.scrollTop();
+				objThis.css('position' , 'absolute');
+				domThis.style.setExpression('left', 'eval((document.documentElement).scrollLeft + ' + o.x + ') + "px"');
+				domThis.style.setExpression('top', 'eval((document.documentElement).scrollTop + ' + o.y + ') + "px"');	
+			}else{
+				objThis.css('position' , 'fixed').css('top',o.y).css('left',o.x);
+			}
+		});
+	};
+	})(jQuery)
+	$(document).ready(function() {
+		$('body', parent.document).append('<div class="returnover">{$turnovertext}</div>');//<div class="mangpingfugai"></div>
+		$('.returnover').show();
+		var tur_ml = $('.returnover').outerWidth();
+		var tur_mt = $('.returnover').outerHeight();
+		$('.returnover').hide();
+		tur_ml = parseInt(($('html',parent.document)[0].clientWidth-tur_ml)/2);
+		tur_mt = parseInt(($('html',parent.document)[0].clientHeight-tur_mt)/2);
+		$("html",parent.document).find('.returnover').css({
+			top:tur_mt+'px',
+			left:tur_ml+'px'
+		});
+		$("html",parent.document).find('.returnover').PositionFixed({x:tur_ml,y:tur_mt}); 
+		setTimeout(function(){ $("html",parent.document).find('.returnover').hide(); }, 5000 );
+	});
+	</script>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+if(count($ad_navlist3[$anyid])&11==00){
+echo <<<EOT
+-->
+<div class="stat_list">
+	<ul>
+<!--
+EOT;
+$x=0;
+foreach($ad_navlist3xxx[$anyid] as $key=>$val){
+$x++;
+echo <<<EOT
+-->
+                <li {$listclass[$val[list_order]]}><a href="{$val[url]}" {$val[property]} title="{$val[name]}" hidefocus="true">{$val[name]}</a></li>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+	</ul>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>

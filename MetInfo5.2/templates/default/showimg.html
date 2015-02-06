@@ -1,0 +1,56 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$en_title = ucfirst(str_replace('_',' ',$class_list[$classnow]['filename']));
+$met_img=methtml_imgdisplay('img');
+$met_imgnext=methtml_prenextinfo(1);
+$methits=methtml_hits('img');
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-crumb">
+                <a href="{$index_url}" title="{$lang_home}">{$lang_home} &gt;</a> {$nav_x[name]}
+            </div>
+            <div class="page-content p-article">
+                <h1 class="title">
+                    {$en_title}
+                    <p>{$class_list[$classnow][name]}</p>
+                </h1>
+                <h2 class="stitle">{$img[title]}</h2>
+                <div class="thumb">{$met_img}</div>
+<!--
+EOT;
+if(!empty($img_paralist)){
+echo <<<EOT
+-->
+                <div class="paralist">
+<!--
+EOT;
+foreach($img_paralist as $key=>$val){
+echo <<<EOT
+-->
+                    <p><span class="name">{$val2[name]}</span>： <span class="value">{$img[$val2[para]]}</span></p>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                </div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+                <div class="text">{$img[content]}</div>
+                <div class="hits">{$methits}</div>
+                <div class="page">{$met_imgnext}</div>
+                <div class="clear"></div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </div>
+</section>
+<!--
+EOT;
+require_once template('foot');
+?>

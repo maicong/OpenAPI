@@ -1,0 +1,185 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript">
+function pass2null(pass2){
+			$('#pass2').text('{$lang_memberjstxt1}');
+			$('#pass2').show();
+}
+function pass1null(pass1){
+			$('#pass1').text('{$lang_memberjstxt2}');
+			$('#pass1').show();
+}
+function passnot(pass2){
+			$('#pass2').text('{$lang_memberjstxt3}');
+			$('#pass2').show();
+}
+$(document).ready(function(){
+    var pass1 = $("input[name='pass1']");
+    var pass2 = $("input[name='pass2']");
+	pass1.focusout(function(){
+		if($(this).val()=='')pass1null($(this));
+		else 
+		if(pass2.val()!='' && pass2.val()!=pass1.val()){
+		$('#pass1').hide();
+		passnot(pass2);
+		}
+		else 
+		if(pass2.val()==''){
+		$('#pass1').hide();
+		pass2null(pass2);
+		}
+		else{ 
+		$('#pass1').hide();
+		Disb1($('#passsubmit'),1);
+		}
+	});
+	pass2.focusout(function(){
+		if($(this).val()=='')pass2null($(this));
+		else 
+		if(pass1.val()!='' && pass2.val()!=pass1.val())passnot($(this));
+		else 
+		if(pass1.val()==''){
+		$('#pass2').hide();
+		pass1null(pass1);
+		}
+		else{ 
+		$('#pass2').hide();
+		Disb1($('#passsubmit'),1);
+		}
+	});
+});
+</script>
+<title>{$lang_adminpassTitle}</title>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="save.php?action=editor&id=$id&lang=$lang&anyid=$anyid" target="_self">
+<input name="useid" type="hidden" value="$admin_list[admin_id]" />
+<input name="editorpass" type="hidden" value="1" />
+<input name="nosql" type="hidden" value="1" />
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminusername}{$lang_marks}</dt>
+		<dd>
+			$admin_list[admin_id]
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminpassword}{$lang_marks}</dt>
+		<dd>
+			<input name="pass1" type="password" class="text" autocomplete="off" ><span id="pass1"></span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminpassword1}{$lang_marks}</dt>
+		<dd>
+			<input name="pass2" type="password" class="text" autocomplete="off" ><span id="pass2"></span>
+		</dd>
+	</dl>
+	</div>
+	<h3 class="v52fmbx_hr metsliding">{$lang_admininfo}</h3>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminname}{$lang_marks}</dt>
+		<dd>
+			<input name="name" type="text" class="text" value="$admin_list[admin_name]" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminSex}{$lang_marks}</dt>
+		<dd>
+			<label><input name="sex" type="radio" class="radio" value="0" $sexx[0]>{$lang_adminMan}</label>
+			<label><input name="sex" type="radio" class="radio" value="1" $sexx[1]>{$lang_adminWoman}</label>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_admintel}{$lang_marks}</dt>
+		<dd>
+			<input name="tel" type="text" class="text" size="20" value="$admin_list[admin_tel]" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminmobile}{$lang_marks}</dt>
+		<dd>
+			<input name="mobile" type="text" class="text nonull" size="20" value="$admin_list[admin_mobile]" />
+			<span class="tips">{$lang_adminTip1}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>Email{$lang_marks}</dt>
+		<dd>
+			<input name="email" type="text" class="text nonull" size="20" value="$admin_list[admin_email]" />
+			<span class="tips">{$lang_adminTip1}</span>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>QQ{$lang_marks}</dt>
+		<dd>
+			<input name="qq" type="text" class="text" size="20" value="$admin_list[admin_qq]" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>MSN{$lang_marks}</dt>
+		<dd>
+			<input name="msn" type="text" class="text" value="$admin_list[admin_msn]" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminTaoBao}{$lang_marks}</dt>
+		<dd>
+			<input name="taobao" type="text" class="text" value="$admin_list[admin_taobao]" />
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_adminIntro}{$lang_marks}</dt>
+		<dd>
+			<textarea name="admin_introduction" class="textarea gen" >$admin_list[admin_introduction]</textarea>
+		</dd>
+	</dl>
+	</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+	</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# 本程序是一个开源系统,使用时请你仔细阅读使用协议,商业用途请自觉购买商业授权.
+# Copyright (C) 长沙米拓信息技术有限公司 (http://www.metinfo.cn). All rights reserved.
+?>-->

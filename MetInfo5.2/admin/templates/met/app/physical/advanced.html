@@ -1,0 +1,207 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved
+require_once template('head');
+echo <<<EOT
+-->
+<script type="text/javascript">
+function physicalsub(my,txt){
+	var text = txt?txt:'{$lang_physicaltips1}';
+	$("input[type='submit']").attr('disabled',true);
+	my.next('span.tips').append('<img src="'+metimgurl+'loadings.gif" style="position:relative; top:3px;" />'+text);
+	var f=$("input[name='f_filename']:checked").val();
+	location.href=my.attr('href')+'&f_filename='+f;
+	return false;
+}
+</script>
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+<div class="stat_list">
+	<ul>
+		<li {$listclass[1]}><a href="index.php?lang={$lang}&anyid={$anyid}&cs=1" title="{$lang_physicaltips2}">{$lang_physicaltips2}</a></li>
+		<li {$listclass[2]}><a href="advanced.php?lang={$lang}&anyid={$anyid}&cs=2" title="{$lang_physicaltips3}">{$lang_physicaltips3}</a></li>
+		<li {$listclass[3]}><a href="advanced.php?lang={$lang}&anyid={$anyid}&cs=3" title="{$lang_physicaltips4}">{$lang_physicaltips4}</a></li>
+	</ul>
+</div>
+<div class="clear"></div>
+<!--
+EOT;
+if($cs==2){
+echo <<<EOT
+-->
+<!--
+EOT;
+if(!$phy){
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding">{$lang_physicaltips23}</h3>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="submit" value="{$lang_physicaltips24}" class="submit" href="physical.php?lang={$lang}&anyid={$anyid}&action=dangerfundo" onclick="return physicalsub($(this))" />
+		<span class="tips"></span>
+		<br/>
+		<a href="advanced.php?lang={$lang}&anyid={$anyid}&cs=2&phy=1">{$lang_physicaltips25}</a>
+	</div>
+</div>
+</div>
+</div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<h3 class="v52fmbx_hr metsliding">
+<!--
+EOT;
+if($kyfile!=0){
+echo <<<EOT
+-->
+			{$lang_physicaltips26} <span class="red">{$kyfile}</span> {$lang_physicaltips27} <span class="red">{$zhfile}</span> {$lang_physicaltips28} <span class="red">{$wjfile}</span> {$lang_physicaltips29}
+<!--
+EOT;
+}
+echo <<<EOT
+-->			
+			&nbsp;&nbsp;<a href="physical.php?lang={$lang}&anyid={$anyid}&action=dangerfundo" onclick="return physicalsub($(this))">{$lang_physicaltips30}</a>
+	</h3>
+	<div class="v52fmbx_dlbox">
+	<dl>
+		<dt>{$lang_physicaltips31}{$lang_marks}</dt>
+		<dd>
+			$physical_function
+		</dd>
+	</dl>
+	</div>
+</div>
+</div>
+</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+<!--
+EOT;
+if(!$phy){
+$fileilst_temp=glob('*.txt');
+
+foreach($fileilst_temp as $key=>$val){
+	$list='';
+	if(substr($val,0,12)=='fingerprint_'){
+		$vals=explode('_',str_replace('.txt','',$val));
+		$list['time']=date('Y-m-d H:i:s',strtotime($vals[1]));
+		$list['ver']="$vals[2].$vals[3].$vals[4]";
+		$list['filename']=$val;
+		$list['order']=strtotime($vals[1]);
+	}
+	$fileilst[]=$list;
+}
+foreach ($fileilst as $key=>$val){
+	$top_time[$key]=$val['order'];
+}
+array_multisort($top_time,SORT_NUMERIC,SORT_DESC,$fileilst);
+$fileilst[0]['checked']="checked='checked'";
+echo <<<EOT
+-->
+	<span class="xtips">{$lang_physicaltips35}</span>
+	<h3 class="v52fmbx_hr metsliding">
+			{$lang_physicaltips32} <a href="physical.php?lang={$lang}&anyid={$anyid}&action=fingerprint" onclick="return physicalsub($(this),'{$lang_physicaltips33}')">{$lang_physicaltips34}</a><span class="tips"></span>
+	</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt></dt>
+			<dd>
+			<label><input name="f_filename" type="radio" class="radio" value="fingerprint_metinfo.php">{$metcms_v}{$lang_unitytxt_16}</label>
+<!--
+EOT;
+foreach($fileilst as $key=>$val){
+if($val[filename]){
+echo <<<EOT
+-->
+			<label>
+				<input name="f_filename" type="radio" class="radio" value="{$val[filename]}" {$val[checked]}/>{$val[ver]}{$lang_unitytxt_17} {$val[time]} {$lang_unitytxt_18}
+				<a href="physical.php?lang={$lang}&anyid={$anyid}&action=fingerprintdel&f_filename={$val[filename]}">{$lang_delete}</a>
+			</label>
+			
+<!--
+EOT;
+}
+}
+echo <<<EOT
+-->
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" value="{$lang_physicaltips36}" class="submit" href="physical.php?lang={$lang}&anyid={$anyid}&action=fingerprintdo" onclick="return physicalsub($(this),'{$lang_physicaltips37}')" /><span class="tips"></span>
+		</div>
+		<div class="v52fmbx_submit">
+		<a href="advanced.php?lang={$lang}&anyid={$anyid}&cs=3&phy=1">{$lang_physicaltips38}</a>
+		</div>
+<!--
+EOT;
+}else{
+echo <<<EOT
+-->
+		<h3 class="v52fmbx_hr metsliding">
+<!--
+EOT;
+if($zwnum!=0){
+echo <<<EOT
+-->			
+			{$lang_setdbAll} <span class="red">{$zwnum}</span> {$lang_physicaltips39}
+<!--
+EOT;
+}
+echo <<<EOT
+-->			
+			&nbsp;&nbsp;<a href="advanced.php?lang={$lang}&anyid={$anyid}&cs=3" onclick="return physicalsub($(this))">{$lang_physicaltips40}</a>
+		</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_physicaltips41}{$lang_marks}</dt>
+			<dd>
+				$physical_fingerprint
+			</dd>
+		</dl>
+		</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+</div>
+</div>
+</div>
+<!--
+EOT;
+}
+echo <<<EOT
+-->
+<div class="clear"></div>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved..
+?>-->

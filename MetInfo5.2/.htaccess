@@ -1,0 +1,6 @@
+<FilesMatch ".(bak|htaccess|htpasswd|inc|ini|lbi|lib|tpl|sh)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+Options -Indexes
+order deny,allow

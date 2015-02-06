@@ -1,0 +1,25 @@
+<!--<?php
+require_once template('head');
+require_once template('sidebar');
+$methtml_searchlist=methtml_searchlist();
+echo <<<EOT
+-->
+        <article class="page-main">
+            <div class="page-nav">
+                <h3 class="title">
+                    <div class="crumb">{$lang_position} <a href="{$index_url}" title="{$lang_home}" class="chome">{$lang_home} &gt;</a> {$nav_x[name]}</div>
+                    <span>{$class_list[$classnow][name]}</span>
+                </h3>
+            </div>
+            <div class="page-content p-search">
+                {$methtml_searchlist}
+                <div class="clear"></div>
+                <div class="pagination">$page_list</div>
+            </div>
+        </article>
+        <div class="clear"></div>
+    </section>
+<!--
+EOT;
+require_once template('foot');
+?>

@@ -1,0 +1,117 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+        <form method="POST" name="myform" action="sitemap.php?anyid={$anyid}&lang={$lang}" target="_self">
+		<input name="action" type="hidden" value="modify" />
+		<input name="met_sitemap_not1" type="hidden" value="0" />
+		<input name="met_sitemap_not2" type="hidden" value="0" />
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+		<h3 class="v52fmbx_hr metsliding">
+<!--
+EOT;
+if($met_agents_type<=1){
+echo <<<EOT
+-->	
+<a href="http://www.metinfo.cn/news/shownews852.htm" target="_blank" title="{$lang_seotips14_1}" style="float:right;">{$lang_seotips14_1}</a>
+<!--
+EOT;
+}
+echo <<<EOT
+-->	
+		{$lang_seotips14}
+		</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_setimgWater}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_sitemap_auto" type="radio" class="radio" value="1" {$met_sitemap_auto1[1]} />{$lang_open}</label>
+				<label><input name="met_sitemap_auto" type="radio" class="radio" value="0" {$met_sitemap_auto1[0]} />{$lang_close}</label>
+				<span class="tips">{$lang_unitytxt_77}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_seotips16}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_sitemap_not1" type="checkbox" value="1" {$met_sitemap_not11[1]} />
+				{$lang_seotips17}</label>
+				<label><input name="met_sitemap_not2" type="checkbox" value="1" {$met_sitemap_not21[1]} />
+				{$lang_seotips18}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_seotips19}{$lang_marks}</dt>
+			<dd>
+				<label><input name="met_sitemap_lang" type="radio" class="radio" value="1" {$met_sitemap_lang1[1]} />{$lang_admintips1}</label>
+				<label><input name="met_sitemap_lang" type="radio" class="radio" value="0" {$met_sitemap_lang1[0]} />{$lang_seotips20}</label>
+				<span class="tips">{$lang_seotips21}</span>
+			</dd>
+		</dl>
+		</div>
+		<h3 class="v52fmbx_hr metsliding">Sitemap类型</h3>
+		
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_sethtmsitemap4}{$lang_marks}</dt>
+			<dd>
+			<label><input name="met_sitemap_xml" type="radio" class="radio" value="1" {$met_sitemap_xml1[1]} />{$lang_open}</label>
+			<label><input name="met_sitemap_xml" type="radio" class="radio" value="0" {$met_sitemap_xml1[0]} />{$lang_close}</label>
+			<span class="tips">
+			{$lang_seotips15_2}{$lang_seotips15} <a href="{$met_weburl}sitemap.xml" target="_blank">{$met_weburl}sitemap.xml</a>
+			</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>Txt{$lang_mod12}{$lang_marks}</dt>
+			<dd>
+			<label><input name="met_sitemap_txt" type="radio" class="radio" value="1" {$met_sitemap_txt1[1]} />{$lang_open}</label>
+			<label><input name="met_sitemap_txt" type="radio" class="radio" value="0" {$met_sitemap_txt1[0]} />{$lang_close}</label>
+			<span class="tips">
+			{$lang_seotips15_3}{$lang_seotips15} <a href="{$met_weburl}sitemap.txt" target="_blank">{$met_weburl}sitemap.txt</a>
+			</span>
+			</dd>
+		</dl>
+		</div>
+		
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_sethtmsitemap1}{$lang_marks}</dt>
+			<dd>
+				<span class="tips">
+				{$lang_seotips15_1}
+				</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+		    <input type="submit" name="Submit" value="{$lang_Submit}{$lang_seotips22}" class="submit" />
+		</div>
+</div>
+</div>
+</div>
+</form>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

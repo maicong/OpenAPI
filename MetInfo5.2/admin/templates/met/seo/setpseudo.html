@@ -1,0 +1,91 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head'); 
+echo <<<EOT
+-->
+</head>
+<body>
+<!--
+EOT;
+require_once template('metlangs');
+echo <<<EOT
+-->
+        <form method="POST" name="myform" action="setpseudo.php?anyid={$anyid}&lang={$lang}&cs={$cs}" target="_self">
+		<input name="action" type="hidden" value="modify" />
+		<input name="depsdo" type="hidden" value="" />
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">
+	<span class="xtips">{$lang_unitytxt_23}</span>
+	<h3 class="v52fmbx_hr metsliding" sliding="0">
+		<a href="pseudo.php?pseudo_download=1" target="_blank" title="{$lang_rewriteruledownload1}" style="float:right;">{$lang_rewriteruledownload1}</a>
+		{$lang_rewriteok}	
+	</h3>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_rewrite}{$lang_marks}</dt>
+			<dd>
+		    <label><input name="met_pseudo" type="radio" value="0" id="label18" {$met_pseudo1[0]} />{$lang_close}</label>
+			<label><input name="met_pseudo" type="radio" value="1" id="label19" {$met_pseudo1[1]} />{$lang_open}</label>
+	        <span class="tips">{$lang_unitytxt_22}</span>
+			</dd>
+		</dl>
+		</div>
+		<h3 class="v52fmbx_hr metsliding">{$lang_seotips5}</h3>
+		<div class="v52fmbx_dlbox color999">
+		<dl>
+			<dt>{$lang_seotips6}{$lang_marks}</dt>
+			<dd>
+		    index-{$lang_langmark}.html（{$lang_seotips7}：index-cn.html）
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox color999">
+		<dl>
+			<dt>{$lang_setskinListPage}{$lang_marks}</dt>
+			<dd>
+		    {$lang_columndocument}/list-{$lang_seotips8}-{$lang_langmark}.html（{$lang_seotips7}：product/list-1-cn.html）
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox color999">
+		<dl>
+			<dt>{$lang_seotips9}{$lang_marks}</dt>
+			<dd>
+		    {$lang_columndocument}/{$lang_seotips8}-{$lang_langmark}.html（{$lang_seotips7}：product/100-cn.html）
+			</dd>
+		</dl>
+		</div>
+	<div class="v52fmbx_submit">
+		<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return sethtmsub()" />
+	</div>
+</div>
+</div>
+</div>
+</form>
+<script type="text/javascript">
+function sethtmsub(){
+	var psdo = $("input[name='met_pseudo']:checked").val();
+	if(psdo){
+		if(psdo==0){
+			if(confirm('{$lang_seotips10}')){
+				$("input[name='depsdo']").val('deleteall');
+				return true;
+			}else{
+				return true;
+			}
+		}else{
+			return true;
+		}
+	}
+}
+</script>
+<div class="footer">$foot</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

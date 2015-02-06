@@ -1,0 +1,112 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved. 
+require_once template('head');
+echo <<<EOT
+-->
+<title>{$lang_modify}{$lang_indexlink}</title>
+</head>
+<body>
+<!--
+EOT;
+$title="{$lang_add}({$lang_indexlink})";
+if($id)$title="{$lang_editor}({$lang_indexlink})";
+$rurl="index.php?anyid={$anyid}&lang={$lang}";
+require_once template('metlangs');
+echo <<<EOT
+-->
+<form  method="POST" name="myform" action="save.php?action=$action&anyid={$anyid}" target="_self">
+<input name="lang" type="hidden"  value="$lang">
+<input name="id" type="hidden"  value="$id">
+<div class="v52fmbx_tbmax v52fmbx_tbmaxmt">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkType}{$lang_marks}</dt>
+			<dd>
+				<label><input name="link_type" type="radio" class="radio" value="0"  {$link_type[0]} checked />{$lang_linkType4}</label>
+				<label><input name="link_type" type="radio" class="radio" value="1" {$link_type[1]} />{$lang_linkType5}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkUrl}{$lang_marks}</dt>
+			<dd>
+				<input name="weburl" type="text" class="text nonull" value="$link_list[weburl]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkLOGO}{$lang_marks}</dt>
+			<dd>
+		    <input name="weblogo" type="text" class="text" value="$link_list[weblogo]">
+			<input name="met_upsql1" type="file" id="file_upload" />
+<script type="text/javascript">
+$(document).ready(function(){
+	metuploadify('#file_upload','upimage','weblogo');
+});
+</script>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkName}{$lang_marks}</dt>
+			<dd>
+				<input name="webname" type="text" class="text nonull" value="$link_list[webname]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkKeys}{$lang_marks}</dt>
+			<dd>
+				<input name="info" type="text" class="text" value="$link_list[info]" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_sort}{$lang_marks}</dt>
+			<dd>
+				<input name="orderno" type="text" class="text mid" value="$link_list[orderno]" />
+				<span class="tips">{$lang_linktip1}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_article1}{$lang_marks}</dt>
+			<dd>
+				<label><input name="show_ok" type="checkbox" class="checkbox" value="1" $show_ok1>{$lang_linkPass}</label>
+				<label><input name="com_ok" type="checkbox" class="checkbox" value="1"  $com_ok1>{$lang_linkRecommend}</label>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_linkcontact}{$lang_marks}</dt>
+			<dd>
+				<textarea name="contact" cols="60" rows="5" class="textarea gen">$link_list[contact]</textarea>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="Submit" value="{$lang_Submit}" class="submit" onclick="return Smit($(this),'myform')" />
+			<input name="id" type="hidden" value="$link_list[id]" />
+		</div>
+</div>
+</div>
+</div>
+<div class="footer">{$foot}</div>
+</form>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->

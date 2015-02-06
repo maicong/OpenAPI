@@ -1,0 +1,69 @@
+<!--<?php
+# MetInfo Enterprise Content Management System 
+# Copyright (C) MetInfo Co.,Ltd (http://www.metinfo.cn). All rights reserved.
+require_once template('head');
+echo <<<EOT
+-->
+</head>
+<body>
+<script type="text/javascript">
+function array_submit(my,form){
+	var name=$('#array_name').val();
+	var webpower=parseInt($('#user_webpower').val());
+	if(!name){
+		alert('$lang_memberjstxt4');
+		return false;
+	}
+	if((webpower<1||webpower>255)||isNaN(webpower)){
+		alert('$lang_memberjstxt5');
+		return false;
+	}
+	return Smit(my,form);
+}
+</script>
+<!--
+EOT;
+$title="{$lang_editor}{$lang_content}";
+$listclass='';
+$listclass[2]='class="now"';
+require_once template('member/top');
+echo <<<EOT
+-->
+<form method="POST" name="myform" action="arraysave.php?action=editor&id=$id&lang=$lang&anyid={$anyid}" target="_self">
+		<input name="id" type="hidden" value="$admin_list[id]">
+		<input name="user_webpower_old" type="hidden" value="$admin_list[user_webpower]">
+<div class="v52fmbx_tbmax">
+<div class="v52fmbx_tbbox">
+<div class="v52fmbx">	
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>$lang_memberarayname{$lang_marks}</dt>
+			<dd>
+				<input id="array_name" name="array_name" type="text" class="text" value="{$admin_list[array_name]}" />
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_dlbox">
+		<dl>
+			<dt>{$lang_memberpermission}{$lang_marks}</dt>
+			<dd>
+				<input id="user_webpower" name="user_webpower" type="tex" class="text" value="{$admin_list[user_webpower]}" />
+				<span class="tips">{$lang_memberaddarraytips1}</span>
+			</dd>
+		</dl>
+		</div>
+		<div class="v52fmbx_submit">
+			<input type="submit" name="submit" value="{$lang_Submit}" class="submit" onclick="return array_submit($(this),'myform')" />
+		</div>
+</div>
+</div>
+</div>
+        </form>
+<div class="footer">{$foot}</div>
+</body>
+</html>
+<!--
+EOT;
+# This program is an open source system, commercial use, please consciously to purchase commercial license.
+# Copyright (C) MetInfo Co., Ltd. (http://www.metinfo.cn). All rights reserved.
+?>-->
