@@ -1,0 +1,39 @@
+.container {
+	font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+	margin-top: 20px;
+	max-width: 800px;
+}
+.iiii, .oooo {
+	color: #999;
+	margin-left: 20px;
+}
+.iiie {
+	color: #F30;
+	margin-left: 20px;
+}
+.iiis {
+	color: #3C6;
+	margin-left: 20px;
+}
+.w100 {
+	padding: 8px 20px;
+}
+input, textarea {
+	width: 50%;
+}
+textarea {
+	resize: vertical;
+}
+input:required, textarea:required {
+ background: #fff url(images/red_asterisk.png) no-repeat 98% center;
+}
+input:required:valid, textarea:required:valid {
+ background: #fff url(images/valid.png) no-repeat 98% center;
+ box-shadow: 0 0 5px #33B5E5;
+ border-color: #0099cc;
+}
+input:focus:invalid, textarea:focus:invalid {
+ background: #fff url(images/invalid.png) no-repeat 98% center;
+ box-shadow: 0 0 5px #d45252;
+ border-color: #b03535;
+}
