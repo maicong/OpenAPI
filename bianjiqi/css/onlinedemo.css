@@ -1,0 +1,25 @@
+/*
+  Created by JetBrains PhpStorm.
+  @describtion: style of document
+  @time: 2012-04-12
+*/
+/*ue reset issue*/
+table{border-collapse: separate;border-spacing: 2px;}
+input{margin: 3px 3px 3px 4px;*margin: 1px 0 0 0;}
+.edui-for-customstyle .edui-listitem-label{line-height: 38px;}
+.bg{ background-color: #eee;}
+.btn{display:block;position:relative;left:790px;width: 67px;height: 28px;margin-top:15px;padding-top:5px;background:url('../ipanel/images/ct-submitbg.png') no-repeat;font-size:14px;color: white;text-align:center;cursor: pointer;}
+#content .section{ width: 750px; margin: 0 auto;padding-bottom: 25px;}
+.section h3{ margin: 10px 0; font-weight: bolder; font-size: 18px; color:#3399CC; text-align:center;}
+.section h4{margin: 10px 0;border-bottom: 1px dotted #aba6a2;font-weight: bolder;  font-size: 14px;color: #0E3E5E;}
+.section .details{ margin-top: 5px; }
+.section .details input{ color: #3E3E3E;font-size: 12px;padding: 4px; }
+.section .details li{float: left;margin-left: 15px;}
+.section .details li a{cursor: pointer;color: #3E3E3E;}
+#alertdiv1,#alertdiv2{display:none;} 
+#gotop{position:fixed;top:35%;right:19%;display:block;}
+#yi{background:url(yi.png) no-repeat;cursor:pointer;height:35px;width:35px;margin:10px 0;}
+#er{background:url(er.png) no-repeat;cursor:pointer;height:35px;width:35px;margin:10px 0;}
+#san{background:url(san.png) no-repeat;position:relative;cursor:pointer;height:35px;width:35px;margin:10px 0;}
+#jia{background:url(jia.png) no-repeat;position:relative;cursor:pointer;height:35px;width:35px;margin:10px 0;}
+#ref{background:url(ref.png) no-repeat;position:relative;cursor:pointer;height:35px;width:35px;margin:10px 0;}

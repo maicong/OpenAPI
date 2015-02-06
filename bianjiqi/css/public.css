@@ -1,0 +1,82 @@
+/*
+  Ueditor Offical Website public css file
+  @describtion: include reset, common, header and footer part
+  @time: 2012-04-09
+*/
+
+/*-------------------------------css reset----------------------------*/
+html{color:#3E3E3E;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {margin:0;padding:0;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset, img {border:0;}
+address, caption, cite, code, dfn, th, var {font-style:normal;font-weight:normal;}
+li {list-style:none;}
+caption, th {text-align:left;}
+h1, h2, h3, h4, h5, h6 {font-size:100%;font-weight:normal;}
+q:before, q:after {content:'';}
+abbr, acronym {border:0;font-variant:normal;}
+sup {vertical-align:text-top;}
+sub {vertical-align:text-bottom;}
+input, textarea, select {font-family:inherit;font-size:inherit;font-weight:inherit;}
+input, textarea, select {*font-size:100%;}
+legend {color:#000;}
+
+
+/*--------------------------------css common-------------------------------*/
+/* style */
+html, body, button, input, select, textarea, li{font-size:12px;color:#454545; line-height: 18px;font-family: Tahoma, Helvetica, "Microsoft Yahei", "微软雅黑", Arial, STHeiti;}
+html{background-color: #dde1e5;overflow-y: scroll;}
+.clearfix:after{content:'\0020';display:block;height:0;clear:both;}
+.clearfix{*zoom:1;}
+a{text-decoration: none; outline: none; color:#3399CC;}
+a:hover{text-decoration: underline; color: #FF3333;}
+.border-style1{border:1px solid #dadde1; border-radius: 5px; box-shadow:2px 2px 5px #d3d6da; }
+.border-style2{border:1px solid #c6c8cb; border-bottom:none; border-radius: 5px 5px 0 0; }
+.border-style3{border:1px solid #aeb1b5; border-radius: 0 0 5px 5px; }
+.border-style4{border:1px solid #aeb1b5; border-radius: 5px; }
+.border-style5{border:1px solid #c6cacd; border-top: 0; border-radius: 0 0 5px 5px; box-shadow:2px 2px 5px #d3d6da;}
+.border-style6{border:1px solid #c6cacd; box-shadow:2px 2px 5px #d3d6da;}
+.topBorder-move{position:relative;left:-1500px;width:3000px;border-top: 2px dashed #DADDE1;}
+.bottomBorder-move{position:relative;left:-1500px;width:4000px;border-bottom: 2px dashed #DADDE1;}
+.leftBorder-move{position:absolute;top:-1500px;width:1px;height:4000px;border-left: 2px dashed #DADDE1;}
+.rightBorder-move{position:absolute;right:0;top:-1500px;width:1px;height:3000px;border-right: 2px dashed #DADDE1;}
+.hide{display: none;}
+.close{height:0;overflow: hidden;}
+.note{ margin:10px 5px;color: red;}
+/* layout */
+.layout-mt10{margin-top: 10px;}
+.layout-mb10{margin-bottom: 10px;}
+.w900{width:800px; margin: 0 auto;}
+#wrapper{background-color:#dde1e5;position: relative;}
+#content{margin-top: 15px;}
+.col-main{width: 638px; background-color: #ffffff; float:left; margin-bottom: 10px;}
+.col-sub{float:right; width:253px; }
+.header-logo, .chara-f, .ueditor-chara li, .ueditor-chara li p.chara-f, .ueditor-chara li p.chara-e,
+.ueditor-chara li p.chara-m, .ueditor-chara li p.chara-s, .ueditor-chara li p.chara-d, .news h2, .concern h2, .learn,
+.subscribe .sub-btn, .bar-front, .bar-rear, .news .new-icon, .feedback, .up-log .hd-bg, .log-list li, .help-hd, .link h2,
+.link-list li.link-QQ p.QQ-ava, .dl-list li a
+{background: url("../images/ueditor-bg.png") no-repeat 0 0;}
+
+
+/*------------------------------css module--header-----------------------*/
+.U_header{width: 100%;height: 80px;margin: 0 auto;display: block;}
+#header{background-color: #006dae; width: auto; }
+.header-cont{height: 80px;}
+.header-logo{width:156px; height: 70px; float: left;}
+.header-logo a{display: block; text-indent: -10000px; width:100%; height: 100%;}
+.header-nav{float:left; margin-left: 10px;}
+.header-nav li{float:left; }
+.header-nav li.cur, .header-nav li:hover{background-color: #085ea7;}
+.header-nav li a, .header-login a{font-family: "微软雅黑"; color: #ffffff; font-size: 14px; }
+.header-nav li a{padding: 31px 20px; display: block;}
+.header-nav li a:hover{text-decoration: none;}
+.header-login{float:right; margin-right: 10px; color: #ffffff;}
+
+
+/*----------------------------css module--footer-------------------------------*/
+#footer{font-size: 14px; color: #acbabd; text-align: center; height: 56px; line-height: 56px; margin-top: 10px;}
+
+
+/*---------------------------css feedback-------------------------------*/
+.feedback{background-position: -305px -350px; display: block; width:31px; height: 72px; text-indent: -10000px;  top: 448px; right:0; position: absolute;}
+.back2Top{display:none;position:fixed;_position:absolute;bottom:100px;left:50%;width:50px; height:50px;margin-left:550px;background:url('../images/top.png') #DDE1E5; box-shadow:2px 2px 5px #d3d6da;cursor: pointer; }
