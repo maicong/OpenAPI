@@ -1,0 +1,12 @@
+find / -name "*.php" -mtime -10 > /home/test.log
+find / -name "*.php" | xargs grep "eval" | more > /home/test1.log
+find / -name "*.php" | xargs grep "shell_exec" | more > /home/test2.log
+find / -name "*.php" | xargs grep "passthru" | more > /home/test3.log
+
+find / -name "*.php" | xargs grep "symlink(" | more > /home/test4.log
+
+find /home -name "*" | xargs grep "eval(" | more > /home/test5.log
+
+find /home | xargs grep "shell" | more > /home/test6.log
+
+find /home | xargs grep "???? | more > /home/test7.log
