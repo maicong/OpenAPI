@@ -5,6 +5,14 @@
 
 需要和  `jquery.imagesloaded.js` 配合使用
 
+例如：
+
+```
+$("img.lazy").lazyload({
+    effect: 'fadeIn',
+    broken_pic: '//xxx.com/images/broken_pic.jpg'
+});
+```
 
 # License
 
