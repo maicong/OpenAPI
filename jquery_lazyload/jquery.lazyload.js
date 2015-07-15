@@ -75,7 +75,7 @@
             $.extend(settings, options);
         }
 
-        if ($.isFunction($.fn.imagesLoaded)) {
+        if (!$.isFunction($.fn.imagesLoaded)) {
             throw new Error('This JavaScript requires jQuery ImagesLoaded');
         }
 
