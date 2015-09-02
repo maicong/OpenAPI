@@ -1,0 +1,265 @@
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+ 
+[base]
+name=CentOS-$releasever - Base - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.pubyun.com/centos/$releasever/os/$basearch/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
+gpgcheck=1
+gpgkey=http://mirrors.pubyun.com/centos/RPM-GPG-KEY-CentOS-6
+ 
+#released updates 
+[updates]
+name=CentOS-$releasever - Updates - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.pubyun.com/centos/$releasever/updates/$basearch/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
+gpgcheck=1
+gpgkey=http://mirrors.pubyun.com/centos/RPM-GPG-KEY-CentOS-6
+ 
+#additional packages that may be useful
+[extras]
+name=CentOS-$releasever - Extras - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.pubyun.com/centos/$releasever/extras/$basearch/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
+gpgcheck=1
+gpgkey=http://mirrors.pubyun.com/centos/RPM-GPG-KEY-CentOS-6
+ 
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-$releasever - Plus - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.pubyun.com/centos/$releasever/centosplus/$basearch/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus
+gpgcheck=1
+enabled=0
+gpgkey=http://mirrors.pubyun.com/centos/RPM-GPG-KEY-CentOS-6
+ 
+#contrib - packages by Centos Users
+[contrib]
+name=CentOS-$releasever - Contrib - mirrors.aliyun.com
+failovermethod=priority
+baseurl=http://mirrors.pubyun.com/centos/$releasever/contrib/$basearch/
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=contrib
+gpgcheck=1
+enabled=0
+gpgkey=http://mirrors.pubyun.com/centos/RPM-GPG-KEY-CentOS-6[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+baseurl=http://mirrors.pubyun.com/epel/6/$basearch
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+ 
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Debug
+baseurl=http://mirrors.pubyun.com/epel/6/$basearch/debug
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-6&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+gpgcheck=0
+ 
+[epel-source]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Source
+baseurl=http://mirrors.pubyun.com/epel/6/SRPMS
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-source-6&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+gpgcheck=0
+[epel-testing]
+name=Extra Packages for Enterprise Linux 6 - Testing - $basearch
+baseurl=http://mirrors.pubyun.com/epel/testing/6/$basearch
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=testing-epel6&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+ 
+[epel-testing-debuginfo]
+name=Extra Packages for Enterprise Linux 6 - Testing - $basearch - Debug
+baseurl=http://mirrors.pubyun.com/epel/testing/6/$basearch/debug
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=testing-debug-epel6&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+gpgcheck=1
+ 
+[epel-testing-source]
+name=Extra Packages for Enterprise Linux 6 - Testing - $basearch - Source
+baseurl=http://mirrors.pubyun.com/epel/testing/6/SRPMS
+#mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=testing-source-epel6&arch=$basearch
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+gpgcheck=1
+[mysql-connectors-community]
+name=MySQL Connectors Community
+baseurl=http://repo.mysql.com/yum/mysql-connectors-community/el/6/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql-tools-community]
+name=MySQL Tools Community
+baseurl=http://repo.mysql.com/yum/mysql-tools-community/el/6/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+# Enable to use MySQL 5.5
+[mysql55-community]
+name=MySQL 5.5 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.5-community/el/6/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+# Enable to use MySQL 5.6
+[mysql56-community]
+name=MySQL 5.6 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/6/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+# Note: MySQL 5.7 is currently in development. For use at your own risk.
+# Please read with sub pages: https://dev.mysql.com/doc/relnotes/mysql/5.7/en/
+[mysql57-community-dmr]
+name=MySQL 5.7 Community Server Development Milestone Release
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+[mysql-connectors-community-source]
+name=MySQL Connectors Community - Source
+baseurl=http://repo.mysql.com/yum/mysql-connectors-community/el/6/SRPMS
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql-tools-community-source]
+name=MySQL Tools Community - Source
+baseurl=http://repo.mysql.com/yum/mysql-tools-community/el/6/SRPMS
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql55-community-source]
+name=MySQL 5.5 Community Server - Source
+baseurl=http://repo.mysql.com/yum/mysql-5.5-community/el/6/SRPMS
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql56-community-source]
+name=MySQL 5.6 Community Server - Source
+baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/6/SRPMS
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql57-community-dmr-source]
+name=MySQL 5.7 Community Server Development Milestone Release - Source
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/SRPMS
+enabled=0
+gpgcheck=1
+gpgkey=file:/etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+# nginx.repo
+
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/6/$basearch/
+gpgcheck=0
+enabled=1
+[webtatic-archive]
+name=Webtatic Repository EL6 - $basearch - Archive
+#baseurl=https://repo.webtatic.com/yum/el6-archive/$basearch/
+mirrorlist=https://mirror.webtatic.com/yum/el6-archive/$basearch/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-archive-debuginfo]
+name=Webtatic Repository EL6 - $basearch - Archive Debug
+#baseurl=https://repo.webtatic.com/yum/el6-archive/$basearch/debug/
+mirrorlist=https://mirror.webtatic.com/yum/el6-archive/$basearch/debug/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-archive-source]
+name=Webtatic Repository EL6 - $basearch - Archive Source
+#baseurl=https://repo.webtatic.com/yum/el6-archive/SRPMS/
+mirrorlist=https://mirror.webtatic.com/yum/el6-archive/SRPMS/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+[webtatic]
+name=Webtatic Repository EL6 - $basearch
+#baseurl=https://repo.webtatic.com/yum/el6/$basearch/
+mirrorlist=https://mirror.webtatic.com/yum/el6/$basearch/mirrorlist
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-debuginfo]
+name=Webtatic Repository EL6 - $basearch - Debug
+#baseurl=https://repo.webtatic.com/yum/el6/$basearch/debug/
+mirrorlist=https://mirror.webtatic.com/yum/el6/$basearch/debug/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-source]
+name=Webtatic Repository EL6 - $basearch - Source
+#baseurl=https://repo.webtatic.com/yum/el6/SRPMS/
+mirrorlist=https://mirror.webtatic.com/yum/el6/SRPMS/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+[webtatic-testing]
+name=Webtatic Repository EL6 - $basearch - Testing
+#baseurl=https://repo.webtatic.com/yum/el6-testing/$basearch/
+mirrorlist=https://mirror.webtatic.com/yum/el6-testing/$basearch/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-testing-debuginfo]
+name=Webtatic Repository EL6 - $basearch - Testing Debug
+#baseurl=https://repo.webtatic.com/yum/el6-testing/$basearch/debug/
+mirrorlist=https://mirror.webtatic.com/yum/el6-testing/$basearch/debug/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
+
+[webtatic-testing-source]
+name=Webtatic Repository EL6 - $basearch - Testing Source
+#baseurl=https://repo.webtatic.com/yum/el6-testing/SRPMS/
+mirrorlist=https://mirror.webtatic.com/yum/el6-testing/SRPMS/mirrorlist
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-webtatic-andy
