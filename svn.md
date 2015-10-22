@@ -4,7 +4,7 @@
 
 `svnadmin create /var/svn/project`
 
-`cp /var/svn/repos/jzj/hooks/post-commit.tmpl /var/svn/repos/jzj/hooks/post-commit`
+`cp /var/svn/project/hooks/post-commit.tmpl /var/svn/project/hooks/post-commit`
 
 ```
 #!/bin/sh
