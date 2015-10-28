@@ -1,10 +1,10 @@
 `yum install subversion -y`
 
-`mkdir -p /var/svn/project`
+`mkdir -p /var/svn/repos/project`
 
-`svnadmin create /var/svn/project`
+`svnadmin create /var/svn/repos/project`
 
-`cp /var/svn/project/hooks/post-commit.tmpl /var/svn/project/hooks/post-commit`
+`cp /var/svn/repos/project/hooks/post-commit.tmpl /var/svn/repos/project/hooks/post-commit`
 
 ```
 #!/bin/sh
