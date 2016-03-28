@@ -1,0 +1,16 @@
+filetype on
+syntax on
+set number
+set history=1000
+set background=dark
+set wrapscan
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set showmatch
+set showmode
+set guioptions-=T
+set ruler
+set hlsearch
+set incsearch
