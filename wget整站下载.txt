@@ -1,0 +1,1 @@
+wget -r -p -c -np -k --restrict-file-names=nocontrol http://www.domain.com/
